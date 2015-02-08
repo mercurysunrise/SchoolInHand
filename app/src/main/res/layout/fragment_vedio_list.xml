@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zhilianxinke.schoolinhand.modules.vedios.VedioListFragment"
+    android:orientation="vertical">
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="286dp">
+    <VideoView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/videoView"
+        android:layout_gravity="top" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_Vedio"
+        android:layout_gravity="top"
+        android:src="@drawable/a" />
+    </FrameLayout>
+
+
+    <!--<MediaController-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/mediaController"-->
+        <!--android:layout_gravity="center_horizontal|top" />-->
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_vediolist"
+        android:layout_gravity="center_horizontal|bottom" />
+</LinearLayout>
