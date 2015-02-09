@@ -14,6 +14,8 @@ public class WelcomeActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
 
+
+
         final Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
         //系统会为需要启动的activity寻找与当前activity不同的task;
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

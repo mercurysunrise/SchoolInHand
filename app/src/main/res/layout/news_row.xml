@@ -2,10 +2,11 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
-    android:paddingTop="4dp"
+
     android:layout_width="match_parent" android:layout_height="wrap_content" android:rowCount="4" android:columnCount="4">
 
     <LinearLayout
+        android:paddingTop="4dp"
         android:orientation="horizontal"
         android:layout_columnSpan="4"
         android:layout_row="1"
@@ -37,19 +38,34 @@
         android:paddingBottom="2dp"
         android:text="号发的号发士大夫是否打发打发号发士大夫是否打发发士大夫是否打发打发号发士大夫是否打发打发..."
         android:layout_column="0" />
-    <TextView
-        android:id="@+id/tvNewsPublisher"
-        android:textSize="@dimen/font_size_small"
-        android:text="null"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_row="3"
-        android:layout_column="0" />
-    <TextView
-        android:id="@+id/tvNewsPublishTime"
-        android:textSize="@dimen/font_size_small"
-        android:text="0小时前"
-        android:layout_row="3"
-        android:layout_column="3" />
+        android:layout_columnSpan="4">
+        <TextView
+            android:id="@+id/tvNewsPublisher"
+            android:textSize="@dimen/font_size_small"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="null"/>
 
+        <Space
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:src="@drawable/ic_query_builder_black_18dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp" />
+        <TextView
+            android:id="@+id/tvNewsPublishTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_small"
+            android:text="0小时前"
+            android:layout_gravity="right" />
+    </LinearLayout>
     <View
         android:layout_height="1px"
         android:paddingTop="2dp"

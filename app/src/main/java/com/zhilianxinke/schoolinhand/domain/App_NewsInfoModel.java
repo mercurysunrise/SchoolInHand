@@ -15,7 +15,9 @@ public class App_NewsInfoModel implements Serializable{
 	private String strPublicTime;
 	private String newsTypeName;
 	private int newsTypeLevel;
-	
+
+    //客户端定义
+    private int isReaded;
 	
 	public String getPk() {
 		return pk;
@@ -77,6 +79,11 @@ public class App_NewsInfoModel implements Serializable{
 	public void setNewsTypeLevel(int newsTypeLevel) {
 		this.newsTypeLevel = newsTypeLevel;
 	}
-	
-	
+
+    public int getIsReaded() {
+        return isReaded;
+    }
+    public void setIsReaded(int isReaded) {
+        this.isReaded = isReaded;
+    }
 }

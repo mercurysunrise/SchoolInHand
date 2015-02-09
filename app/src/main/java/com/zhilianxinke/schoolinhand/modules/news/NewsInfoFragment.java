@@ -19,20 +19,20 @@ import com.zhilianxinke.schoolinhand.MediaFragment;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.StoreFragment;
 import com.zhilianxinke.schoolinhand.astuetz.PagerSlidingTabStrip;
+import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsFragmentPagerAdpter;
 
 import java.io.FileOutputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewsInfoFragment extends Fragment {
 
-    public Class2_NewsInfoFragment classNewsInfoFragment;
-    public School_NewsInfoFragment school_newsInfoFragment;
-    public System_NewsInfoFragment systemNewsInfoFragment;
+
+    private NewsFragmentPagerAdpter newsFragmentPagerAdpter;
 
     private PagerSlidingTabStrip tabs;
     private DisplayMetrics dm;
-
-
 
     public NewsInfoFragment() {
         // Required empty public constructor
@@ -48,7 +48,8 @@ public class NewsInfoFragment extends Fragment {
         dm = getResources().getDisplayMetrics();
         ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabsNews);
-        pager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
+        newsFragmentPagerAdpter = new NewsFragmentPagerAdpter(getChildFragmentManager());
+        pager.setAdapter(newsFragmentPagerAdpter);
         tabs.setViewPager(pager);
         setTabsValue();
 
@@ -79,49 +80,6 @@ public class NewsInfoFragment extends Fragment {
         tabs.setSelectedTextColor(Color.parseColor("#45c01a"));
         // 取消点击Tab时的背景色
         tabs.setTabBackground(0);
-    }
-
-    public class MyPagerAdapter extends FragmentPagerAdapter {
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        private final String[] titles = { "班级", "校园", "系统" };
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
-
-        @Override
-        public int getCount() {
-            return titles.length;
-        }
-
-        @Override
-        public android.support.v4.app.Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    if (classNewsInfoFragment == null) {
-                        classNewsInfoFragment = new Class2_NewsInfoFragment();
-                    }
-                    return classNewsInfoFragment;
-                case 1:
-                    if (school_newsInfoFragment == null) {
-                        school_newsInfoFragment = new School_NewsInfoFragment();
-                    }
-                    return school_newsInfoFragment;
-                case 2:
-                    if (systemNewsInfoFragment == null) {
-                        systemNewsInfoFragment = new System_NewsInfoFragment();
-                    }
-                    return systemNewsInfoFragment;
-                default:
-                    return null;
-            }
-        }
-
     }
 
     private void setOverflowShowingAlways() {

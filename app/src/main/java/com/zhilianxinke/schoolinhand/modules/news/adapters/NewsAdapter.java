@@ -41,7 +41,10 @@ public class NewsAdapter extends ArrayAdapter<App_NewsInfoModel> {
         tvNewsPublisher.setText(item.getPublicUserName());
         //publicTime
         TextView tvNewsPublishTime = (TextView)view.findViewById(R.id.tvNewsPublishTime);
-        tvNewsPublishTime.setText(item.getStrPublicTime());
+        if (item.getStrPublicTime() != null && item.getStrPublicTime().length() > 10){
+            tvNewsPublishTime.setText(item.getStrPublicTime().substring(0,10));
+        }
+
         return view;
     }
 }

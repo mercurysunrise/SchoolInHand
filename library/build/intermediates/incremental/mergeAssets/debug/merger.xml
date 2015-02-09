@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\hh\Desktop\temp\SchoolInHand\library\assets"/></dataSet><dataSet config="debug"><source path="C:\Users\hh\Desktop\temp\SchoolInHand\library\build-types\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\github\SchoolInHand\library\assets"/></dataSet><dataSet config="debug"><source path="D:\github\SchoolInHand\library\build-types\debug\assets"/></dataSet></merger>

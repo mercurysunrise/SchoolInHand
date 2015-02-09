@@ -14,15 +14,18 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import com.zhilianxinke.schoolinhand.domain.App_CustomModel;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
@@ -31,10 +34,11 @@ import com.zhilianxinke.schoolinhand.util.StaticRes;
 /**登陆界面activity*/
 public class LoginActivity extends Activity implements OnClickListener{
 
-	private Button btn_login_regist;//注册按钮
+//	private Button btn_login_regist;//注册按钮
 	private Button btn_login;
 	private EditText et_LoginName;
 	private EditText et_Psd;
+    private CheckBox cboIsRememberPsd;
 	
 
 	public static final int MENU_PWD_BACK = 1;
@@ -47,19 +51,27 @@ public class LoginActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
-		
+
+
 		initView();
+        if (PreferenceManager.getDefaultSharedPreferences(this).contains("strName")){
+            et_LoginName.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("strName",""));
+            et_Psd.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("psd",""));
+            excuteLogin();
+        }
 	}
 	
 	private void initView(){
-		btn_login_regist = (Button) findViewById(R.id.btn_login_regist);
-		btn_login_regist.setOnClickListener(this);
+//		btn_login_regist = (Button) findViewById(R.id.btn_login_regist);
+//		btn_login_regist.setOnClickListener(this);
 		
 		btn_login = (Button) findViewById(R.id.btn_login);
 		btn_login.setOnClickListener(this);
 		
 		et_LoginName = (EditText) findViewById(R.id.et_LoginName);
 		et_Psd = (EditText) findViewById(R.id.et_Psd);
+
+        cboIsRememberPsd = (CheckBox)findViewById(R.id.cboIsRememberPsd);
 	}
 	
 	
@@ -67,10 +79,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_login_regist:
-			Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-			startActivity(intent);
-			break;
+//		case R.id.btn_login_regist:
+//			Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+//			startActivity(intent);
+//			break;
 		case R.id.btn_login:
 			excuteLogin();
 			break;
@@ -128,6 +140,12 @@ public class LoginActivity extends Activity implements OnClickListener{
 		    StaticRes.currCustom = JSONHelper.parseObject(result, App_CustomModel.class);
 		    
 		    if (StaticRes.currCustom != null) {
+                if (cboIsRememberPsd.isChecked()){
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+                    editor.putString("strName", et_LoginName.getText().toString());
+                    editor.putString("psd",et_Psd.getText().toString());
+                    editor.commit();
+                }
 		    	startActivity(new Intent(LoginActivity.this,MainActivity.class));
 			}else {
 //				Toast.makeText(getApplicationContext(), "登录信息错误，请重新输入", Toast.LENGTH_SHORT).show();

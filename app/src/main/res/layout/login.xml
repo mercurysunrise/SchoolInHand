@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#ffededed">
 
     <ImageView
         android:id="@+id/image_logo"
@@ -11,8 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/login_pic2" />
+        android:layout_marginTop="30dp"
+        android:src="@drawable/login_logo"
+        android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:id="@+id/linearLayout01"
@@ -29,6 +30,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
+            <ImageView
+                android:src="@drawable/input_username"
+                android:layout_gravity="center"
+                android:layout_width="22dp"
+                android:layout_margin="8dp"
+                android:layout_height="22dp" />
             <EditText
                 android:id="@+id/et_LoginName"
                 android:layout_width="220dp"
@@ -37,15 +44,6 @@
                 android:hint="@string/_inputLoginName"
                 android:inputType="text"
                 android:paddingLeft="10dp" />
-
-            <!-- <Button
-                android:id="@+id/btn_more_pop"
-                android:layout_width="8dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/login_input_arrow" /> -->
         </LinearLayout>
 
         <View
@@ -55,14 +53,28 @@
             android:layout_marginRight="1dp"
             android:background="@drawable/divider_horizontal_line" />
 
-        <EditText
-            android:id="@+id/et_Psd"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:background="#00ffffff"
-            android:hint="@string/_inputPsd"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:src="@drawable/input_psd"
+                android:layout_gravity="center"
+                android:layout_width="22dp"
+                android:layout_margin="8dp"
+                android:layout_height="22dp" />
+            <EditText
+                android:id="@+id/et_Psd"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="#00ffffff"
+                android:hint="@string/_inputPsd"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp" />
+            </LinearLayout>
+
+
     </LinearLayout>
 
     <Button
@@ -84,6 +96,7 @@
         android:layout_marginRight="42dp" >
 
         <CheckBox
+            android:id="@+id/cboIsRememberPsd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -94,18 +107,6 @@
             android:text="记住密码"
             android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/btn_login_regist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/login_reg_button"
-            android:gravity="left|center"
-            android:paddingLeft="8dp"
-            android:paddingRight="25dp"
-            android:text="注册新账号"
-            android:textColor="#ffffffff"
-            android:textSize="12sp" />
     </RelativeLayout>
-    
-</RelativeLayout>
+
+</LinearLayout>

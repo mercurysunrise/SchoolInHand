@@ -15,7 +15,7 @@
     <string name="plus_video_chat">视频聊天</string>
     <string name="plus_scan">扫一扫</string>
     <string name="plus_take_photo">拍照分享</string>
-    <string name="_inputLoginName">请输入登录名</string>
+    <string name="_inputLoginName">请输入您的账号</string>
     <string name="_login">登录</string>
     <string name="_inputPsd">请输入密码</string>
     <string name="title_activity_media2">Media2Activity</string>

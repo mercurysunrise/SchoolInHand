@@ -66,22 +66,22 @@ public class Class2_NewsInfoFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_class2__news_info, container, false);
 
-        mPullRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_to_refreshList4News);
-
-        mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-
-                // Update the LastUpdatedLabel
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-
-                // Do work to refresh the list here.
-                new GetDataTask().execute();
-            }
-        });
-        initView();
+//        mPullRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_to_refreshList4News);
+//
+//        mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+//            @Override
+//            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+//                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
+//                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+//
+//                // Update the LastUpdatedLabel
+//                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+//
+//                // Do work to refresh the list here.
+//                new GetDataTask().execute();
+//            }
+//        });
+//        initView();
 
         return view;
     }
