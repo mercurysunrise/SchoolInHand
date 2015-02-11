@@ -1,34 +1,126 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zhilianxinke.schoolinhand.modules.vedios.VedioListFragment"
     android:orientation="vertical">
-<FrameLayout
-    android:layout_width="fill_parent"
-    android:layout_height="286dp">
-    <VideoView
+
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/videoView"
-        android:layout_gravity="top" />
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/img_Vedio"
-        android:layout_gravity="top"
-        android:src="@drawable/a" />
+        android:layout_height="256dp">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top" />
+
+        <ImageView
+            android:id="@+id/img_full_screen"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/full_screen"
+            android:scaleType="fitXY"
+            android:layout_margin="4dp"
+            android:layout_gravity="bottom|right" />
+
+        <ImageView
+            android:id="@+id/img_AD"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/a"
+            android:scaleType="fitXY"
+            android:visibility="gone"/>
     </FrameLayout>
 
-
-    <!--<MediaController-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/mediaController"-->
-        <!--android:layout_gravity="center_horizontal|top" />-->
-
-    <ListView
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lv_vediolist"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_marginLeft="16dp"
+        android:text="公共区域摄像头" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:background="@drawable/webcam"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="校门口"
+            android:gravity="bottom|center"
+            android:textSize="@dimen/font_size_large" />
+        <Button
+            android:background="@drawable/webcam"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="操场上"
+            android:gravity="bottom|center"
+            android:textSize="@dimen/font_size_large" />
+        <Button
+            android:background="@drawable/webcam"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="教学楼口"
+            android:gravity="bottom|center"
+            android:textSize="@dimen/font_size_large" />
+        <Button
+            android:background="@drawable/webcam"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="学校后操场"
+            android:gravity="bottom|center"
+            android:textSize="@dimen/font_size_large" />
+    </LinearLayout>
+
+    <!--<ListView-->
+        <!--android:id="@+id/lv_vediolist"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal|bottom" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="我的摄像头" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:background="@drawable/webcam"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="教室"
+            android:gravity="bottom|center"
+            android:textSize="@dimen/font_size_large" />
+        <Button
+            android:background="@drawable/webcam"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="活动室"
+            android:gravity="bottom|center"
+            android:textSize="@dimen/font_size_large" />
+        <Button
+            android:background="@drawable/webcam"
+            android:layout_margin="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="食堂"
+            android:gravity="bottom|center"
+            android:textSize="@dimen/font_size_large" />
+    </LinearLayout>
 </LinearLayout>

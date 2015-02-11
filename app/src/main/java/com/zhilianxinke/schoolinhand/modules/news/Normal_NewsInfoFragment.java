@@ -57,25 +57,26 @@ public class Normal_NewsInfoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG,"onCreateView+"+title);
         view = inflater.inflate(R.layout.fragment_class2__news_info, container, false);
 
         mPullRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_to_refreshList4News);
         _app_newsInfoModels = new LinkedList<App_NewsInfoModel>();
 
         //获取缓存数据
-        if (savedInstanceState != null && savedInstanceState.containsKey(title)){
-            String strContent = savedInstanceState.getString(title);
-            try {
-                List<App_NewsInfoModel> app_newsInfoModels = (List<App_NewsInfoModel>) JSONHelper
-                        .parseCollection(strContent, List.class,
-                                App_NewsInfoModel.class);
-                if (app_newsInfoModels != null){
-                    _app_newsInfoModels.addAll(app_newsInfoModels);
-                }
-            } catch (JSONException e) {
-                Log.e(TAG,"获取缓存数据反序列化异常",e);
-            }
-        }
+//        if (savedInstanceState != null && savedInstanceState.containsKey(title)){
+//            String strContent = savedInstanceState.getString(title);
+//            try {
+//                List<App_NewsInfoModel> app_newsInfoModels = (List<App_NewsInfoModel>) JSONHelper
+//                        .parseCollection(strContent, List.class,
+//                                App_NewsInfoModel.class);
+//                if (app_newsInfoModels != null){
+//                    _app_newsInfoModels.addAll(app_newsInfoModels);
+//                }
+//            } catch (JSONException e) {
+//                Log.e(TAG,"获取缓存数据反序列化异常",e);
+//            }
+//        }
         mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -88,25 +89,15 @@ public class Normal_NewsInfoFragment extends Fragment {
             }
         });
 
-            for (int i=0;i<2;i++){
-                App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
-                newsInfoModel.setTitle(title + "公告标题"+i);
-                newsInfoModel.setPublicUserName(title+"user"+i);
-                newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
-                _app_newsInfoModels.add(newsInfoModel);
-            }
-
         mAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _app_newsInfoModels);
-//        mPullRefreshListView.setAdapter(mAdapter);
-        ListView actualListView = mPullRefreshListView.getRefreshableView();
-        actualListView.setAdapter(mAdapter);
-
+        mPullRefreshListView.setAdapter(mAdapter);
+//        ListView actualListView = mPullRefreshListView.getRefreshableView();
+//        actualListView.setAdapter(mAdapter);
         return view;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
         super.onSaveInstanceState(outState);
     }
 
@@ -114,6 +105,7 @@ public class Normal_NewsInfoFragment extends Fragment {
         @Override
         protected List<App_NewsInfoModel> doInBackground(Void... voids) {
 
+            Log.i("TAG",title+"Fragment 发起查询请求");
             List<App_NewsInfoModel> app_newsInfoModels = new ArrayList<App_NewsInfoModel>();
 
             List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
@@ -135,7 +127,7 @@ public class Normal_NewsInfoFragment extends Fragment {
                 app_newsInfoModels = (List<App_NewsInfoModel>) JSONHelper
                         .parseCollection(result, List.class,
                                 App_NewsInfoModel.class);
-
+                Log.i("TAG",title+"Fragment 获得查询结果="+app_newsInfoModels.size());
             } catch (ClientProtocolException e) {
                 Log.e(TAG, "ClientProtocolException", e);
             } catch (IOException e) {
@@ -154,6 +146,7 @@ public class Normal_NewsInfoFragment extends Fragment {
             //在头部增加新添内容
             for(App_NewsInfoModel item : result){
                 if (item.getNewsTypeName().contains(title)){
+                    Log.i(TAG,"包含"+title+"消息");
                     _app_newsInfoModels.addFirst(item);
                 }
             }
@@ -169,7 +162,7 @@ public class Normal_NewsInfoFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
             // Call onRefreshComplete when the list has been refreshed.
             mPullRefreshListView.onRefreshComplete();
-
+            Log.i(TAG,"更新列表数据"+title);
             super.onPostExecute(result);
         }
     }

@@ -37,6 +37,8 @@ public class NewsInfoFragment extends Fragment {
     public NewsInfoFragment() {
         // Required empty public constructor
     }
+
+
     private View view;
 
     @Override
