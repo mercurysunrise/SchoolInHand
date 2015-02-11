@@ -16,7 +16,9 @@ public class StaticRes {
 	
 	public static String baseUrl = "http://115.28.171.84:8080/DeviceManagement";
 //	public static String baseUrl = "http://192.168.1.106/DMService";
-	
+
+    public final static String URL_TESTHLS = "http://115.28.171.84/hls/dh0B319/playlist.m3u8";
+
 	public static int getVerCode(Context context) {
         int verCode = -1;
         try {

@@ -30,9 +30,9 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
+import com.zhilianxinke.schoolinhand.modules.vedios.MediaPlayerActivity;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
-import com.zhilianxinke.schoolinhand.R;
 
 /**
  * 视频Fragment的界面

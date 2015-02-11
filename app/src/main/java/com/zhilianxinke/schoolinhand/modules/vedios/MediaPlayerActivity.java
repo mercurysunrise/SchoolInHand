@@ -1,27 +1,30 @@
-package com.zhilianxinke.schoolinhand;
+package com.zhilianxinke.schoolinhand.modules.vedios;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
 import com.zhilianxinke.schoolinhand.util.MyVideoView;
 import com.zhilianxinke.schoolinhand.R;
+import com.zhilianxinke.schoolinhand.util.StaticRes;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MediaPlayerActivity extends Activity  implements OnCompletionListener, OnErrorListener {
 //	implements OnPreparedListener
@@ -29,52 +32,69 @@ public class MediaPlayerActivity extends Activity  implements OnCompletionListen
 	
 	private MyVideoView _my_video;
 	private MediaController _mController;
-	private SurfaceHolder _sufaceHolder;
-	
+	private ImageView img_FS_AD;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_media_player);
 		
 		_my_video = (MyVideoView)findViewById(R.id.my_videoView);
-		
-		_mController = new MediaController(this);
-		_sufaceHolder = _my_video.getHolder();
-		
-//		_sufaceHolder.getSurface().
-//		_vv_video.
-		Display display = getWindowManager().getDefaultDisplay();  
-		
+		_mController = new MediaController(this,false);
+
 		_my_video.setMediaController(_mController);
 		_my_video.getHolder().setKeepScreenOn(true);
-//		_vv_video.getHolder().setFixedSize(display.getWidth(), display.getHeight());
-		Intent intent = getIntent();
-		App_DeviceInfoModel app_DeviceInfoModel = (App_DeviceInfoModel) intent.getSerializableExtra("app_DeviceInfoModel");
-		String url = app_DeviceInfoModel.getStreamUrl1();
-		
-		
-		
-		
-		DisplayMetrics dm = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        MyVideoView.WIDTH=dm.widthPixels;
-        MyVideoView.HEIGHT=dm.heightPixels;
-        Log.e("widthPixels", "widthPixels"+dm.widthPixels);
-        Log.e("heightPixels", "widthPixels"+dm.heightPixels);
 
+        img_FS_AD = (ImageView)findViewById(R.id.img_FS_AD);
 
+        _mController.setPrevNextListeners(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Prev
+                playVedio(StaticRes.URL_TESTHLS,true);
+            }
+        },new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //Next
+                playVedio(StaticRes.URL_TESTHLS,true);
+            }
+        });
         _my_video.setOnCompletionListener(this);
         _my_video.setOnErrorListener(this);
 
-        _my_video.setVideoURI(Uri.parse(url));
-		_my_video.requestFocus();
-		
-		//设置surfaceView的布局参数  
-//		_vv_video.getHolder().setSizeFromLayout();
-//		_vv_video.getHolder().setLayoutParams(new LinearLayout.LayoutParams(1280, 720));  
-		_my_video.start();
-		
+        Intent intent = getIntent();
+        App_DeviceInfoModel app_DeviceInfoModel = (App_DeviceInfoModel) intent.getSerializableExtra("app_DeviceInfoModel");
+        String url = app_DeviceInfoModel.getStreamUrl1();
+        playVedio(url,false);
 	}
+
+    private void playVedio(String url,boolean isShowAd){
+        _my_video.setVideoURI(Uri.parse(url));
+        _my_video.requestFocus();
+        _my_video.start();
+
+        if (isShowAd){
+            img_FS_AD.setVisibility(View.VISIBLE);
+            Timer timer = new Timer(true);
+            TimerTask timeTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Message message = new Message();
+                    message.what = 0;
+                    closeAdHandler.sendMessage(message);
+                }
+            };
+            timer.schedule(timeTask, 1500);
+        }
+    }
+
+    private Handler closeAdHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            img_FS_AD.setVisibility(View.GONE);
+            super.handleMessage(msg);
+        }
+    };
 
 	@Override
 	public boolean onError(MediaPlayer mp, int what, int extra) {

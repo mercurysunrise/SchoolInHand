@@ -29,7 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -42,7 +43,7 @@
         <activity android:name=".NewsInfoActivity" >
         </activity>
         <activity
-            android:name=".MediaPlayerActivity"
+            android:name=".modules.vedios.MediaPlayerActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>

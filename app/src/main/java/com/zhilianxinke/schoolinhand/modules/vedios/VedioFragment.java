@@ -1,8 +1,6 @@
 package com.zhilianxinke.schoolinhand.modules.vedios;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,7 +13,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.zhilianxinke.schoolinhand.MediaPlayerActivity;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.RollViewPager;
 import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
@@ -67,7 +64,6 @@ public class VedioFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_vedio, container, false);
         initView();
         return view;
-//        return inflater.inflate(R.layout.fragment_vedio, container, false);
     }
 
     public void initView() {
