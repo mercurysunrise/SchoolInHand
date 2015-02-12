@@ -1,10 +1,12 @@
 package com.zhilianxinke.schoolinhand;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
@@ -57,7 +59,7 @@ public class MainActivity extends FragmentActivity implements OnTabChangeListene
             //将Tab按钮添加进Tab选项卡中
             fgTabHost.addTab(tabSpec, fragmentArray[i], null);
             //设置Tab按钮的背景
-            fgTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
+//            fgTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
         }
     }
 
@@ -75,6 +77,9 @@ public class MainActivity extends FragmentActivity implements OnTabChangeListene
 //        if(index == 3){
 //            msgTV = (TextView) view.findViewById(R.id.message_count);
 //        }
+//        Button btnTab = (Button)view.findViewById(R.id.btnTab);
+//        btnTab.setBackground(getResources().getDrawable(mImageViewArray[index]));
+//        btnTab.setText(mTextviewArray[index]);
         return view;
     }
 

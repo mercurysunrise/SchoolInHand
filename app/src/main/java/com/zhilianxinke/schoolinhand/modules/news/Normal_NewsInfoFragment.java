@@ -63,20 +63,6 @@ public class Normal_NewsInfoFragment extends Fragment {
         mPullRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_to_refreshList4News);
         _app_newsInfoModels = new LinkedList<App_NewsInfoModel>();
 
-        //获取缓存数据
-//        if (savedInstanceState != null && savedInstanceState.containsKey(title)){
-//            String strContent = savedInstanceState.getString(title);
-//            try {
-//                List<App_NewsInfoModel> app_newsInfoModels = (List<App_NewsInfoModel>) JSONHelper
-//                        .parseCollection(strContent, List.class,
-//                                App_NewsInfoModel.class);
-//                if (app_newsInfoModels != null){
-//                    _app_newsInfoModels.addAll(app_newsInfoModels);
-//                }
-//            } catch (JSONException e) {
-//                Log.e(TAG,"获取缓存数据反序列化异常",e);
-//            }
-//        }
         mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {

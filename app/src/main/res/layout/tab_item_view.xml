@@ -1,22 +1,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:orientation="vertical" >
+    <!--<FrameLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" >-->
 
         <ImageView
             android:id="@+id/imageview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:focusable="false"
-            android:padding="3dp"
+            android:scaleType="fitXY"
             android:src="@drawable/tab_news_btn"
             android:contentDescription="@string/none">
         </ImageView>
@@ -24,12 +19,24 @@
             android:id="@+id/textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="测试"
+            android:layout_marginBottom="3dp"
             android:textSize="@dimen/font_size_small"
+            android:layout_gravity="center_horizontal|bottom"
             android:textColor="#ffffff">
         </TextView>
-    </LinearLayout>
-
-    <TextView
+    <!--</FrameLayout>-->
+    <!--<Button-->
+        <!--android:id="@+id/btnTab"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="44dp"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@drawable/webcam"-->
+        <!--android:gravity="bottom|center"-->
+        <!--android:text="校门口"-->
+        <!--android:textSize="14sp" />-->
+    <!--<TextView
         android:id="@+id/message_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,5 +47,5 @@
         android:paddingRight="3dp"
         android:textColor="@android:color/white"
         android:textSize="@dimen/font_size_small"
-        android:visibility="gone"/>
+        android:visibility="gone"/>-->
 </FrameLayout>
