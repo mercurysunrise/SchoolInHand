@@ -1,5 +1,6 @@
 package com.zhilianxinke.schoolinhand.modules.news;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.zhilianxinke.schoolinhand.NewsInfoActivity;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
 import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
@@ -43,21 +46,23 @@ public class Normal_NewsInfoFragment extends Fragment {
     private static String TAG = "Normal_NewsInfoFragment";
 
     private String title;
-    public void setTitle(String title){
-        this.title= title;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
+
     private static LinkedList<App_NewsInfoModel> _app_newsInfoModels;
     private View view;
     private PullToRefreshListView mPullRefreshListView;
     private NewsAdapter mAdapter;
 
-    public Normal_NewsInfoFragment(){
+    public Normal_NewsInfoFragment() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG,"onCreateView+"+title);
+        Log.i(TAG, "onCreateView+" + title);
         view = inflater.inflate(R.layout.fragment_class2__news_info, container, false);
 
         mPullRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_to_refreshList4News);
@@ -75,6 +80,26 @@ public class Normal_NewsInfoFragment extends Fragment {
             }
         });
 
+        mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
+                App_NewsInfoModel app_NewsInfoModel = _app_newsInfoModels.get(i);
+                intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
+                startActivity(intent);
+                Log.d("点击", "" + i);
+            }
+        });
+
+        for (int i = 0; i < 10; i++) {
+            App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
+            newsInfoModel.setTitle(title + "测试公告标题" + i);
+            newsInfoModel.setPublicUserName(title + "user" + i);
+            newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
+            _app_newsInfoModels.add(newsInfoModel);
+        }
+
+
         mAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _app_newsInfoModels);
         mPullRefreshListView.setAdapter(mAdapter);
 //        ListView actualListView = mPullRefreshListView.getRefreshableView();
@@ -91,7 +116,7 @@ public class Normal_NewsInfoFragment extends Fragment {
         @Override
         protected List<App_NewsInfoModel> doInBackground(Void... voids) {
 
-            Log.i("TAG",title+"Fragment 发起查询请求");
+            Log.i("TAG", title + "Fragment 发起查询请求");
             List<App_NewsInfoModel> app_newsInfoModels = new ArrayList<App_NewsInfoModel>();
 
             List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
@@ -113,7 +138,7 @@ public class Normal_NewsInfoFragment extends Fragment {
                 app_newsInfoModels = (List<App_NewsInfoModel>) JSONHelper
                         .parseCollection(result, List.class,
                                 App_NewsInfoModel.class);
-                Log.i("TAG",title+"Fragment 获得查询结果="+app_newsInfoModels.size());
+                Log.i("TAG", title + "Fragment 获得查询结果=" + app_newsInfoModels.size());
             } catch (ClientProtocolException e) {
                 Log.e(TAG, "ClientProtocolException", e);
             } catch (IOException e) {
@@ -130,9 +155,9 @@ public class Normal_NewsInfoFragment extends Fragment {
         @Override
         protected void onPostExecute(List<App_NewsInfoModel> result) {
             //在头部增加新添内容
-            for(App_NewsInfoModel item : result){
-                if (item.getNewsTypeName().contains(title)){
-                    Log.i(TAG,"包含"+title+"消息");
+            for (App_NewsInfoModel item : result) {
+                if (item.getNewsTypeName().contains(title)) {
+                    Log.i(TAG, "包含" + title + "消息");
                     _app_newsInfoModels.addFirst(item);
                 }
             }
@@ -148,7 +173,7 @@ public class Normal_NewsInfoFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
             // Call onRefreshComplete when the list has been refreshed.
             mPullRefreshListView.onRefreshComplete();
-            Log.i(TAG,"更新列表数据"+title);
+            Log.i(TAG, "更新列表数据" + title);
             super.onPostExecute(result);
         }
     }

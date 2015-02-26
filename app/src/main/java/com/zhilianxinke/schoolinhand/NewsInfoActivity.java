@@ -62,8 +62,12 @@ public class NewsInfoActivity extends Activity implements android.view.View.OnCl
 		tv_news_publicTime.setText(app_NewsInfoModel.getStrPublicTime());
 		
 		wv_news_content = (WebView) findViewById(R.id.wv_news_content);
+        strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk="+app_NewsInfoModel.getPk();
 //		http://127.0.0.1/DMService/newsInfo/detail.html?pk=c06a0c04-703a-4e31-afb5-17d927317016
-		strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk="+app_NewsInfoModel.getPk();
+        if (app_NewsInfoModel.getTitle().contains("测试公告标题")){
+            strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk=049aa25f-3581-4095-a4df-a83cfe3ac833";
+        }
+
 		wv_news_content.loadUrl(strUrl);
 	}
 	
