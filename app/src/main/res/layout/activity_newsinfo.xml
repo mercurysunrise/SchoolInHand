@@ -9,8 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background_tab_pressed" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/tv_news_title"
@@ -24,7 +23,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background_tab_pressed"
         android:orientation="horizontal" >
 
         <TextView
@@ -45,11 +43,16 @@
 	            android:layout_margin="5dip"
 	            android:layout_marginRight="4dip"
 	            android:gravity="right"
+                android:textColor="@color/bg_light"
 	            android:text="发布时间"
 	            android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </LinearLayout>
 
+    <View android:background="#bdb6b6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        />
     <ScrollView android:layout_margin="5dip"
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"

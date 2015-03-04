@@ -18,6 +18,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.zhilianxinke.schoolinhand.R;
+import com.zhilianxinke.schoolinhand.util.StaticRes;
 
 /**
  * Created by hh on 2015-02-02.
@@ -90,7 +91,8 @@ public class AutoUpgrade {
     public AutoUpgrade(Context context){
         this.context = context;
         try{
-            this.jsonPath = context.getResources().getString(R.string.default_url);
+//            this.jsonPath = context.getResources().getString(R.string.default_url);
+                this.jsonPath = StaticRes.updateUrl;
             Log.d(TAG, "Get from string resources, jsonPath: " +jsonPath);
         }catch(NotFoundException e){
             Log.e(TAG, "Can not find resource id of default_url in the res/values/strings.xml");

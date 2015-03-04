@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/github/SchoolInHand/library/res/values-fr/pull_refresh_strings.xml -->
+    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/src/main/res/values-fr/strings.xml -->
     <eat-comment/>
-    <string name="pull_to_refresh_pull_label">Tirez pour rafraîchir…</string>
-    <string name="pull_to_refresh_refreshing_label">Chargement…</string>
-    <string name="pull_to_refresh_release_label">Relâcher pour rafraîchir…</string>
+    <string name="app_name">Material Design - Librairie</string>
+    <string name="help_and_feedback">Aide et commentaires</string>
+    <string name="icone">Icône</string>
+    <string name="navigation_drawer_close">Fermer le menu de gauche</string>
+    <string name="navigation_drawer_open">Ouvrir le menu de gauche</string>
+    <string name="settings">Paramètres</string>
 </resources>

@@ -27,12 +27,14 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.domain.App_CustomModel;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
 
 /**登陆界面activity*/
-public class LoginActivity extends Activity implements OnClickListener{
+public class LoginActivity extends BaseActivity implements OnClickListener{
 
 //	private Button btn_login_regist;//注册按钮
 	private Button btn_login;

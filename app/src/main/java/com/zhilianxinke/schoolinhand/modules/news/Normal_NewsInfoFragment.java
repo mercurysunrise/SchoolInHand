@@ -3,20 +3,21 @@ package com.zhilianxinke.schoolinhand.modules.news;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zhilianxinke.schoolinhand.NewsInfoActivity;
 import com.zhilianxinke.schoolinhand.R;
+import com.zhilianxinke.schoolinhand.base.BaseListViewFragment;
 import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
 import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
@@ -41,82 +42,96 @@ import java.util.prefs.Preferences;
 /**
  * Created by hh on 2015-02-09.
  */
-public class Normal_NewsInfoFragment extends Fragment {
+public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private static String TAG = "Normal_NewsInfoFragment";
 
-    private String title;
+    private SwipeRefreshLayout _mSwipeRefreshLayout;
+    private ListView _lv_list;
 
-    public void setTitle(String title) {
-        this.title = title;
+    private View _inflatedView;
+
+    private String tag;
+    private int rowContainerId;
+    private LinkedList<App_NewsInfoModel> _dataList;
+    private NewsAdapter _newsAdapter;
+
+    public Normal_NewsInfoFragment(){
+
     }
 
-    private static LinkedList<App_NewsInfoModel> _app_newsInfoModels;
-    private View view;
-    private PullToRefreshListView mPullRefreshListView;
-    private NewsAdapter mAdapter;
-
-    public Normal_NewsInfoFragment() {
-
+    public void setTitle(String strTitle){
+        this.tag = strTitle;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView+" + title);
-        view = inflater.inflate(R.layout.fragment_class2__news_info, container, false);
+        Log.i(TAG, "onCreateView+" + tag);
+        _inflatedView = inflater.inflate(R.layout.fragment_class2__news_info, container, false);
 
-        mPullRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_to_refreshList4News);
-        _app_newsInfoModels = new LinkedList<App_NewsInfoModel>();
+        _mSwipeRefreshLayout = (SwipeRefreshLayout) _inflatedView.findViewById(R.id.swipe_refresh);
+        _mSwipeRefreshLayout.setColorSchemeResources(getPullToRefreshColorResources());
+        _mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(),
-                        DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-                // Update the LastUpdatedLabel
-                refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-                // Do work to refresh the list here.
-                new QueryNewsAsyncTask().execute();
-            }
-        });
-
-        mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
-                App_NewsInfoModel app_NewsInfoModel = _app_newsInfoModels.get(i);
-                intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
-                startActivity(intent);
-                Log.d("点击", "" + i);
-            }
-        });
+        _lv_list = (ListView) _inflatedView.findViewById(R.id.lv_list);
+        _dataList = new LinkedList<App_NewsInfoModel>();
+//        mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
+//                App_NewsInfoModel app_NewsInfoModel = _app_newsInfoModels.get(i);
+//                intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
+//                startActivity(intent);
+//                Log.d("点击", "" + i);
+//            }
+//        });
 
         for (int i = 0; i < 10; i++) {
             App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
-            newsInfoModel.setTitle(title + "测试公告标题" + i);
-            newsInfoModel.setPublicUserName(title + "user" + i);
+            newsInfoModel.setTitle(tag + "测试公告标题" + i);
+            newsInfoModel.setPublicUserName(tag + "user" + i);
             newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
-            _app_newsInfoModels.add(newsInfoModel);
+            _dataList.add(newsInfoModel);
         }
 
 
-        mAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _app_newsInfoModels);
-        mPullRefreshListView.setAdapter(mAdapter);
+        _newsAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _dataList);
+        _lv_list.setAdapter(_newsAdapter);
 //        ListView actualListView = mPullRefreshListView.getRefreshableView();
 //        actualListView.setAdapter(mAdapter);
-        return view;
+        return _inflatedView;
     }
+
+    protected int[] getPullToRefreshColorResources() {
+        return new int[]{R.color.color_primary};
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+
+                _mSwipeRefreshLayout.setRefreshing(false);
+                App_NewsInfoModel a = new App_NewsInfoModel();
+                a.setTitle("新的12123");
+
+                _dataList.add(0,a);
+                _newsAdapter.notifyDataSetChanged();
+            }
+        }, 500);
+    }
+
     private class QueryNewsAsyncTask extends AsyncTask<Void, Void, List<App_NewsInfoModel>> {
         @Override
         protected List<App_NewsInfoModel> doInBackground(Void... voids) {
 
-            Log.i("TAG", title + "Fragment 发起查询请求");
+            Log.i("TAG", tag + "Fragment 发起查询请求");
             List<App_NewsInfoModel> app_newsInfoModels = new ArrayList<App_NewsInfoModel>();
 
             List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
@@ -138,7 +153,7 @@ public class Normal_NewsInfoFragment extends Fragment {
                 app_newsInfoModels = (List<App_NewsInfoModel>) JSONHelper
                         .parseCollection(result, List.class,
                                 App_NewsInfoModel.class);
-                Log.i("TAG", title + "Fragment 获得查询结果=" + app_newsInfoModels.size());
+                Log.i("TAG", tag + "Fragment 获得查询结果=" + app_newsInfoModels.size());
             } catch (ClientProtocolException e) {
                 Log.e(TAG, "ClientProtocolException", e);
             } catch (IOException e) {
@@ -156,9 +171,9 @@ public class Normal_NewsInfoFragment extends Fragment {
         protected void onPostExecute(List<App_NewsInfoModel> result) {
             //在头部增加新添内容
             for (App_NewsInfoModel item : result) {
-                if (item.getNewsTypeName().contains(title)) {
-                    Log.i(TAG, "包含" + title + "消息");
-                    _app_newsInfoModels.addFirst(item);
+                if (item.getNewsTypeName().contains(tag)) {
+                    Log.i(TAG, "包含" + tag + "消息");
+                    _dataList.addFirst(item);
                 }
             }
 //            for (int i=0;i<5;i++){
@@ -170,10 +185,11 @@ public class Normal_NewsInfoFragment extends Fragment {
 //            }
 
             //通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-            mAdapter.notifyDataSetChanged();
+            _newsAdapter.notifyDataSetChanged();
             // Call onRefreshComplete when the list has been refreshed.
-            mPullRefreshListView.onRefreshComplete();
-            Log.i(TAG, "更新列表数据" + title);
+//            _lv_list.onref
+//            mPullRefreshListView.onRefreshComplete();
+            Log.i(TAG, "更新列表数据" + tag);
             super.onPostExecute(result);
         }
     }

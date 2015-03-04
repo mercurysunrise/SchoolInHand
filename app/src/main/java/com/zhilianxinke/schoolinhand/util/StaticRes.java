@@ -14,8 +14,11 @@ public class StaticRes {
 
 	public static App_CustomModel currCustom;
 	
-	public static String baseUrl = "http://115.28.171.84:8080/DeviceManagement";
+//	public static String baseUrl = "http://115.28.171.84:8080/DeviceManagement";
 //	public static String baseUrl = "http://192.168.1.106/DMService";
+    public static String serverUrl = "http://121.42.146.235:8080";
+    public static String baseUrl = serverUrl + "/DeviceManagement";
+    public static String updateUrl = serverUrl + "/appUpdate/schoolInHand.json";
 
     public final static String URL_TESTHLS = "http://115.28.171.84/hls/dh0B319/playlist.m3u8";
 

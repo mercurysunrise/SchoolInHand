@@ -1,13 +1,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="vertical"
-    tools:context="com.zhilianxinke.schoolinhand.modules.users.UserFragment">
+    android:layout_height="match_parent" android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent"-->
         <!--android:text="@string/hello_blank_fragment" />-->
+    <!--<Button android:id="@+id/btnUserInfo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="我的信息" />-->
+
     <Button android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="升级" />
+        android:text="软件升级" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button android:id="@+id/btnExit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出"
+        android:layout_margin="4dp"
+        android:background="#ffff5531" />
 </LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="48dp"
     android:orientation="horizontal" 
-    android:background="@drawable/login_bg">
+    android:background="#168bd3">
    
     <Button
         android:id="@+id/btn_title_left"
@@ -15,9 +15,7 @@
         android:layout_marginLeft="7px"
         android:lines="1"
         android:textSize="12sp"
-        android:textColor="#ffffffff"
-        android:gravity="center_vertical"
-        />
+        android:textColor="#ffffffff"/>
      <TextView 
         android:id="@+id/tv_top_title"
         android:layout_width="127dp"
@@ -37,8 +35,7 @@
         android:text="分享"
         android:lines="1"
         android:textSize="12sp"
-        android:textColor="#ffffffff"
-        android:gravity="center_vertical"/>
+        android:textColor="#ffffffff" android:visibility="gone"/>
 
     
 

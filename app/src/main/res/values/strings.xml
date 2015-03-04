@@ -28,7 +28,7 @@
     <string name="image_url">Image Url</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="default_url">http://115.28.171.84:8080/appUpdate/schoolInHand.json</string>
+    <!--<string name="default_url">http://115.28.171.84:8080/appUpdate/schoolInHand.json</string>-->
     <string name="soft_update_no">已经是最新版本</string>
     <string name="soft_update_title">软件更新</string>
     <string name="soft_update_info">检测到新版本，立即更新吗</string>

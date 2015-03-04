@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.VideoView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 public class MyVideoView extends VideoView{
 
 	 	public static int WIDTH;

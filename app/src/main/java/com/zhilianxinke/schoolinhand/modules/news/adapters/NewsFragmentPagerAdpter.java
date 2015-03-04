@@ -1,18 +1,12 @@
 package com.zhilianxinke.schoolinhand.modules.news.adapters;
 
-import android.nfc.Tag;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
-import com.zhilianxinke.schoolinhand.modules.news.Class2_NewsInfoFragment;
 import com.zhilianxinke.schoolinhand.modules.news.Normal_NewsInfoFragment;
-import com.zhilianxinke.schoolinhand.modules.news.School_NewsInfoFragment;
-import com.zhilianxinke.schoolinhand.modules.news.System_NewsInfoFragment;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +25,7 @@ public class NewsFragmentPagerAdpter extends FragmentPagerAdapter {
 //        }
     }
 
-    private final String[] titles = { "班级", "校园", "系统" };
+    private final String[] titles = { "班级", "校园", "公共" };
     private Map<String,Normal_NewsInfoFragment> fragmentMap = new HashMap<String, Normal_NewsInfoFragment>(titles.length);
 //    private List<Normal_NewsInfoFragment> fragmentList = new ArrayList<Normal_NewsInfoFragment>(titles.length);
 

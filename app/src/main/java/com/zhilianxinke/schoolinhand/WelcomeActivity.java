@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import com.zhilianxinke.schoolinhand.R;
+import com.zhilianxinke.schoolinhand.base.BaseActivity;
+
 /**欢迎动画activity*/
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {

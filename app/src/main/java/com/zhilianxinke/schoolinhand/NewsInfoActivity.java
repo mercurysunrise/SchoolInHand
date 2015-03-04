@@ -3,6 +3,7 @@ package com.zhilianxinke.schoolinhand;
 import java.io.Serializable;
 
 //import cn.sharesdk.framework.ShareSDK;
+import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
 import com.zhilianxinke.schoolinhand.util.ClassPathResource;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
@@ -17,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class NewsInfoActivity extends Activity implements android.view.View.OnClickListener {
+public class NewsInfoActivity extends BaseActivity implements android.view.View.OnClickListener {
 
 	private TextView tv_top_title;
 	private TextView btn_title_share;
@@ -56,11 +57,13 @@ public class NewsInfoActivity extends Activity implements android.view.View.OnCl
 		tv_news_title.setText(app_NewsInfoModel.getTitle());
 		
 		tv_news_publicman = (TextView) findViewById(R.id.tv_news_publicman);
-		tv_news_publicman.setText("发布人:"+app_NewsInfoModel.getPublicUserName());
+		tv_news_publicman.setText(app_NewsInfoModel.getPublicUserName());
 		
 		tv_news_publicTime = (TextView) findViewById(R.id.tv_news_publicTime);
-		tv_news_publicTime.setText(app_NewsInfoModel.getStrPublicTime());
-		
+        if (app_NewsInfoModel.getStrPublicTime() != null && app_NewsInfoModel.getStrPublicTime().length() > 10){
+            tv_news_publicTime.setText(app_NewsInfoModel.getStrPublicTime().substring(0,10));
+        }
+
 		wv_news_content = (WebView) findViewById(R.id.wv_news_content);
         strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk="+app_NewsInfoModel.getPk();
 //		http://127.0.0.1/DMService/newsInfo/detail.html?pk=c06a0c04-703a-4e31-afb5-17d927317016

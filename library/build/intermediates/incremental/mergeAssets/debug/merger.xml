@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\github\SchoolInHand\library\assets"/></dataSet><dataSet config="debug"><source path="D:\github\SchoolInHand\library\build-types\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\software\android sample\material-design-library-master\library\src\main\assets"/></dataSet><dataSet config="debug"><source path="F:\software\android sample\material-design-library-master\library\src\debug\assets"/></dataSet></merger>
