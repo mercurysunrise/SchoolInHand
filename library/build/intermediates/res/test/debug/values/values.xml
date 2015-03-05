@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="carbon_circularProgressStyle"/>
     <attr format="dimension" name="carbon_cornerRadius"/>
@@ -58,25 +58,25 @@
     <attr format="dimension" name="carbon_touchMarginLeft"/>
     <attr format="dimension" name="carbon_touchMarginRight"/>
     <attr format="dimension" name="carbon_touchMarginTop"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <attr format="boolean" name="centered"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
     <attr format="boolean" name="isLightTheme"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <attr format="color" name="selectedColor"/>
     <attr format="dimension" name="strokeWidth"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <attr format="string" name="title"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <attr format="color" name="unselectedColor"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <bool name="abc_action_bar_embed_tabs">true</bool>
     <bool name="abc_action_bar_embed_tabs_pre_jb">false</bool>
@@ -84,14 +84,14 @@
     <bool name="abc_config_actionMenuItemAllCaps">true</bool>
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <bool name="default_circle_indicator_centered">true</bool>
     <bool name="default_circle_indicator_snap">false</bool>
     <bool name="default_line_indicator_centered">true</bool>
     <bool name="default_title_indicator_selected_bold">true</bool>
     <bool name="default_underline_indicator_fades">true</bool>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
@@ -103,10 +103,10 @@
     <color name="background_floating_material_light">#ffeeeeee</color>
     <color name="background_material_dark">#ff303030</color>
     <color name="background_material_light">#ffeeeeee</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/res/values/values.xml -->
     <eat-comment/>
     <color name="background_tab_pressed">#6633B5E5</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
@@ -116,7 +116,7 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <color name="carbon_background_dark">#ff333333</color>
     <color name="carbon_background_light">#ffeeeeee</color>
@@ -147,37 +147,37 @@
     <color name="carbon_white">#ffffffff</color>
     <color name="carbon_white_30">#4dffffff</color>
     <color name="carbon_white_70">#b3ffffff</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_background">#fafafa</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_dark_background">#FF202020</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_highlight_button_color">#ffab40</color>
     <color name="cardview_image_left_description_color">#757575</color>
     <color name="cardview_image_left_title_color">#212121</color>
     <color name="cardview_image_top_description_color">#212121</color>
     <color name="cardview_image_top_title_color">#ffffff</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_light_background">#FFFAFAFA</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_normal_button_color">#212121</color>
     <color name="cardview_normal_button_ripple_color">#66999999</color>
     <color name="cardview_normal_description_color">#212121</color>
     <color name="cardview_separator_color">#dcdcdc</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="color_primary">#ff608aff</color>
     <color name="color_primary_dark">#ff5d79ea</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
     <color name="default_circle_indicator_page_color">#00000000</color>
@@ -188,7 +188,7 @@
     <color name="default_title_indicator_selected_color">#FFFFFFFF</color>
     <color name="default_title_indicator_text_color">#BBFFFFFF</color>
     <color name="default_underline_indicator_selected_color">#FF33B5E5</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
@@ -205,13 +205,13 @@
     <color name="material_blue_grey_950">#ff21272b</color>
     <color name="material_deep_teal_200">#ff80cbc4</color>
     <color name="material_deep_teal_500">#ff009688</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="navigation_drawer_item_header_color">#999999</color>
     <color name="navigation_drawer_item_header_separator_color">#e0e0e0</color>
     <color name="navigation_drawer_item_title_color">#212121</color>
     <color name="navigation_drawer_item_top_background">#f6f6f6</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <color name="primary_dark_material_dark">#ff000000</color>
     <color name="primary_dark_material_light">#ff757575</color>
@@ -229,7 +229,7 @@
     <color name="secondary_text_disabled_material_light">#24000000</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <color name="vpi__background_holo_dark">#ff000000</color>
     <color name="vpi__background_holo_light">#fff3f3f3</color>
@@ -287,7 +287,7 @@
     <declare-styleable name="ViewPagerIndicator"><attr format="reference" name="vpiCirclePageIndicatorStyle"/><attr format="reference" name="vpiIconPageIndicatorStyle"/><attr format="reference" name="vpiLinePageIndicatorStyle"/><attr format="reference" name="vpiTitlePageIndicatorStyle"/><attr format="reference" name="vpiTabPageIndicatorStyle"/><attr format="reference" name="vpiUnderlinePageIndicatorStyle"/></declare-styleable>
     <declare-styleable name="ViewStubCompat"><attr name="android:layout"/><attr name="android:inflatedId"/><attr name="android:id"/></declare-styleable>
     <declare-styleable name="carbon"><attr format="reference|color" name="carbon_colorPrimary"/><attr format="reference|color" name="carbon_colorPrimaryDark"/><attr format="reference|color" name="carbon_colorAccent"/><attr format="reference|color" name="carbon_colorBackground"/><attr format="reference|color" name="carbon_colorBackground_inverse"/><attr format="reference|color" name="carbon_colorError"/><attr format="reference|color" name="carbon_dividerColor"/><attr format="reference|color" name="carbon_rippleColor"/><attr format="reference" name="carbon_textAppearance_headline"/><attr format="reference" name="carbon_textAppearance_title"/><attr format="reference" name="carbon_textAppearance_subhead"/><attr format="reference" name="carbon_textAppearance_body2"/><attr format="reference" name="carbon_textAppearance_body1"/><attr format="reference" name="carbon_textAppearance_caption"/><attr format="reference" name="carbon_textAppearance_button"/><attr format="reference" name="carbon_textAppearance_headline_inverse"/><attr format="reference" name="carbon_textAppearance_title_inverse"/><attr format="reference" name="carbon_textAppearance_subhead_inverse"/><attr format="reference" name="carbon_textAppearance_body2_inverse"/><attr format="reference" name="carbon_textAppearance_body1_inverse"/><attr format="reference" name="carbon_textAppearance_caption_inverse"/><attr format="reference" name="carbon_textAppearance_button_inverse"/></declare-styleable>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
     <dimen name="abc_action_bar_default_padding_material">4dp</dimen>
@@ -326,11 +326,11 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="carbon_avatarSize">40dp</dimen>
     <dimen name="carbon_dialogPadding">24dp</dimen>
@@ -347,12 +347,12 @@
     <dimen name="carbon_toolbarHeight">56dp</dimen>
     <dimen name="carbon_toolbarTextSize">20sp</dimen>
     <dimen name="carbon_translation">2dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <dimen name="default_circle_indicator_radius">3dp</dimen>
     <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
@@ -367,23 +367,23 @@
     <dimen name="default_title_indicator_text_size">15dp</dimen>
     <dimen name="default_title_indicator_title_padding">5dp</dimen>
     <dimen name="default_title_indicator_top_padding">7dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="dialog_fixed_height_major" type="dimen">80%</item>
     <item name="dialog_fixed_height_minor" type="dimen">100%</item>
     <item name="dialog_fixed_width_major" type="dimen">320dp</item>
     <item name="dialog_fixed_width_minor" type="dimen">320dp</item>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <dimen name="dip">1dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <dimen name="navigation_drawer_width">240dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
@@ -395,17 +395,17 @@
     <item name="split_action_bar" type="id"/>
     <item name="up" type="id"/>
     <integer name="abc_max_action_buttons">2</integer>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <integer name="carbon_snackbarDuration">2000</integer>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <integer name="default_circle_indicator_orientation">0</integer>
     <integer name="default_title_indicator_footer_indicator_style">2</integer>
     <integer name="default_title_indicator_line_position">0</integer>
     <integer name="default_underline_indicator_fade_delay">300</integer>
     <integer name="default_underline_indicator_fade_length">400</integer>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -423,7 +423,7 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <string name="app_name">Material Design Library</string>
     <string name="help_and_feedback">Help &amp; feedback</string>
@@ -431,7 +431,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="settings">Settings</string>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance">
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -1185,7 +1185,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/cardview-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="CardView">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
@@ -1201,7 +1201,7 @@
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
     </style>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <style name="MaterialDesignLibraryTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>
@@ -1211,7 +1211,7 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
     </style>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
@@ -1420,13 +1420,13 @@
     <style name="TextAppearance.AppCompat.Widget.PopupMenu.Large" parent="Base.TextAppearance.AppCompat.Widget.PopupMenu.Large"/>
     <style name="TextAppearance.AppCompat.Widget.PopupMenu.Small" parent="Base.TextAppearance.AppCompat.Widget.PopupMenu.Small"/>
     <style name="TextAppearance.AppCompat.Widget.Switch" parent="Base.TextAppearance.AppCompat.Widget.Switch"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="TextAppearance.TabPageIndicator" parent="Widget">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/vpi__dark_theme</item>
     </style>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="TextAppearance.Widget.AppCompat.ExpandedMenu.Item" parent="Base.TextAppearance.Widget.AppCompat.ExpandedMenu.Item"/>
     <style name="TextAppearance.Widget.AppCompat.Toolbar.Subtitle" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle"/>
@@ -1447,23 +1447,23 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="Theme.PageIndicatorDefaults" parent="android:Theme">
         <item name="vpiIconPageIndicatorStyle">@style/Widget.IconPageIndicator</item>
         <item name="vpiTabPageIndicatorStyle">@style/Widget.TabPageIndicator</item>
     </style>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget.AppCompat.ActionBar" parent="Base.Widget.AppCompat.ActionBar"/>
     <style name="Widget.AppCompat.ActionBar.Solid" parent="Base.Widget.AppCompat.ActionBar.Solid"/>
@@ -1518,7 +1518,7 @@
     <style name="Widget.AppCompat.Spinner.DropDown.ActionBar" parent="Base.Widget.AppCompat.Spinner.DropDown.ActionBar"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/fr.baloomba/viewpagerindicator/2.4.2/res/values/values.xml -->
     <eat-comment/>
     <style name="Widget.IconPageIndicator" parent="Widget">
         <item name="android:layout_marginLeft">6dp</item>
@@ -1535,7 +1535,7 @@
         <item name="android:textSize">12sp</item>
         <item name="android:maxLines">1</item>
     </style>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/build/intermediates/exploded-aar/tk.zielony/carbon/0.6.0/res/values/values.xml -->
     <eat-comment/>
     <style name="carbon_Button" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>

@@ -51,9 +51,10 @@ public class UserFragment extends Fragment implements OnClickListener{
 //            startActivity(intent);
         }
         if (v == btnUpdate){
-            UpdateManager manager = new UpdateManager(getActivity());
+            UpdateManager manager = new UpdateManager();
+            manager.QueryApkVersion(getActivity(),true);
             // 检查软件更新
-            manager.checkUpdate(getActivity());
+//            manager.checkUpdate(getActivity());
         }
         if (v == btnExit){
             App.finishAll();

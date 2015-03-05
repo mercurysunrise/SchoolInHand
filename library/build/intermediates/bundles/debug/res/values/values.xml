@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/src/main/res/values/colors.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="cardview_background">#fafafa</color>
     <color name="cardview_highlight_button_color">#ffab40</color>
@@ -19,12 +19,12 @@
     <color name="navigation_drawer_item_title_color">#212121</color>
     <color name="navigation_drawer_item_top_background">#f6f6f6</color>
     <declare-styleable name="MDLCardView"><attr format="string" name="mdl_title"/><attr format="string" name="mdl_description"/><attr format="reference" name="mdl_image"/><attr format="enum" name="mdl_imagePosition"><enum name="none" value="0"/><enum name="left" value="1"/><enum name="top" value="2"/></attr><attr format="string" name="mdl_normalButton"/><attr format="string" name="mdl_highlightButton"/></declare-styleable>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/src/main/res/values/dimens.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">Material Design Library</string>
     <string name="help_and_feedback">Help &amp; feedback</string>
@@ -32,7 +32,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="settings">Settings</string>
-    <!-- From: file:/F:/software/android%20sample/material-design-library-master/library/src/main/res/values/styles.xml -->
+    <!-- From: file:/D:/github/SchoolInHand/library/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="MaterialDesignLibraryTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/color_primary</item>

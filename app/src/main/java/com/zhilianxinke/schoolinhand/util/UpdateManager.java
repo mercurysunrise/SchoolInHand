@@ -16,21 +16,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.zhilianxinke.schoolinhand.modules.autoupdate.ApkUpdateModel;
 import com.zhilianxinke.schoolinhand.modules.autoupdate.HttpUtils;
 import com.zhilianxinke.schoolinhand.modules.autoupdate.IUpdateObject;
+import com.zhilianxinke.schoolinhand.modules.autoupdate.PackageUtils;
 import com.zhilianxinke.schoolinhand.modules.autoupdate.ParseXmlService;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -41,6 +47,7 @@ import org.json.JSONObject;
 
 public class UpdateManager
 {
+    private static String TAG = "UpdateManager";
     /* 下载中 */
     private static final int DOWNLOAD = 1;
     /* 下载结束 */
@@ -55,6 +62,11 @@ public class UpdateManager
     private boolean cancelUpdate = false;
 
     private Context mContext;
+    private int versionCode;
+    private String versionName;
+
+    private boolean mIsShowResult;
+
     /* 更新进度条 */
     private ProgressBar mProgress;
     private Dialog mDownloadDialog;
@@ -80,63 +92,71 @@ public class UpdateManager
         };
     };
 
-    public UpdateManager(Context context)
-    {
-        this.mContext = context;
-    }
-
-    /**
-     * 检测软件更新
-     */
-    public void checkUpdate(Context context)
-    {
-        if (isUpdate(context))
-        {
-            // 显示提示对话框
-            showNoticeDialog();
-        } else
-        {
-            Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();
+    public void QueryApkVersion(Context context,boolean isShowResult){
+        mContext = context;
+        mIsShowResult = isShowResult;
+        if (buildVersionInfo()){
+            new QueryUpdateTask().execute();
         }
     }
 
-    private IUpdateObject uo;
-    /**
-     * 检查软件是否有更新版本
-     *
-     * @return
-     */
-    private boolean isUpdate(Context context)
-    {
-        // 获取当前软件版本
-        int versionCode = getVersionCode(mContext);
-        // 把version.xml放到网络上，然后获取文件信息
-//        String jsonPath = context.getResources().getString(R.string.default_url);
-//        JSONObject jsonObject = HttpUtils.getJSONObj(jsonPath);
-//        uo.parseJSONObject(jsonObject);
 
-//        return uo.getVersionCode() != versionCode;
-        return true;
+    private class QueryUpdateTask extends AsyncTask<Void, Void, ApkUpdateModel> {
+
+        @Override
+        protected ApkUpdateModel doInBackground(Void... params) {
+            JSONObject jsonObject = HttpUtils.getJSONObj(StaticRes.updateJson);
+                try {
+                    ApkUpdateModel apkUpdateModel = new ApkUpdateModel();
+//                    apkUpdateModel.setVersionCode(1);
+//                    apkUpdateModel.setVersionName("fdafd");
+//                    apkUpdateModel.setVersionFeature("342424");
+//                    apkUpdateModel.setUpdateUrl("23424");
+//                    String strJsonObject = JSONHelper.toJSON(apkUpdateModel);
+                    apkUpdateModel = JSONHelper.parseObject(jsonObject,ApkUpdateModel.class);
+                    return apkUpdateModel;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(ApkUpdateModel apkUpdateModel) {
+            if (apkUpdateModel != null){
+                boolean isNeedUpdate = apkUpdateModel.getVersionCode() != versionCode;
+                if (isNeedUpdate){
+                    // 显示提示对话框
+                    showNoticeDialog();
+                }
+                if (!isNeedUpdate && mIsShowResult){
+                    Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+
     }
 
     /**
-     * 获取软件版本号
+     * 获取软件版本信息
      *
-     * @param context
      * @return
      */
-    private int getVersionCode(Context context)
+    private boolean buildVersionInfo()
     {
-        int versionCode = 0;
         try
         {
             // 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-            versionCode = context.getPackageManager().getPackageInfo("com.zhilianxinke.schoolinhand", 0).versionCode;
+            PackageInfo packageInfo = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
+
+            versionCode = packageInfo.versionCode;
+            versionName = packageInfo.versionName;
+            return true;
         } catch (NameNotFoundException e)
         {
-            e.printStackTrace();
+            Log.e(TAG,"获取Apk版本错误",e);
         }
-        return versionCode;
+        return false;
     }
 
     /**
