@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Window;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
+import com.zhilianxinke.schoolinhand.util.UpdateManager;
 
 /**欢迎动画activity*/
 public class WelcomeActivity extends BaseActivity {
@@ -15,8 +16,6 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-
-
 
         final Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
         //系统会为需要启动的activity寻找与当前activity不同的task;
@@ -28,7 +27,7 @@ public class WelcomeActivity extends BaseActivity {
 			public void run() {
 				// TODO Auto-generated method stub
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(2500);
 					//获取应用的上下文，生命周期是整个应用，应用结束才会结束
 					getApplicationContext().startActivity(intent);
 					finish();

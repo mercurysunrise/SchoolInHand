@@ -18,6 +18,7 @@ import com.zhilianxinke.schoolinhand.modules.stories.StoryFragment;
 import com.zhilianxinke.schoolinhand.modules.users.UserFragment;
 import com.zhilianxinke.schoolinhand.modules.vedios.VedioFragment;
 import com.zhilianxinke.schoolinhand.modules.vedios.VedioListFragment;
+import com.zhilianxinke.schoolinhand.util.UpdateManager;
 
 /**
  * 主界面
@@ -40,6 +41,10 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+        //检查升级
+        UpdateManager updateManager = new UpdateManager();
+        updateManager.QueryApkVersion(this,false);
 
         initView();
 	}
