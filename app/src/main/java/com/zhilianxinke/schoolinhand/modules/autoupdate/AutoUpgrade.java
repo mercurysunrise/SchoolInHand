@@ -92,7 +92,7 @@ public class AutoUpgrade {
         this.context = context;
         try{
 //            this.jsonPath = context.getResources().getString(R.string.default_url);
-                this.jsonPath = StaticRes.updateJson;
+                this.jsonPath = StaticRes.updateUrl;
             Log.d(TAG, "Get from string resources, jsonPath: " +jsonPath);
         }catch(NotFoundException e){
             Log.e(TAG, "Can not find resource id of default_url in the res/values/strings.xml");
@@ -130,16 +130,16 @@ public class AutoUpgrade {
      * @author Lang
      * 查询服务器apk版本任务
      */
-    private class QueryUpdateTask extends AsyncTask<Void, Void, IUpdateObject>{
+    private class QueryUpdateTask extends AsyncTask<Void, Void, Void>{
 
         @Override
-        protected IUpdateObject doInBackground(Void... params) {
+        protected Void doInBackground(Void... params) {
             JSONObject jsonObject = HttpUtils.getJSONObj(AutoUpgrade.this.jsonPath);
             uo.parseJSONObject(jsonObject);
-            return uo;
+            return null;
         }
         @Override
-        protected void onPostExecute(IUpdateObject result) {
+        protected void onPostExecute(Void result) {
             int currVersion = PackageUtils.getCurrVersionCode(context);
             if(uo!=null && uo.isInitial() && currVersion < uo.getVersionCode()){
                 download.onPreDownload(uo.getFeatures());

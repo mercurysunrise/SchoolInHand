@@ -32,7 +32,6 @@ import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.domain.App_CustomModel;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
-import com.zhilianxinke.schoolinhand.util.UpdateManager;
 
 /**登陆界面activity*/
 public class LoginActivity extends BaseActivity implements OnClickListener{
@@ -54,6 +53,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
+
 
 		initView();
         if (PreferenceManager.getDefaultSharedPreferences(this).contains("strName")){
