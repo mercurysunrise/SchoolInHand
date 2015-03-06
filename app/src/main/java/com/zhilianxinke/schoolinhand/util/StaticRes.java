@@ -19,7 +19,7 @@ public class StaticRes {
     public static String serverUrl = "http://121.42.146.235:8080";
     public static String baseUrl = serverUrl + "/DeviceManagement";
     public static String updateJson = serverUrl + "/appUpdate/schoolInHand.json";
-    private static String updateUrl = serverUrl + "/appUpdate/app-debug.apk";
+    public static String updateUrl = serverUrl + "/appUpdate/app-debug.apk";
 
     public final static String URL_TESTHLS = "http://115.28.171.84/hls/dh0B319/playlist.m3u8";
 

@@ -52,8 +52,7 @@ public class UpdateManager
     private static final int DOWNLOAD = 1;
     /* 下载结束 */
     private static final int DOWNLOAD_FINISH = 2;
-    /* 保存解析的XML信息 */
-    private static String updateUrl = "http://115.28.171.84:8080/appUpdate/app-debug.apk";
+
     /* 下载保存路径 */
     private String mSavePath;
     /* 记录进度条数量 */
@@ -127,7 +126,7 @@ public class UpdateManager
                 boolean isNeedUpdate = apkUpdateModel.getVersionCode() != versionCode;
                 if (isNeedUpdate){
                     // 显示提示对话框
-                    showNoticeDialog();
+                    showNoticeDialog(apkUpdateModel.getVersionFeature());
                 }
                 if (!isNeedUpdate && mIsShowResult){
                     Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();
@@ -162,12 +161,15 @@ public class UpdateManager
     /**
      * 显示软件更新对话框
      */
-    private void showNoticeDialog()
+    private void showNoticeDialog(String noticeContent)
     {
         // 构造对话框
         AlertDialog.Builder builder = new Builder(mContext);
-        builder.setTitle(R.string.soft_update_title);
-        builder.setMessage(R.string.soft_update_info);
+//        builder.setTitle(R.string.soft_update_title);
+//        builder.setMessage(R.string.soft_update_info);
+        builder.setTitle(R.string.soft_update_info);
+
+        builder.setItems(noticeContent.split("\n"),null);
         // 更新
         builder.setPositiveButton(R.string.soft_update_updatebtn, new OnClickListener()
         {
@@ -251,7 +253,8 @@ public class UpdateManager
                     // 获得存储卡的路径
                     String sdpath = Environment.getExternalStorageDirectory() + "/";
                     mSavePath = sdpath + "download";
-                    URL url = new URL(updateUrl);
+
+                    URL url = new URL(StaticRes.updateUrl);
                     // 创建连接
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.connect();
