@@ -149,11 +149,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
                     editor.commit();
                 }
 		    	startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                finish();
 			}else {
 //				Toast.makeText(getApplicationContext(), "登录信息错误，请重新输入", Toast.LENGTH_SHORT).show();
 			}
-		    
-
 		} catch (ClientProtocolException e) {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();

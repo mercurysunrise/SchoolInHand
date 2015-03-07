@@ -26,6 +26,7 @@ public class NewsFragmentPagerAdpter extends FragmentPagerAdapter {
     }
 
     private final String[] titles = { "班级", "校园", "公共" };
+//    private final String[] titles = { "最新", "推荐", "收藏" };
     private Map<String,Normal_NewsInfoFragment> fragmentMap = new HashMap<String, Normal_NewsInfoFragment>(titles.length);
 //    private List<Normal_NewsInfoFragment> fragmentList = new ArrayList<Normal_NewsInfoFragment>(titles.length);
 
@@ -41,12 +42,7 @@ public class NewsFragmentPagerAdpter extends FragmentPagerAdapter {
 
     @Override
     public android.support.v4.app.Fragment getItem(int position) {
-//        boolean isExist = (fragmentList.size() > position && fragmentList.get(0) != null);
-//        if (!isExist){
-//             Normal_NewsInfoFragment normal_NewsInfoFragment = new Normal_NewsInfoFragment();
-//            normal_NewsInfoFragment.setTitle(titles[position]);
-//            fragmentList.add(normal_NewsInfoFragment);
-//        }
+
         final String title = titles[position];
         Log.i(TAG,"getItem+"+ title);
         if (!fragmentMap.containsKey(title)){
