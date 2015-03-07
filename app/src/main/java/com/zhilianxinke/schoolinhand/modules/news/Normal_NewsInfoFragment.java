@@ -42,7 +42,7 @@ import java.util.prefs.Preferences;
 /**
  * Created by hh on 2015-02-09.
  */
-public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,AdapterView.OnItemClickListener{
 
     private static String TAG = "Normal_NewsInfoFragment";
 
@@ -52,7 +52,6 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
     private View _inflatedView;
 
     private String tag;
-    private int rowContainerId;
     private LinkedList<App_NewsInfoModel> _dataList;
     private NewsAdapter _newsAdapter;
 
@@ -74,38 +73,26 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
         _mSwipeRefreshLayout.setOnRefreshListener(this);
 
         _lv_list = (ListView) _inflatedView.findViewById(R.id.lv_list);
-        _dataList = new LinkedList<App_NewsInfoModel>();
-//        mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
-//                App_NewsInfoModel app_NewsInfoModel = _app_newsInfoModels.get(i);
-//                intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
-//                startActivity(intent);
-//                Log.d("点击", "" + i);
-//            }
-//        });
 
-        for (int i = 0; i < 10; i++) {
-            App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
-            newsInfoModel.setTitle(tag + "测试公告标题" + i);
-            newsInfoModel.setPublicUserName(tag + "user" + i);
-            newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
-            _dataList.add(newsInfoModel);
+        if (_dataList == null){
+            _dataList = new LinkedList<App_NewsInfoModel>();
+            for (int i = 0; i < 3; i++) {
+                App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
+                newsInfoModel.setTitle(tag + "本地缓存公告标题" + i);
+                newsInfoModel.setPublicUserName(tag + "user" + i);
+                newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
+                _dataList.add(newsInfoModel);
+            }
         }
-
-
         _newsAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _dataList);
         _lv_list.setAdapter(_newsAdapter);
-//        ListView actualListView = mPullRefreshListView.getRefreshableView();
-//        actualListView.setAdapter(mAdapter);
+        _lv_list.setOnItemClickListener(this);
         return _inflatedView;
     }
 
     protected int[] getPullToRefreshColorResources() {
         return new int[]{R.color.color_primary};
     }
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -114,17 +101,17 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-
                 _mSwipeRefreshLayout.setRefreshing(false);
-                App_NewsInfoModel a = new App_NewsInfoModel();
-                a.setTitle("新的12123");
+                new QueryNewsAsyncTask().execute();
+    }
 
-                _dataList.add(0,a);
-                _newsAdapter.notifyDataSetChanged();
-            }
-        }, 500);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
+        App_NewsInfoModel app_NewsInfoModel = _dataList.get(position);
+        intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
+        startActivity(intent);
+        Log.d(TAG, "点击" + position);
     }
 
     private class QueryNewsAsyncTask extends AsyncTask<Void, Void, List<App_NewsInfoModel>> {
@@ -176,19 +163,9 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
                     _dataList.addFirst(item);
                 }
             }
-//            for (int i=0;i<5;i++){
-//                App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
-//                newsInfoModel.setTitle(title + "公告标题"+i);
-//                newsInfoModel.setPublicUserName(title+"user"+i);
-//                newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
-//                _app_newsInfoModels.add(newsInfoModel);
-//            }
-
             //通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
             _newsAdapter.notifyDataSetChanged();
-            // Call onRefreshComplete when the list has been refreshed.
-//            _lv_list.onref
-//            mPullRefreshListView.onRefreshComplete();
+
             Log.i(TAG, "更新列表数据" + tag);
             super.onPostExecute(result);
         }

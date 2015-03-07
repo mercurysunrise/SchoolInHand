@@ -40,9 +40,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *@author coolszy
- *@date 2012-4-26
- *@blog http://blog.92coding.com
+ *@author xuhao
+ *@date 2015-03-06
  */
 
 public class UpdateManager
@@ -133,7 +132,6 @@ public class UpdateManager
                 }
             }
         }
-
     }
 
     /**

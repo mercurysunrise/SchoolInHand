@@ -26,7 +26,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsInfoFragment extends Fragment {
+public class NewsInfoFragment extends Fragment  {
 
 
     private NewsFragmentPagerAdpter newsFragmentPagerAdpter;
@@ -37,7 +37,6 @@ public class NewsInfoFragment extends Fragment {
     public NewsInfoFragment() {
         // Required empty public constructor
     }
-
 
     private View view;
 
