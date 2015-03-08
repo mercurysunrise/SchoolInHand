@@ -122,7 +122,8 @@ public class UpdateManager
         @Override
         protected void onPostExecute(ApkUpdateModel apkUpdateModel) {
             if (apkUpdateModel != null){
-                boolean isNeedUpdate = apkUpdateModel.getVersionCode() != versionCode;
+//                boolean isNeedUpdate = apkUpdateModel.getVersionCode() != versionCode;
+                boolean isNeedUpdate = !apkUpdateModel.getVersionName().equals(versionName);
                 if (isNeedUpdate){
                     // 显示提示对话框
                     showNoticeDialog(apkUpdateModel.getVersionFeature());

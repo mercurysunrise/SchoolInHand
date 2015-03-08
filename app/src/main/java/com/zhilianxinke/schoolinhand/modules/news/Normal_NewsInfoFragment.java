@@ -76,13 +76,11 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
         if (_dataList == null){
             _dataList = new LinkedList<App_NewsInfoModel>();
-            for (int i = 0; i < 3; i++) {
                 App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
-                newsInfoModel.setTitle(tag + "本地缓存公告标题" + i);
-                newsInfoModel.setPublicUserName(tag + "user" + i);
+                newsInfoModel.setTitle(tag + "公告说明");
+                newsInfoModel.setPublicUserName(tag + "user");
                 newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
                 _dataList.add(newsInfoModel);
-            }
         }
         _newsAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _dataList);
         _lv_list.setAdapter(_newsAdapter);
@@ -101,8 +99,8 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     @Override
     public void onRefresh() {
-                _mSwipeRefreshLayout.setRefreshing(false);
-                new QueryNewsAsyncTask().execute();
+        _mSwipeRefreshLayout.setRefreshing(false);
+        new QueryNewsAsyncTask().execute();
     }
 
     @Override

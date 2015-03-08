@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,8 +75,10 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
     private String[] titles;
     private ArrayList<View> dots;
 
-    private List<View> buttons= new ArrayList<View>();
+//    private List<View> buttons= new ArrayList<View>();
     private RelativeLayout relativeLayout;
+
+    private Map<View,String> buttonUrlMap = new HashMap<View,String>(7);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,18 +88,18 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         vv_ViedoView = (MyVideoView) view.findViewById(R.id.vv_ViedoView);
         img_AD = (ImageView) view.findViewById(R.id.img_AD);
 
-        buttons.add(view.findViewById(R.id.btnPlay0));
-        buttons.add(view.findViewById(R.id.btnPlay1));
-        buttons.add(view.findViewById(R.id.btnPlay2));
-        buttons.add(view.findViewById(R.id.btnPlay3));
-        buttons.add(view.findViewById(R.id.btnPlay4));
-        buttons.add(view.findViewById(R.id.btnPlay5));
-        buttons.add(view.findViewById(R.id.btnPlay6));
+        buttonUrlMap.clear();
+        buttonUrlMap.put(view.findViewById(R.id.btnPlay0), "http://121.42.146.235/hls/DHE153E/playlist.m3u8");
+        buttonUrlMap.put(view.findViewById(R.id.btnPlay1), "http://121.42.146.235/hls/DHC2655/playlist.m3u8");
+        buttonUrlMap.put(view.findViewById(R.id.btnPlay2), "http://121.42.146.235/hls/DHCB26F/playlist.m3u8");
+        buttonUrlMap.put(view.findViewById(R.id.btnPlay3), "http://121.42.146.235/hls/DH0B319/playlist.m3u8");
+        buttonUrlMap.put(view.findViewById(R.id.btnPlay4), "http://121.42.146.235/hls/DHE153E/playlist.m3u8");
+        buttonUrlMap.put(view.findViewById(R.id.btnPlay5), "http://121.42.146.235/hls/DHC2655/playlist.m3u8");
+        buttonUrlMap.put(view.findViewById(R.id.btnPlay6), "http://121.42.146.235/hls/DH0B319/playlist.m3u8");
 
-        for (int i = 0; i < buttons.size(); i++) {
-            buttons.get(i).setOnClickListener(this);
+        for (View view : buttonUrlMap.keySet()){
+            view.setOnClickListener(this);
         }
-
         view.findViewById(R.id.img_full_screen).setOnClickListener(this);
         vv_ViedoView.setOnErrorListener(this);
 
@@ -130,7 +133,6 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
 
         rollViewPager.setResImageIds(imageIDs);//设置res的图片id
 
-
         rollViewPager.setDot(dots, R.drawable.dot_focus, R.drawable.dot_normal);
 
         rollViewPager.setTitle(title, titles);//不需要显示标题，可以不设置
@@ -154,25 +156,23 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
             //加载视频及广告
             Drawable drawable = view.getResources().getDrawable(R.drawable.webcam);
             Drawable drawable_select = view.getResources().getDrawable(R.drawable.webcam_select);
-            for(View item : buttons){
-//                int color = item==view?Color.parseColor("#ebebeb"):Color.parseColor("#ffffff");
-//                item.setBackgroundColor(color);
+            for(View item : buttonUrlMap.keySet()){
                 Drawable background = item==view?drawable_select:drawable;
-
                 item.setBackground(background);
             }
-            playVedio(null);
+            playVedio(view);
         }
     }
 
-    private void playVedio(String url){
+    private void playVedio(View view){
         if (vv_ViedoView.getVisibility() == View.GONE){
             vv_ViedoView.setVisibility(View.VISIBLE);
         }
         if (vv_ViedoView.isPlaying()){
             vv_ViedoView.stopPlayback();
         }
-        vv_ViedoView.setVideoURI(Uri.parse(StaticRes.URL_TESTHLS));
+        String url = buttonUrlMap.get(view);
+        vv_ViedoView.setVideoURI(Uri.parse(url));
         vv_ViedoView.requestFocus();
         img_AD.setVisibility(View.VISIBLE);
 
@@ -270,24 +270,6 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
 
             view.findViewById(R.id.pb_btns).setVisibility(View.GONE);
             view.findViewById(R.id.ll_btns).setVisibility(View.VISIBLE);
-            // 更新界面
-//            ArrayList<HashMap<String, String>> modelList = new ArrayList<HashMap<String, String>>();
-//            for (App_DeviceInfoModel app_deviceInfoModel : _app_deviceInfoModels) {
-//                // 新建一个 HashMap
-//                HashMap<String, String> map = new HashMap<String, String>();
-//
-//                // 每个子节点添加到HashMap关键= >值
-//                map.put("title", app_deviceInfoModel.getAddress());
-//                map.put("artist", app_deviceInfoModel.getStrName());
-//
-//                // HashList添加到数组列表
-//                modelList.add(map);
-//            }
-//            _adapter = new SimpleAdapter(view.getContext(),
-//                    modelList, R.layout.newslist_row, new String[] { "title",
-//                    "artist" }, new int[] { R.id.title,
-//                    R.id.artist });
-//            refreshList();
         }
     }
 }
