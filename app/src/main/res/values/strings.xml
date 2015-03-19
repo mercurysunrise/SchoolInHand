@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">掌中校园</string>
+    <string name="app_name">优幼通</string>
     <string name="hello_world">你好</string>
     <string name="action_settings">设置</string>
     <string name="action_search">搜索</string>
     <string name="action_plus">功能</string>
+    <string name="action_publishNewsInfo">发布公告</string>
     <string name="action_album">我的设备</string>
     <string name="action_collection">我的收藏</string>
     <string name="action_card">我的银行卡</string>
@@ -36,5 +37,14 @@
     <string name="soft_update_later">稍后更新</string>
     <string name="soft_updating">正在更新</string>
     <string name="soft_update_cancel">取消</string>
+
+
+    <string name="title_section1">title_section1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_item1">Item 1</string>
+    <string name="title_item2">Item 2</string>
+    <string name="title_item3">Item 3</string>
+    <string name="title_item4">Item 4</string>
+    <string name="title_activity_setting">SettingActivity</string>
     <string name="none"></string>
 </resources>

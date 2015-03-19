@@ -1,10 +1,16 @@
 package com.zhilianxinke.schoolinhand;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,6 +32,8 @@ import com.zhilianxinke.schoolinhand.util.UpdateManager;
  */
 public class MainActivity extends BaseFragmentActivity implements OnTabChangeListener {
 
+    private static final String TAG = "MainActivity";
+
     private FragmentTabHost fgTabHost;
 
     private LayoutInflater layoutInflater;
@@ -45,7 +53,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
         //检查升级
         UpdateManager updateManager = new UpdateManager();
         updateManager.QueryApkVersion(this,false);
-
+//        Context context = MainActivity.this;
         initView();
 	}
 
@@ -116,6 +124,26 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
             mTabHost.setCurrentTabByTag(lastTag);
         }*/
         super.onResume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_publishNewsInfo:
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setData(Uri.parse("https://github.com/DenisMondon/material-design-library"));
+//                startActivity(intent);
+                Log.i(TAG,"创建公告");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

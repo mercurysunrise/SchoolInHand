@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@android:color/black"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:paddingLeft="@dimen/px_to_dip_20"
+        android:paddingRight="@dimen/px_to_dip_20"
+        android:paddingBottom="@dimen/px_to_dip_20"
+        android:paddingTop="@dimen/px_to_dip_20"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/setting"
+        android:text="设置"
+        android:textColor="@android:color/white"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e4e4e4"
+        android:contentDescription="@string/content_description"/>
+
+    <TextView
+        android:paddingLeft="@dimen/px_to_dip_20"
+        android:paddingRight="@dimen/px_to_dip_20"
+        android:paddingBottom="@dimen/px_to_dip_20"
+        android:paddingTop="@dimen/px_to_dip_20"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:id="@+id/exit"
+        android:textColor="@android:color/white"
+        android:text="退出"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

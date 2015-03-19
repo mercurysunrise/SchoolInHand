@@ -16,4 +16,9 @@
         <!--<item name="android:titleTextStyle">@style/TextAppearance.Holo.Widget.ActionBar.Title.Own</item>-->
     </style>
 
+    <!--<style name="AppTheme.base" parent="Theme.AppCompat">-->
+    <!--<item name="windowActionBar">false</item>-->
+    <!--<item name="android:windowNoTitle">true</item>-->
+    <!--</style>-->
+
 </resources>

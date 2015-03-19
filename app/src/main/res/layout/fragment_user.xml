@@ -1,6 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp">
 
     <!-- TODO: Update blank fragment layout -->
     <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent"-->
@@ -14,6 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="软件升级" />
+    <Button android:id="@+id/btnCustomerService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="联系客服" />
 
     <Space
         android:layout_width="match_parent"
@@ -24,6 +31,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="退出"
-        android:layout_margin="4dp"
         android:background="#ffff5531" />
 </LinearLayout>

@@ -20,6 +20,7 @@ import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.base.BaseListViewFragment;
 import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
 import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
+import com.zhilianxinke.schoolinhand.util.CacheUtils;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
 
@@ -34,7 +35,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.prefs.Preferences;
@@ -52,6 +57,11 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
     private View _inflatedView;
 
     private String tag;
+    private String dataTag;
+    private String timeTag;
+
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
     private LinkedList<App_NewsInfoModel> _dataList;
     private NewsAdapter _newsAdapter;
 
@@ -61,6 +71,8 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     public void setTitle(String strTitle){
         this.tag = strTitle;
+        this.dataTag = tag + "Data";
+        this.timeTag = tag + "Time";
     }
 
     @Override
@@ -74,13 +86,12 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
         _lv_list = (ListView) _inflatedView.findViewById(R.id.lv_list);
 
+        if (_dataList == null && CacheUtils.isExistDataCache(getActivity(),tag)){
+            LinkedList<App_NewsInfoModel> list = (LinkedList<App_NewsInfoModel>)CacheUtils.readObject(getActivity(),dataTag);
+            _dataList = list;
+        }
         if (_dataList == null){
             _dataList = new LinkedList<App_NewsInfoModel>();
-                App_NewsInfoModel newsInfoModel = new App_NewsInfoModel();
-                newsInfoModel.setTitle(tag + "公告说明");
-                newsInfoModel.setPublicUserName(tag + "user");
-                newsInfoModel.setStrPublicTime("2015-02-09 00:00:00");
-                _dataList.add(newsInfoModel);
         }
         _newsAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _dataList);
         _lv_list.setAdapter(_newsAdapter);
@@ -94,7 +105,20 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+
+//        CacheUtils.saveObject(getActivity(),_dataList,tag);
         super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * 获取上次更新时间戳
+     * @return
+     */
+    public String getLastGetDataDate(){
+        if(CacheUtils.isExistDataCache(getActivity(),timeTag)){
+            return CacheUtils.readObject(getActivity(),timeTag).toString();
+        }
+        return "2000-01-01 00:00:00";
     }
 
     @Override
@@ -121,12 +145,12 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
             List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
 
-            params.add(new BasicNameValuePair("pk", StaticRes.currCustom.getPk()));
+            params.add(new BasicNameValuePair("dt", getLastGetDataDate()));
             // 对参数编码
             final String param = URLEncodedUtils.format(params, "UTF-8");
 
             // baseUrl
-            final String baseUrl = StaticRes.baseUrl + "/newsInfo/appNewsInfo";
+            final String baseUrl = StaticRes.baseUrl + "/newsInfo/getLastAppNewsInfo";
 
             final HttpClient httpClient = new DefaultHttpClient();
             try {
@@ -161,6 +185,8 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
                     _dataList.addFirst(item);
                 }
             }
+            CacheUtils.saveObject(getActivity(),_dataList,dataTag);
+            CacheUtils.saveObject(getActivity(),df.format(new Date()),timeTag);
             //通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
             _newsAdapter.notifyDataSetChanged();
 
