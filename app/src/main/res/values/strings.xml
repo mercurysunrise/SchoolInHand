@@ -47,4 +47,5 @@
     <string name="title_item4">Item 4</string>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="none"></string>
+    <string name="title_activity_add_newsinfo">创建新公告</string>
 </resources>

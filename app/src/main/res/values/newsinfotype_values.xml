@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="newsInfoTypes">
+        <item>班级</item>
+        <item>校园</item>
+        <item>系统</item>
+        <item>紧急</item>
+    </string-array>
+</resources>

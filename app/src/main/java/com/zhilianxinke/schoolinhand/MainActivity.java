@@ -19,6 +19,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
 import com.zhilianxinke.schoolinhand.base.BaseFragmentActivity;
+import com.zhilianxinke.schoolinhand.modules.news.AddNewsinfoActivity;
 import com.zhilianxinke.schoolinhand.modules.news.NewsInfoFragment;
 import com.zhilianxinke.schoolinhand.modules.stories.StoryFragment;
 import com.zhilianxinke.schoolinhand.modules.users.UserFragment;
@@ -136,9 +137,9 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_publishNewsInfo:
-//                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Intent intent = new Intent(this, AddNewsinfoActivity.class);
 //                intent.setData(Uri.parse("https://github.com/DenisMondon/material-design-library"));
-//                startActivity(intent);
+                startActivity(intent);
                 Log.i(TAG,"创建公告");
                 return true;
             default:
