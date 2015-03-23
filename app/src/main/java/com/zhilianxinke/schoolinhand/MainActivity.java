@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
-
 import com.zhilianxinke.schoolinhand.base.BaseFragmentActivity;
 import com.zhilianxinke.schoolinhand.modules.news.AddNewsinfoActivity;
 import com.zhilianxinke.schoolinhand.modules.news.NewsInfoFragment;
@@ -54,9 +53,11 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
         //检查升级
         UpdateManager updateManager = new UpdateManager();
         updateManager.QueryApkVersion(this,false);
-//        Context context = MainActivity.this;
+
         initView();
 	}
+
+
 
     private void initView(){
         //实例化布局对象

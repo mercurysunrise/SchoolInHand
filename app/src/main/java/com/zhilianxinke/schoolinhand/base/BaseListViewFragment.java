@@ -48,7 +48,7 @@ public abstract class BaseListViewFragment<T> extends Fragment implements Adapte
 
         mListView = (ListView)inflatedView.findViewById(rowContainerId);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout)inflatedView.findViewById(com.blunderer.materialdesignlibrary.R.id.activity_listview_with_refresh_refresh);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)inflatedView.findViewById(R.id.swipe_refresh);
 
         if (pullToRefreshList()) {
             mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

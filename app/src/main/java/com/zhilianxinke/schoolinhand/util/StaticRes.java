@@ -13,12 +13,12 @@ public class StaticRes {
 	//sincsmart
 
 	public static App_CustomModel currCustom;
-	
-//	public static String baseUrl = "http://115.28.171.84:8080/DeviceManagement";
-	public static String serverUrl = "http://192.168.1.105";
-//    public static String serverUrl = "http://121.42.146.235:8080";
-//    public static String serverName = "DeviceManagement";
-    public static String serverName = "DMService";
+
+//	public static String serverUrl = "http://192.168.1.105";
+//    public static String serverName = "DMService";
+    public static String serverUrl = "http://121.42.146.235:8080";
+    public static String serverName = "DeviceManagement";
+
     public static String baseUrl = serverUrl + "/" + serverName;
     public static String updateJson = serverUrl + "/appUpdate/schoolInHand.json";
     public static String updateUrl = serverUrl + "/appUpdate/app-debug.apk";

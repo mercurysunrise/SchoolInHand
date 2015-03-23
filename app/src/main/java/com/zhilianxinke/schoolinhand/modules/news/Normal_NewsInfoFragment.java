@@ -15,6 +15,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.zhilianxinke.schoolinhand.NewsInfoActivity;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.base.BaseListViewFragment;
@@ -60,12 +66,15 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
     private String dataTag;
     private String timeTag;
 
-    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private LinkedList<App_NewsInfoModel> _dataList;
     private NewsAdapter _newsAdapter;
 
+//    RequestQueue mQueue = Volley.newRequestQueue(getActivity());
+
     public Normal_NewsInfoFragment(){
+
 
     }
 
@@ -86,7 +95,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
         _lv_list = (ListView) _inflatedView.findViewById(R.id.lv_list);
 
-        if (_dataList == null && CacheUtils.isExistDataCache(getActivity(),tag)){
+        if (_dataList == null && CacheUtils.isExistDataCache(getActivity(),dataTag)){
             LinkedList<App_NewsInfoModel> list = (LinkedList<App_NewsInfoModel>)CacheUtils.readObject(getActivity(),dataTag);
             _dataList = list;
         }
@@ -105,8 +114,6 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
-//        CacheUtils.saveObject(getActivity(),_dataList,tag);
         super.onSaveInstanceState(outState);
     }
 
@@ -115,8 +122,8 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
      * @return
      */
     public String getLastGetDataDate(){
-        if(CacheUtils.isExistDataCache(getActivity(),timeTag)){
-            return CacheUtils.readObject(getActivity(),timeTag).toString();
+        if (_dataList != null && _dataList.size() > 0){
+            return _dataList.get(0).getStrPublicTime();
         }
         return "2000-01-01 00:00:00";
     }
@@ -186,7 +193,8 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
                 }
             }
             CacheUtils.saveObject(getActivity(),_dataList,dataTag);
-            CacheUtils.saveObject(getActivity(),df.format(new Date()),timeTag);
+//            String strDate = df.format(new Date());
+//            CacheUtils.saveObject(getActivity(),strDate,timeTag);
             //通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
             _newsAdapter.notifyDataSetChanged();
 

@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import io.rong.imkit.Res;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.view.ActionBar;
@@ -77,6 +76,7 @@ public class CustomServiceActivity extends BaseFragmentActivity {
 
         mActionBar.addView(mSettingView);
     }
+
 
 
     private void showPopupWindow(View v) {

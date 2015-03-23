@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+        <color name="color_primary">#ff608aff</color>
+        <color name="color_primary_dark">#ff5d79ea</color>
+
     <color name="background_tab_pressed">#6633B5E5</color>
     <item type="color" name="silver_white">#fffefefe</item>
     <color name="d_red">#ffad1414</color>

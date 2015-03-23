@@ -74,7 +74,7 @@
         </activity>
         <activity
             android:name=".modules.customservices.CustomServiceActivity"
-            android:label="@string/title_activity_setting" >
+            android:label="@string/title_activity_customer_service" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

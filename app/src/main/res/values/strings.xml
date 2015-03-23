@@ -46,6 +46,7 @@
     <string name="title_item3">Item 3</string>
     <string name="title_item4">Item 4</string>
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_customer_service">客服</string>
     <string name="none"></string>
     <string name="title_activity_add_newsinfo">创建新公告</string>
 </resources>
