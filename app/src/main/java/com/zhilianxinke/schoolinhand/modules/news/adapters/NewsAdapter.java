@@ -1,6 +1,7 @@
 package com.zhilianxinke.schoolinhand.modules.news.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,21 @@ public class NewsAdapter extends ArrayAdapter<App_NewsInfoModel> {
             tvNewsPublishTime.setText(item.getStrPublicTime().substring(0,10));
         }
 
+        if (item.isReaded()){
+            setReadState(view);
+//            view.setAlpha(180);
+//            view.setBackgroundColor(Color.GRAY);
+        }
+
         return view;
+    }
+
+    public static void setReadState(View view){
+        TextView tvNewsTitle = (TextView)view.findViewById(R.id.tvNewsTitle);
+        tvNewsTitle.setTextColor(Color.GRAY);
+        TextView tvNewsPublisher = (TextView)view.findViewById(R.id.tvNewsPublisher);
+        tvNewsPublisher.setTextColor(Color.GRAY);
+        TextView tvNewsPublishTime = (TextView)view.findViewById(R.id.tvNewsPublishTime);
+        tvNewsPublishTime.setTextColor(Color.GRAY);
     }
 }

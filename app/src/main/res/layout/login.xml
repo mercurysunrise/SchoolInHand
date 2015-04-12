@@ -95,18 +95,6 @@
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp" >
 
-        <CheckBox
-            android:id="@+id/cboIsRememberPsd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:button="@null"
-            android:checked="true"
-            android:drawableLeft="@drawable/checkbox_bg"
-            android:paddingTop="2dp"
-            android:text="记住密码"
-            android:textSize="12sp" />
-
     </RelativeLayout>
 
 </LinearLayout>

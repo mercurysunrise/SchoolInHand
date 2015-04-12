@@ -1,6 +1,7 @@
 package com.zhilianxinke.schoolinhand;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.http.HttpResponse;
@@ -12,13 +13,19 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,169 +35,172 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.sea_monster.core.exception.BaseException;
+import com.sea_monster.core.exception.InternalException;
+import com.sea_monster.core.network.AbstractHttpRequest;
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
+import com.zhilianxinke.schoolinhand.base.BaseApiActivity;
 import com.zhilianxinke.schoolinhand.domain.App_CustomModel;
+import com.zhilianxinke.schoolinhand.domain.User;
+import com.zhilianxinke.schoolinhand.rongyun.RongCloudEvent;
+import com.zhilianxinke.schoolinhand.rongyun.ui.LoadingDialog;
+import com.zhilianxinke.schoolinhand.rongyun.ui.WinToast;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
 import com.zhilianxinke.schoolinhand.util.UpdateManager;
 
-/**登陆界面activity*/
-public class LoginActivity extends BaseActivity implements OnClickListener{
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
-//	private Button btn_login_regist;//注册按钮
+/**登陆界面activity*/
+public class LoginActivity extends BaseActivity implements OnClickListener {
+
 	private Button btn_login;
 	private EditText et_LoginName;
 	private EditText et_Psd;
-    private CheckBox cboIsRememberPsd;
-	
 
-	public static final int MENU_PWD_BACK = 1;
-	public static final int MENU_HELP = 2;
-	public static final int MENU_EXIT = 3;
+    private String mDeviceId;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.login);
+    private static final int HANDLER_LOGIN_SUCCESS = 1;
+    private static final int HANDLER_LOGIN_FAILURE = 2;
+    private static final int REQUEST_CODE_REGISTER = 2001;
 
-		initView();
-        if (PreferenceManager.getDefaultSharedPreferences(this).contains("strName")){
-            et_LoginName.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("strName",""));
-            et_Psd.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("psd",""));
-            excuteLogin();
-        }
-	}
-	
-	private void initView(){
-//		btn_login_regist = (Button) findViewById(R.id.btn_login_regist);
-//		btn_login_regist.setOnClickListener(this);
-		
+    private AbstractHttpRequest<ArrayList<User>> getFriendsHttpRequest;
+
+    @Override
+    protected int setContentViewResId() {
+        return R.layout.login;
+    }
+
+    @Override
+	protected void initView(){
 		btn_login = (Button) findViewById(R.id.btn_login);
-		btn_login.setOnClickListener(this);
-		
 		et_LoginName = (EditText) findViewById(R.id.et_LoginName);
 		et_Psd = (EditText) findViewById(R.id.et_Psd);
-
-        cboIsRememberPsd = (CheckBox)findViewById(R.id.cboIsRememberPsd);
 	}
-	
-	
-	@Override
+
+    @Override
+    protected void initData(){
+        btn_login.setOnClickListener(this);
+//        if (PreferenceManager.getDefaultSharedPreferences(this).contains("strName")){
+//            et_LoginName.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("strName",""));
+//            et_Psd.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("psd",""));
+//            excuteLogin();
+//        }
+//        if(AppContext.getInstance()!=null) {
+//            String email = AppContext.getInstance().getSharedPreferences().getString(INTENT_EMAIL, "");
+//            String password = AppContext.getInstance().getSharedPreferences().getString(INTENT_PASSWORD, "");
+//            et_LoginName.setText(email);
+//            et_Psd.setText(password);
+//        }
+//        btn_login.setOnClickListener(this);
+//
+//        TelephonyManager mTelephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+//        mDeviceId = mTelephonyManager.getDeviceId();
+//
+//        mDialog = new LoadingDialog(this);
+//        mHandler = new Handler(this);
+//
+//        String token = AppContext.getInstance().getSharedPreferences().getString("LOGIN_TOKEN",null);
+//        Log.e("LoginActivity", "---------userId token---------:" + token);
+    }
+
+
+
+    @Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-//		case R.id.btn_login_regist:
-//			Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-//			startActivity(intent);
-//			break;
-		case R.id.btn_login:
-			excuteLogin();
-			break;
-		}
-	}
-	
-	private void excuteLogin(){
-		//客户端检查
-		//新线程发送到服务端
-		new Thread(runnable).start();
-	}
-	
-	private Handler handler = new Handler(){
-	    @Override
-	    public void handleMessage(Message msg) {
-	        super.handleMessage(msg);
-	        Bundle data = msg.getData();
-	        String val = data.getString("value");
-	    }
-	    Throwable a = new Throwable();
-	};
-	 
-	Runnable runnable = new Runnable(){
-	    @Override
-	    public void run() {
-	        // TODO: http request.
-	        Message msg = new Message();
-	        Bundle data = new Bundle();
-	        data.putString("value",excuteRequest());
-	        msg.setData(data);
-	        handler.sendMessage(msg);
-	    }
-	};
-	
-	public String excuteRequest() {
-		//先将参数放入List，再对参数进行URL编码
-		List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
-		
-		params.add(new BasicNameValuePair("strName", et_LoginName.getText().toString()));
-		params.add(new BasicNameValuePair("psd", et_Psd.getText().toString()));
+        String username = et_LoginName.getEditableText().toString();
+        String password = et_Psd.getEditableText().toString();
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            WinToast.toast(LoginActivity.this, "请填写用户名称或密码");
+            return;
+        }
 
-		//对参数编码
-		String param = URLEncodedUtils.format(params, "UTF-8");
-		
-		String baseUrl = StaticRes.baseUrl + "/customInfo/appLogin";
-		//将URL与参数拼接
-		HttpGet getMethod = new HttpGet(baseUrl + "?" + param);
-					
-		HttpClient httpClient = new DefaultHttpClient();
+        if(AppContext.getInstance()!=null){
+            String url = StaticRes.baseUrl + "/App/login"+"?strName="+username+"&psd="+password;
 
-		try {
-		    HttpResponse response = httpClient.execute(getMethod); //发起GET请求
+            JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET,url,null,new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        App_CustomModel app_CustomModel = JSONHelper.parseObject(response,App_CustomModel.class);
 
-		    String result = EntityUtils.toString(response.getEntity(), "utf-8");
-		    StaticRes.currCustom = JSONHelper.parseObject(result, App_CustomModel.class);
-		    
-		    if (StaticRes.currCustom != null) {
-                if (cboIsRememberPsd.isChecked()){
-                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-                    editor.putString("strName", et_LoginName.getText().toString());
-                    editor.putString("psd",et_Psd.getText().toString());
-                    editor.commit();
+                        connectRongService(app_CustomModel);
+                    } catch (JSONException e) {
+                        Log.e(TAG, e.getMessage());
+                        WinToast.toast(LoginActivity.this, e.getMessage());
+                    }
                 }
-		    	startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                finish();
-			}else {
-//				Toast.makeText(getApplicationContext(), "登录信息错误，请重新输入", Toast.LENGTH_SHORT).show();
-			}
-		} catch (ClientProtocolException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return baseUrl;
-	}
-	
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {//创建系统功能菜单
-		// TODO Auto-generated method stub
-		menu.add(0, MENU_PWD_BACK, 1, "密码找回").setIcon(R.drawable.menu_findkey);
-		menu.add(0,MENU_HELP,2,"帮助").setIcon(R.drawable.menu_setting);
-		menu.add(0, MENU_EXIT, 3, "退出").setIcon(R.drawable.menu_exit);
-		return super.onCreateOptionsMenu(menu);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch(item.getItemId()){
-		case MENU_PWD_BACK:
-			break;
-		case MENU_HELP:
-			break;
-		case MENU_EXIT:
-			finish();
-			break;
-		}
-		return super.onOptionsItemSelected(item);
+            },new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e(TAG,error.getMessage());
+                    WinToast.toast(LoginActivity.this,R.string.login_pass_error);
+                }
+            });
+            requestQueue.add(jr);
+        }
 	}
 
-	
+    /**
+     * 连接融云认证服务
+     * @param app_CustomModel
+     */
+    public void connectRongService(final App_CustomModel app_CustomModel){
+        try {
+            RongIM.connect(app_CustomModel.getUserToken(), new RongIMClient.ConnectCallback() {
+                @Override
+                public void onSuccess(String userId) {
+                    Log.d("LoginActivity", "--------- onSuccess userId----------:" + userId);
+
+                    RongCloudEvent.getInstance().setOtherListener();
+
+                    AppContext.getInstance().setCurrUser(app_CustomModel);
+
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onError(ErrorCode errorCode) {
+
+                    Log.d(TAG, "---------onError ----------:" + errorCode);
+                    LoginActivity.this.runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            WinToast.toast(LoginActivity.this, R.string.connect_fail);
+                        }
+                    });
+                }
+            });
+        } catch (Exception e) {
+            Log.e(TAG,"",e);
+        }
+    }
+
+    public void onCallApiSuccess(AbstractHttpRequest request, Object obj) {
+
+        //获取好友列表接口  返回好友数据  (注：非融云SDK接口，是demo接口)
+        if (getFriendsHttpRequest == request) {
+
+//            @SuppressWarnings("unchecked")
+//            final ArrayList<RongIMClient.UserInfo> friends = (ArrayList<RongIMClient.UserInfo>) getFriends((ArrayList<User>) obj);
+//            if(AppContext.getInstance()!=null)
+//                AppContext.getInstance().setFriends(friends);
+        }
+
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.zhilianxinke.schoolinhand.modules.news;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -138,6 +139,9 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
         App_NewsInfoModel app_NewsInfoModel = _dataList.get(position);
+        app_NewsInfoModel.setReaded(true);
+        NewsAdapter.setReadState(view);
+//        NewsAdapter newsAdapter = (NewsAdapter)parent;
         intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
         startActivity(intent);
         Log.d(TAG, "点击" + position);

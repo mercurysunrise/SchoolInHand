@@ -17,6 +17,7 @@ public class App_CustomModel implements Serializable{
 	private String schoolInfoPk;
 	private String schoolName;
 	private Calendar expirationTime;
+	private String userToken;
 	
 	public String getPk() {
 		return pk;
@@ -84,6 +85,12 @@ public class App_CustomModel implements Serializable{
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
 	}
-	
-	
+
+	public String getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
+	}
 }

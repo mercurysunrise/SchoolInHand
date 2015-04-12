@@ -11,8 +11,10 @@ import com.zhilianxinke.schoolinhand.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 public class NewsInfoActivity extends BaseActivity implements android.view.View.OnClickListener {
 
+    private static final String TAG = "NewsInfoActivity";
 	private TextView tv_top_title;
 	private TextView btn_title_share;
 	private TextView btn_title_left;
@@ -33,13 +36,18 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_newsinfo);
-		
-		initView();
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		setContentView(R.layout.activity_newsinfo);
+
 	}
-	
-	private void initView(){
+
+    @Override
+    protected int setContentViewResId() {
+        return R.layout.activity_newsinfo;
+    }
+
+    @Override
+    protected void initView(){
 		tv_top_title = (TextView) findViewById(R.id.tv_top_title);
 		tv_top_title.setText("公告详细");
 		
@@ -71,10 +79,30 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
             strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk=049aa25f-3581-4095-a4df-a83cfe3ac833";
         }
 
-		wv_news_content.loadUrl(strUrl);
+        wv_news_content.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
+        // 开启 DOM storage API 功能
+        wv_news_content.getSettings().setDomStorageEnabled(true);
+        //开启 database storage API 功能
+        wv_news_content.getSettings().setDatabaseEnabled(true);
+        String cacheDirPath = getFilesDir().getAbsolutePath()+"WebCache";
+
+        Log.i(TAG, "cacheDirPath=" + cacheDirPath);
+        //设置数据库缓存路径
+        wv_news_content.getSettings().setDatabasePath(cacheDirPath);
+        //设置  Application Caches 缓存目录
+        wv_news_content.getSettings().setAppCachePath(cacheDirPath);
+        //开启 Application Caches 功能
+        wv_news_content.getSettings().setAppCacheEnabled(true);
+
+        wv_news_content.loadUrl(strUrl);
 	}
-	
-	@Override
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){

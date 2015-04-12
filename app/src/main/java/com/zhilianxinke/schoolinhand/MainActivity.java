@@ -1,7 +1,9 @@
 package com.zhilianxinke.schoolinhand;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ import com.zhilianxinke.schoolinhand.modules.vedios.VedioFragment;
 import com.zhilianxinke.schoolinhand.modules.vedios.VedioListFragment;
 import com.zhilianxinke.schoolinhand.util.UpdateManager;
 
+import io.rong.imkit.view.ActionBar;
+
 /**
  * 主界面
  * @author hh
@@ -33,6 +37,9 @@ import com.zhilianxinke.schoolinhand.util.UpdateManager;
 public class MainActivity extends BaseFragmentActivity implements OnTabChangeListener {
 
     private static final String TAG = "MainActivity";
+
+
+    public static final String ACTION_DMEO_RECEIVE_MESSAGE = "action_demo_receive_message";
 
     private FragmentTabHost fgTabHost;
 
@@ -43,7 +50,26 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
     //定义数组来存放按钮图片
     private int mImageViewArray[] = {R.drawable.tab_news_btn,R.drawable.tab_vedio_btn,R.drawable.tab_story_btn,R.drawable.tab_user_btn};
 
-    private String mTextviewArray[] = {"公告", "视频", "发现", "我的"};
+    private String mTextviewArray[] = {"公告", "视频", "群组", "我的"};
+
+    private ActionBar mAction;
+
+    private int numbermessage = 0;
+    private ReceiveMessageBroadcastReciver mBroadcastReciver;
+
+    private class ReceiveMessageBroadcastReciver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(ACTION_DMEO_RECEIVE_MESSAGE)) {
+                numbermessage = intent.getIntExtra("rongCloud", -1);
+//                initData();
+            }
+        }
+
+    }
+
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +81,19 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
         updateManager.QueryApkVersion(this,false);
 
         initView();
-	}
+
+//        mAction = getViewById(R.id.action_bar);
+//        mImageView = mAction.getBackView();
+//        mImageView.setVisibility(View.GONE);
+
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(ACTION_DMEO_RECEIVE_MESSAGE);
+//        if (mBroadcastReciver == null) {
+//            mBroadcastReciver = new ReceiveMessageBroadcastReciver();
+//        }
+//        this.registerReceiver(mBroadcastReciver, intentFilter);
+
+    }
 
 
 

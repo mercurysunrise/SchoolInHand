@@ -49,16 +49,26 @@ public class AddNewsinfoActivity  extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    }
 
-        setContentView(R.layout.activity_add_newsinfo);
+    @Override
+    protected int setContentViewResId() {
+        return R.layout.activity_add_newsinfo;
+    }
 
+    @Override
+    protected void initView() {
         etNewsTitle = (EditText)findViewById(R.id.etNewsTitle);
         spNewsType = (Spinner)findViewById(R.id.spNewsType);
         tmlNewsContent = (EditText)findViewById(R.id.tmlNewsContent);
         btnAddNewsSubmit = (Button)findViewById(R.id.btnAddNewsSubmit);
 
         btnAddNewsSubmit.setOnClickListener(this);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
 

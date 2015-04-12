@@ -66,7 +66,7 @@ public class NewsInfoFragment extends Fragment {
 		
 		List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
 
-		params.add(new BasicNameValuePair("pk", StaticRes.currCustom.getPk()));
+		params.add(new BasicNameValuePair("pk", AppContext.getInstance().getCurrUser().getPk()));
 		// 对参数编码
 		final String param = URLEncodedUtils.format(params, "UTF-8");
 

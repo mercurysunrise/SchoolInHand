@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.RollViewPager;
 import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
@@ -235,7 +236,7 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
             List<App_DeviceInfoModel> app_deviceInfoModels = new ArrayList<App_DeviceInfoModel>();
             List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
 
-            params.add(new BasicNameValuePair("pk", StaticRes.currCustom.getPk()));
+            params.add(new BasicNameValuePair("pk", AppContext.getInstance().getCurrUser().getPk()));
             // 对参数编码
             final String param = URLEncodedUtils.format(params, "UTF-8");
 

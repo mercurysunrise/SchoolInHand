@@ -14,8 +14,15 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.main);
+    }
+
+    @Override
+    protected int setContentViewResId() {
+        return R.layout.main;
+    }
+
+    @Override
+    protected void initView() {
 
         final Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
         //系统会为需要启动的activity寻找与当前activity不同的task;
@@ -23,20 +30,25 @@ public class WelcomeActivity extends BaseActivity {
         //创建一个新的线程来显示欢迎动画，指定时间后结束，跳转至指定界面
         new Thread(new Runnable() {
 
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					Thread.sleep(2500);
-					//获取应用的上下文，生命周期是整个应用，应用结束才会结束
-					getApplicationContext().startActivity(intent);
-					finish();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                try {
+                    Thread.sleep(2500);
+                    //获取应用的上下文，生命周期是整个应用，应用结束才会结束
+                    getApplicationContext().startActivity(intent);
+                    finish();
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
-			}
-		}).start();
+            }
+        }).start();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

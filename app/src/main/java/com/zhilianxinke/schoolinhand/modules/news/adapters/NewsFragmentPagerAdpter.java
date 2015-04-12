@@ -15,17 +15,13 @@ import java.util.Map;
 public class NewsFragmentPagerAdpter extends FragmentPagerAdapter {
 
     private final static String TAG = "NewsFragmentPagerAdpter";
+
     public NewsFragmentPagerAdpter(FragmentManager fm) {
         super(fm);
-//        for (int i = 0;i<titles.length;i++){
-//            Normal_NewsInfoFragment normal_NewsInfoFragment = new Normal_NewsInfoFragment();
-//            normal_NewsInfoFragment.setTitle(titles[i]);
-//            Log.d(TAG,"add+"+titles[i]);
-//            fragmentList.add(normal_NewsInfoFragment);
-//        }
+
     }
 
-    private final String[] titles = { "班级", "校园", "公共" };
+    private final String[] titles = { "班级", "校园", "活动" };
 //    private final String[] titles = { "最新", "推荐", "收藏" };
     private Map<String,Normal_NewsInfoFragment> fragmentMap = new HashMap<String, Normal_NewsInfoFragment>(titles.length);
 //    private List<Normal_NewsInfoFragment> fragmentList = new ArrayList<Normal_NewsInfoFragment>(titles.length);
