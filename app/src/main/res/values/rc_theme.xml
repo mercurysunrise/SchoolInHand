@@ -27,7 +27,7 @@
         <item name="android:layout_height">48dp</item>
     </style>
 
-    <style name="RcTheme.ActionBar.Button" parent="@android:TextAppearance.Small.Inverse">
+    <style name="RcTheme.ActionBar.Button" >
         <item name="android:gravity">center</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -35,7 +35,7 @@
         <item name="android:textColor">@drawable/rc_co_select_selector</item>
     </style>
 
-    <style name="RcTheme.ActionBar.Title" parent="@android:TextAppearance.Medium.Inverse">
+    <style name="RcTheme.ActionBar.Title" >
     </style>
 
     <style name="RcTheme.ActionBar.Logo" >

@@ -1,24 +1,24 @@
-package com.zhilianxinke.schoolinhand;
-
-import java.io.Serializable;
+package com.zhilianxinke.schoolinhand.modules.news;
 
 //import cn.sharesdk.framework.ShareSDK;
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
-import com.zhilianxinke.schoolinhand.util.ClassPathResource;
+import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
 import com.zhilianxinke.schoolinhand.R;
-import android.app.Activity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.webkit.WebSettings;
+		import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import io.rong.imkit.view.ActionBar;
 
 public class NewsInfoActivity extends BaseActivity implements android.view.View.OnClickListener {
 
@@ -32,6 +32,10 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 	private WebView wv_news_content;
 	private TextView tv_news_publicTime;
 	private String strUrl;
+
+	private ActionBar mAction;
+
+	private static App_NewsInfoModel app_NewsInfoModel;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -48,59 +52,80 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 
     @Override
     protected void initView(){
-		tv_top_title = (TextView) findViewById(R.id.tv_top_title);
-		tv_top_title.setText("公告详细");
+//		tv_top_title = (TextView) findViewById(R.id.tv_top_title);
+//		tv_top_title.setText("公告详细");
 		
-		btn_title_share = (Button) findViewById(R.id.btn_title_share);
-//		btn_title_right.setVisibility(View.GONE);
-		btn_title_share.setOnClickListener(this);
-		
-		btn_title_left = (Button) findViewById(R.id.btn_title_left);
-		btn_title_left.setOnClickListener(this);
-		
-		Intent intent = getIntent();
+//		btn_title_share = (Button) findViewById(R.id.btn_title_share);
+////		btn_title_right.setVisibility(View.GONE);
+//		btn_title_share.setOnClickListener(this);
+//
+//		btn_title_left = (Button) findViewById(R.id.btn_title_left);
+//		btn_title_left.setOnClickListener(this);
 
-		App_NewsInfoModel app_NewsInfoModel = (App_NewsInfoModel)intent.getSerializableExtra("app_NewsInfoModel");
-		tv_news_title = (TextView) findViewById(R.id.tv_news_title);
-		tv_news_title.setText(app_NewsInfoModel.getTitle());
+		mAction = (ActionBar) findViewById(R.id.action_title_bar);
+
+
+
+//		App_NewsInfoModel app_NewsInfoModel = (App_NewsInfoModel)intent.getSerializableExtra("app_NewsInfoModel");
+//		tv_news_title = (TextView) findViewById(R.id.tv_news_title);
+//		tv_news_title.setText(app_NewsInfoModel.getTitle());
 		
 		tv_news_publicman = (TextView) findViewById(R.id.tv_news_publicman);
 		tv_news_publicman.setText(app_NewsInfoModel.getPublicUserName());
 		
 		tv_news_publicTime = (TextView) findViewById(R.id.tv_news_publicTime);
-        if (app_NewsInfoModel.getStrPublicTime() != null && app_NewsInfoModel.getStrPublicTime().length() > 10){
-            tv_news_publicTime.setText(app_NewsInfoModel.getStrPublicTime().substring(0,10));
-        }
+
 
 		wv_news_content = (WebView) findViewById(R.id.wv_news_content);
-        strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk="+app_NewsInfoModel.getPk();
-//		http://127.0.0.1/DMService/newsInfo/detail.html?pk=c06a0c04-703a-4e31-afb5-17d927317016
-        if (app_NewsInfoModel.getTitle().contains("测试公告标题")){
-            strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk=049aa25f-3581-4095-a4df-a83cfe3ac833";
-        }
 
-        wv_news_content.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
-        // 开启 DOM storage API 功能
-        wv_news_content.getSettings().setDomStorageEnabled(true);
-        //开启 database storage API 功能
-        wv_news_content.getSettings().setDatabaseEnabled(true);
-        String cacheDirPath = getFilesDir().getAbsolutePath()+"WebCache";
-
-        Log.i(TAG, "cacheDirPath=" + cacheDirPath);
-        //设置数据库缓存路径
-        wv_news_content.getSettings().setDatabasePath(cacheDirPath);
-        //设置  Application Caches 缓存目录
-        wv_news_content.getSettings().setAppCachePath(cacheDirPath);
-        //开启 Application Caches 功能
-        wv_news_content.getSettings().setAppCacheEnabled(true);
-
-        wv_news_content.loadUrl(strUrl);
 	}
 
     @Override
     protected void initData() {
+		mAction.getLogoView().setVisibility(View.GONE);
+		mAction.getTitleTextView().setText(app_NewsInfoModel.getTitle());
+		mAction.getTitleTextView().setTextColor(Color.WHITE);
+		mAction.getTitleTextView().setTextSize(18);
 
+		strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk="+app_NewsInfoModel.getPk();
+
+		if (app_NewsInfoModel.getTitle().contains("测试公告标题")){
+			strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk=049aa25f-3581-4095-a4df-a83cfe3ac833";
+		}
+
+		if (app_NewsInfoModel.getStrPublicTime() != null && app_NewsInfoModel.getStrPublicTime().length() > 10){
+			tv_news_publicTime.setText(app_NewsInfoModel.getStrPublicTime().substring(0,10));
+		}
+
+		wv_news_content.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
+		// 开启 DOM storage API 功能
+		wv_news_content.getSettings().setDomStorageEnabled(true);
+		//开启 database storage API 功能
+		wv_news_content.getSettings().setDatabaseEnabled(true);
+		String cacheDirPath = getFilesDir().getAbsolutePath()+"WebCache";
+
+		Log.i(TAG, "cacheDirPath=" + cacheDirPath);
+		//设置数据库缓存路径
+		wv_news_content.getSettings().setDatabasePath(cacheDirPath);
+		//设置  Application Caches 缓存目录
+		wv_news_content.getSettings().setAppCachePath(cacheDirPath);
+		//开启 Application Caches 功能
+		wv_news_content.getSettings().setAppCacheEnabled(true);
+
+		wv_news_content.loadUrl(strUrl);
     }
+
+	public static void actionStart(Context context,App_NewsInfoModel item){
+		Intent intent = new Intent(context,NewsInfoActivity.class);
+//		App_NewsInfoModel app_NewsInfoModel = _dataList.get(position);
+//		app_NewsInfoModel.setReaded(true);
+//		NewsAdapter.setReadState(view);
+//        NewsAdapter newsAdapter = (NewsAdapter)parent;
+//		intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
+		app_NewsInfoModel = item;
+		context.startActivity(intent);
+
+	}
 
     @Override
 	public void onClick(View v) {

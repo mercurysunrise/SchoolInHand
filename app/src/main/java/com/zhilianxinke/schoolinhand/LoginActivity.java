@@ -91,30 +91,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void initData(){
         btn_login.setOnClickListener(this);
-//        if (PreferenceManager.getDefaultSharedPreferences(this).contains("strName")){
-//            et_LoginName.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("strName",""));
-//            et_Psd.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("psd",""));
-//            excuteLogin();
-//        }
-//        if(AppContext.getInstance()!=null) {
-//            String email = AppContext.getInstance().getSharedPreferences().getString(INTENT_EMAIL, "");
-//            String password = AppContext.getInstance().getSharedPreferences().getString(INTENT_PASSWORD, "");
-//            et_LoginName.setText(email);
-//            et_Psd.setText(password);
-//        }
-//        btn_login.setOnClickListener(this);
-//
-//        TelephonyManager mTelephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-//        mDeviceId = mTelephonyManager.getDeviceId();
-//
-//        mDialog = new LoadingDialog(this);
-//        mHandler = new Handler(this);
-//
-//        String token = AppContext.getInstance().getSharedPreferences().getString("LOGIN_TOKEN",null);
-//        Log.e("LoginActivity", "---------userId token---------:" + token);
+
     }
-
-
 
     @Override
 	public void onClick(View v) {
@@ -151,6 +129,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         }
 	}
 
+
     /**
      * 连接融云认证服务
      * @param app_CustomModel
@@ -166,8 +145,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
                     AppContext.getInstance().setCurrUser(app_CustomModel);
 
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                    MainActivity.actionStart(LoginActivity.this);
                     finish();
                 }
 

@@ -1,5 +1,6 @@
 package com.zhilianxinke.schoolinhand.modules.news;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -62,13 +63,11 @@ public class AddNewsinfoActivity  extends BaseActivity implements View.OnClickLi
         spNewsType = (Spinner)findViewById(R.id.spNewsType);
         tmlNewsContent = (EditText)findViewById(R.id.tmlNewsContent);
         btnAddNewsSubmit = (Button)findViewById(R.id.btnAddNewsSubmit);
-
-        btnAddNewsSubmit.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-
+        btnAddNewsSubmit.setOnClickListener(this);
     }
 
 

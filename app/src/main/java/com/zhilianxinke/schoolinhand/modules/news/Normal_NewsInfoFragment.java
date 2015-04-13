@@ -1,30 +1,19 @@
 package com.zhilianxinke.schoolinhand.modules.news;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
-import com.zhilianxinke.schoolinhand.NewsInfoActivity;
 import com.zhilianxinke.schoolinhand.R;
-import com.zhilianxinke.schoolinhand.base.BaseListViewFragment;
 import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
 import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
 import com.zhilianxinke.schoolinhand.util.CacheUtils;
@@ -42,14 +31,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 /**
  * Created by hh on 2015-02-09.
@@ -137,13 +122,14 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
+//        Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
         App_NewsInfoModel app_NewsInfoModel = _dataList.get(position);
         app_NewsInfoModel.setReaded(true);
         NewsAdapter.setReadState(view);
 //        NewsAdapter newsAdapter = (NewsAdapter)parent;
-        intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
-        startActivity(intent);
+//        intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
+//        startActivity(intent);
+        NewsInfoActivity.actionStart(getActivity(),app_NewsInfoModel);
         Log.d(TAG, "点击" + position);
     }
 

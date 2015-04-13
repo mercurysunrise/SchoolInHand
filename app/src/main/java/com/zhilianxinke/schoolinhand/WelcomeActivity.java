@@ -24,9 +24,9 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void initView() {
 
-        final Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+
         //系统会为需要启动的activity寻找与当前activity不同的task;
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //创建一个新的线程来显示欢迎动画，指定时间后结束，跳转至指定界面
         new Thread(new Runnable() {
 
@@ -34,9 +34,14 @@ public class WelcomeActivity extends BaseActivity {
             public void run() {
                 // TODO Auto-generated method stub
                 try {
-                    Thread.sleep(2500);
+                    Thread.sleep(1500);
                     //获取应用的上下文，生命周期是整个应用，应用结束才会结束
-                    getApplicationContext().startActivity(intent);
+                    if (AppContext.getInstance().getCurrUser() != null){
+                        MainActivity.actionStart(WelcomeActivity.this);
+                    }else{
+                        final Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                     finish();
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block

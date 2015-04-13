@@ -2,7 +2,6 @@ package com.zhilianxinke.schoolinhand;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,9 +28,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
+import com.zhilianxinke.schoolinhand.modules.news.NewsInfoActivity;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
-import com.zhilianxinke.schoolinhand.R;
 
 /**
  * 通告Fragment的界面

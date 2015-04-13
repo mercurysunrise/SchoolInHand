@@ -1,10 +1,12 @@
 package com.zhilianxinke.schoolinhand;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -95,11 +97,26 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
 
     }
 
+    /**
+     * 外部启动MainActivity
+     * @param context
+     */
+    public static void actionStart(Context context){
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
+    }
 
 
     private void initView(){
         //实例化布局对象
         layoutInflater = LayoutInflater.from(this);
+
+        mAction = (ActionBar) findViewById(R.id.action_main_bar);
+        mAction.getBackView().setVisibility(View.GONE);
+        mAction.getTitleTextView().setText(R.string.app_name);
+        mAction.getTitleTextView().setTextColor(Color.WHITE);
+        mAction.getTitleTextView().setTextSize(18);
+
 
         //实例化TabHost对象，得到TabHost
         fgTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);

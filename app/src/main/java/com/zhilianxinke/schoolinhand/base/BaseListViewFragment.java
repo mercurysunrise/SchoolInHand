@@ -1,26 +1,19 @@
 package com.zhilianxinke.schoolinhand.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.zhilianxinke.schoolinhand.NewsInfoActivity;
 import com.zhilianxinke.schoolinhand.R;
-import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
-import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
