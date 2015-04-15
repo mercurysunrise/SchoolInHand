@@ -13,10 +13,10 @@ public class StaticRes {
 	//sincsmart
 
 
-	public static String serverUrl = "http://192.168.1.105";
-    public static String serverName = "DMService";
+	public static String serverUrl = "http://192.168.1.105:9080";
+//    public static String serverName = "DMService";
 //    public static String serverUrl = "http://121.42.146.235:8080";
-//    public static String serverName = "DeviceManagement";
+    public static String serverName = "DeviceManagement";
 
     public static String baseUrl = serverUrl + "/" + serverName;
     public static String updateJson = serverUrl + "/appUpdate/schoolInHand.json";

@@ -52,7 +52,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
     //定义数组来存放按钮图片
     private int mImageViewArray[] = {R.drawable.tab_news_btn,R.drawable.tab_vedio_btn,R.drawable.tab_story_btn,R.drawable.tab_user_btn};
 
-    private String mTextviewArray[] = {"公告", "视频", "群组", "我的"};
+    private String mTextviewArray[] = {"公告", "频道", "群组", "我的"};
 
     private ActionBar mAction;
 
@@ -97,16 +97,6 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
 
     }
 
-    /**
-     * 外部启动MainActivity
-     * @param context
-     */
-    public static void actionStart(Context context){
-        Intent intent = new Intent(context,MainActivity.class);
-        context.startActivity(intent);
-    }
-
-
     private void initView(){
         //实例化布局对象
         layoutInflater = LayoutInflater.from(this);
@@ -116,7 +106,6 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
         mAction.getTitleTextView().setText(R.string.app_name);
         mAction.getTitleTextView().setTextColor(Color.WHITE);
         mAction.getTitleTextView().setTextSize(18);
-
 
         //实例化TabHost对象，得到TabHost
         fgTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
@@ -201,6 +190,16 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    /**
+     * 外部启动MainActivity
+     * @param context
+     */
+    public static void actionStart(Context context){
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
     }
 
 
