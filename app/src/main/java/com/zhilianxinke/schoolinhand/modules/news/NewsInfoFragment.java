@@ -1,12 +1,8 @@
 package com.zhilianxinke.schoolinhand.modules.news;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -14,17 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-
-import com.zhilianxinke.schoolinhand.MediaFragment;
 import com.zhilianxinke.schoolinhand.R;
-import com.zhilianxinke.schoolinhand.StoreFragment;
 import com.zhilianxinke.schoolinhand.astuetz.PagerSlidingTabStrip;
 import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsFragmentPagerAdpter;
-
-import java.io.FileOutputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 public class NewsInfoFragment extends Fragment  {
 

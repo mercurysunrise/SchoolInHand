@@ -21,10 +21,9 @@ public class NewsFragmentPagerAdpter extends FragmentPagerAdapter {
 
     }
 
-    private final String[] titles = { "班级", "校园", "活动" };
-//    private final String[] titles = { "最新", "推荐", "收藏" };
+//    private final String[] titles = { "班级", "校园", "活动" };
+    private final String[] titles = { "最新", "推荐", "收藏" };
     private Map<String,Normal_NewsInfoFragment> fragmentMap = new HashMap<String, Normal_NewsInfoFragment>(titles.length);
-//    private List<Normal_NewsInfoFragment> fragmentList = new ArrayList<Normal_NewsInfoFragment>(titles.length);
 
     @Override
     public CharSequence getPageTitle(int position) {

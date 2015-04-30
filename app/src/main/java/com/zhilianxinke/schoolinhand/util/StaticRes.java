@@ -4,37 +4,12 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
-import com.zhilianxinke.schoolinhand.domain.App_CustomModel;
-
 public class StaticRes {
 
 	private static String TAG = "StaticRes";
 	//北京智联新科信息技术有限公司
 	//sincsmart
 
-
-	public static String serverUrl = "http://192.168.1.105:9080";
-//    public static String serverName = "DMService";
-//    public static String serverUrl = "http://121.42.146.235:8080";
-    public static String serverName = "DeviceManagement";
-
-    public static String baseUrl = serverUrl + "/" + serverName;
-    public static String updateJson = serverUrl + "/appUpdate/schoolInHand.json";
-    public static String updateUrl = serverUrl + "/appUpdate/app-debug.apk";
-
-    public final static String URL_TESTHLS = "http://115.28.171.84/hls/dh0B319/playlist.m3u8";
-
-	public static int getVerCode(Context context) {
-        int verCode = -1;
-        try {
-               verCode = context.getPackageManager().getPackageInfo(
-                             "com.zhilianxinke.schoolinhand", 0).versionCode;
-        } catch (NameNotFoundException e) {
-               Log.e(TAG, e.getMessage());
-        }
-        return verCode;
- }
-	
 	public final static String[] imageUrls = new String[] {  
         "http://img.my.csdn.net/uploads/201309/01/1378037235_3453.jpg",  
         "http://img.my.csdn.net/uploads/201309/01/1378037235_7476.jpg",  

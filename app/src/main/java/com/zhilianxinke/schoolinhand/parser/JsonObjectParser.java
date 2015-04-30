@@ -1,13 +1,8 @@
 package com.zhilianxinke.schoolinhand.parser;
 
-
 import com.google.gson.JsonParseException;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.MalformedJsonException;
-import com.sea_monster.core.exception.InternalException;
-import com.sea_monster.core.exception.ParseException;
-import com.sea_monster.core.network.StatusCallback;
-import com.sea_monster.core.network.parser.IEntityParser;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.protocol.HTTP;
@@ -18,8 +13,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.zip.GZIPInputStream;
 
+import me.add1.exception.InternalException;
+import me.add1.exception.ParseException;
+import me.add1.network.StatusCallback;
+import me.add1.network.parser.IEntityParser;
+
 
 public abstract class JsonObjectParser<T> implements IEntityParser<T> {
+
+
     public abstract T jsonParse(JsonReader reader) throws MalformedJsonException, JSONException, IOException,
             ParseException, InternalException;
 

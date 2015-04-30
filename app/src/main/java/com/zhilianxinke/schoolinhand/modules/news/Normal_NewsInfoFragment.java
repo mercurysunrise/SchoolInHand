@@ -1,6 +1,5 @@
 package com.zhilianxinke.schoolinhand.modules.news;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,12 +12,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.R;
-import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
+import com.zhilianxinke.schoolinhand.common.FastJsonRequest;
+import com.zhilianxinke.schoolinhand.domain.AppNews;
+import com.zhilianxinke.schoolinhand.domain.AppUser;
+import com.zhilianxinke.schoolinhand.domain.SdkHttpResult;
 import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
+import com.zhilianxinke.schoolinhand.rongyun.ui.WinToast;
 import com.zhilianxinke.schoolinhand.util.CacheUtils;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
+import com.zhilianxinke.schoolinhand.util.UrlBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -31,10 +41,13 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by hh on 2015-02-09.
@@ -50,24 +63,21 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     private String tag;
     private String dataTag;
-    private String timeTag;
+
+    public RequestQueue requestQueue;
 
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private LinkedList<App_NewsInfoModel> _dataList;
+    private LinkedList<AppNews> _dataList;
     private NewsAdapter _newsAdapter;
 
-//    RequestQueue mQueue = Volley.newRequestQueue(getActivity());
-
     public Normal_NewsInfoFragment(){
-
 
     }
 
     public void setTitle(String strTitle){
         this.tag = strTitle;
         this.dataTag = tag + "Data";
-        this.timeTag = tag + "Time";
     }
 
     @Override
@@ -82,12 +92,15 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
         _lv_list = (ListView) _inflatedView.findViewById(R.id.lv_list);
 
         if (_dataList == null && CacheUtils.isExistDataCache(getActivity(),dataTag)){
-            LinkedList<App_NewsInfoModel> list = (LinkedList<App_NewsInfoModel>)CacheUtils.readObject(getActivity(),dataTag);
+            LinkedList<AppNews> list = (LinkedList<AppNews>)CacheUtils.readObject(getActivity(),dataTag);
             _dataList = list;
         }
         if (_dataList == null){
-            _dataList = new LinkedList<App_NewsInfoModel>();
+            _dataList = new LinkedList<AppNews>();
         }
+
+        requestQueue = Volley.newRequestQueue(getActivity());
+
         _newsAdapter = new NewsAdapter(getActivity(), R.layout.news_row, _dataList);
         _lv_list.setAdapter(_newsAdapter);
         _lv_list.setOnItemClickListener(this);
@@ -109,7 +122,8 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
      */
     public String getLastGetDataDate(){
         if (_dataList != null && _dataList.size() > 0){
-            return _dataList.get(0).getStrPublicTime();
+            String cover = _dataList.get(0).getCover().toString();
+            return cover;
         }
         return "2000-01-01 00:00:00";
     }
@@ -117,80 +131,56 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
     @Override
     public void onRefresh() {
         _mSwipeRefreshLayout.setRefreshing(false);
-        new QueryNewsAsyncTask().execute();
+
+        AppUser appUser = AppContext.getInstance().getAppUser();
+
+        Map<String,String> params = new HashMap<>(2);
+        params.put("id",appUser.getId());
+        params.put("dt", getLastGetDataDate());
+        if("最新".equals(tag) || "推荐".equals(tag)){
+            String baseUrl = "最新".equals(tag) ? "/news/lastMyNews":"/news/lastCorpNews";
+            String url = UrlBuilder.build(baseUrl,params);
+
+            FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(url, SdkHttpResult.class,
+                    new Response.Listener<SdkHttpResult>() {
+                        @Override
+                        public void onResponse(SdkHttpResult sdkHttpResult) {
+
+                            if (sdkHttpResult != null && sdkHttpResult.getCode() == 200){
+                                String result = sdkHttpResult.getResult();
+                                List<AppNews> list = JSON.parseArray(result,AppNews.class);
+                                for(AppNews appNews : list){
+                                    _dataList.addFirst(appNews);
+                                }
+                                CacheUtils.saveObject(getActivity(),_dataList,dataTag);
+                                _newsAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyError ve = error;
+                    if (ve != null){
+                        Log.e(TAG,error.getMessage());
+                        WinToast.toast(getActivity(),error.getMessage());
+                    }
+                }
+            });
+            requestQueue.add(fastJson);
+        }else{
+
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        Intent intent = new Intent(getActivity(),NewsInfoActivity.class);
-        App_NewsInfoModel app_NewsInfoModel = _dataList.get(position);
-        app_NewsInfoModel.setReaded(true);
+        AppNews appNews = _dataList.get(position);
+        appNews.setRead(true);
         NewsAdapter.setReadState(view);
-//        NewsAdapter newsAdapter = (NewsAdapter)parent;
-//        intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
-//        startActivity(intent);
-        NewsInfoActivity.actionStart(getActivity(),app_NewsInfoModel);
+
+        NewsInfoActivity.actionStart(getActivity(),appNews);
         Log.d(TAG, "点击" + position);
-    }
-
-    private class QueryNewsAsyncTask extends AsyncTask<Void, Void, List<App_NewsInfoModel>> {
-        @Override
-        protected List<App_NewsInfoModel> doInBackground(Void... voids) {
-
-            Log.i("TAG", tag + "Fragment 发起查询请求");
-            List<App_NewsInfoModel> app_newsInfoModels = new ArrayList<App_NewsInfoModel>();
-
-            List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
-
-            params.add(new BasicNameValuePair("dt", getLastGetDataDate()));
-            // 对参数编码
-            final String param = URLEncodedUtils.format(params, "UTF-8");
-
-            // baseUrl
-            final String baseUrl = StaticRes.baseUrl + "/newsInfo/getLastAppNewsInfo";
-
-            final HttpClient httpClient = new DefaultHttpClient();
-            try {
-                HttpGet getMethod = new HttpGet(baseUrl + "?" + param);
-                HttpResponse response = httpClient.execute(getMethod); // 发起GET请求
-
-                String result = EntityUtils.toString(response.getEntity(),
-                        "utf-8");
-                app_newsInfoModels = (List<App_NewsInfoModel>) JSONHelper
-                        .parseCollection(result, List.class,
-                                App_NewsInfoModel.class);
-                Log.i("TAG", tag + "Fragment 获得查询结果=" + app_newsInfoModels.size());
-            } catch (ClientProtocolException e) {
-                Log.e(TAG, "ClientProtocolException", e);
-            } catch (IOException e) {
-                Log.e(TAG, "IOException", e);
-            } catch (JSONException e) {
-                Log.e(TAG, "JSONException", e);
-            }
-
-            return app_newsInfoModels;
-        }
-
-        //这里是对刷新的响应，可以利用addFirst（）和addLast()函数将新加的内容加到LISTView中
-        //根据AsyncTask的原理，onPostExecute里的result的值就是doInBackground()的返回值
-        @Override
-        protected void onPostExecute(List<App_NewsInfoModel> result) {
-            //在头部增加新添内容
-            for (App_NewsInfoModel item : result) {
-                if (item.getNewsTypeName().contains(tag)) {
-                    Log.i(TAG, "包含" + tag + "消息");
-                    _dataList.addFirst(item);
-                }
-            }
-            CacheUtils.saveObject(getActivity(),_dataList,dataTag);
-//            String strDate = df.format(new Date());
-//            CacheUtils.saveObject(getActivity(),strDate,timeTag);
-            //通知程序数据集已经改变，如果不做通知，那么将不会刷新mListItems的集合
-            _newsAdapter.notifyDataSetChanged();
-
-            Log.i(TAG, "更新列表数据" + tag);
-            super.onPostExecute(result);
-        }
     }
 
 

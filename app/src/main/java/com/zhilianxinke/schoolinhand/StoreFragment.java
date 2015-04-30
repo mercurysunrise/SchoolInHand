@@ -1,39 +1,10 @@
 package com.zhilianxinke.schoolinhand;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-
-import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
-import com.zhilianxinke.schoolinhand.util.JSONHelper;
-import com.zhilianxinke.schoolinhand.util.MyScrollView;
-import com.zhilianxinke.schoolinhand.util.StaticRes;
-import com.zhilianxinke.schoolinhand.R;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
 
 /**
  * 智能设备商店Fragment的界面

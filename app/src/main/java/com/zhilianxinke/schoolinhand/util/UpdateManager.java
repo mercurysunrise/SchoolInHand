@@ -103,7 +103,7 @@ public class UpdateManager
 
         @Override
         protected ApkUpdateModel doInBackground(Void... params) {
-            JSONObject jsonObject = HttpUtils.getJSONObj(StaticRes.updateJson);
+            JSONObject jsonObject = HttpUtils.getJSONObj(UrlBuilder.updateJson);
                 try {
                     ApkUpdateModel apkUpdateModel = new ApkUpdateModel();
 //                    apkUpdateModel.setVersionCode(1);
@@ -253,7 +253,7 @@ public class UpdateManager
                     String sdpath = Environment.getExternalStorageDirectory() + "/";
                     mSavePath = sdpath + "download";
 
-                    URL url = new URL(StaticRes.updateUrl);
+                    URL url = new URL(UrlBuilder.updateUrl);
                     // 创建连接
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.connect();

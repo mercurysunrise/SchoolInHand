@@ -5,17 +5,16 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.UnsupportedEncodingException;
 
 import io.rong.imlib.MessageTag;
-import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.MessageContent;
 
 /**
  * Created by zhjchen on 14/11/7.
  */
 @MessageTag(value = "RC:GroupInvationMsg", flag = MessageTag.ISPERSISTED |  MessageTag.ISCOUNTED)
-public class GroupInvitationNotification extends RongIMClient.MessageContent {
+public class GroupInvitationNotification extends MessageContent {
 
     private String groupId;
     private String message;

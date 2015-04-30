@@ -2,7 +2,6 @@ package com.zhilianxinke.schoolinhand.modules.vedios;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -15,23 +14,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
+import com.alibaba.fastjson.JSON;
 import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.RollViewPager;
-import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
+import com.zhilianxinke.schoolinhand.domain.AppAsset;
+import com.zhilianxinke.schoolinhand.domain.AppNews;
+import com.zhilianxinke.schoolinhand.domain.SdkHttpResult;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.MyVideoView;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
+import com.zhilianxinke.schoolinhand.util.UrlBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -66,7 +65,7 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
     private View view;
 
     private MyVideoView vv_ViedoView;
-    private static List<App_DeviceInfoModel> _app_deviceInfoModels;
+    private static List<AppAsset> _app_deviceInfoModels;
     private ArrayList<String> uriList;
     private ImageView img_AD;
 
@@ -79,8 +78,8 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
 //    private List<View> buttons= new ArrayList<View>();
     private RelativeLayout relativeLayout;
 
-    private Map<View,String> buttonUrlMap = new HashMap<View,String>(7);
-
+//    private Map<View,String> buttonUrlMap = new HashMap<View,String>(4);
+    private Map<View,AppAsset> buttonUrlMap = new HashMap<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,18 +88,12 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         vv_ViedoView = (MyVideoView) view.findViewById(R.id.vv_ViedoView);
         img_AD = (ImageView) view.findViewById(R.id.img_AD);
 
-        buttonUrlMap.clear();
-        buttonUrlMap.put(view.findViewById(R.id.btnPlay0), "http://121.42.146.235/hls/DHE153E/playlist.m3u8");
-        buttonUrlMap.put(view.findViewById(R.id.btnPlay1), "http://121.42.146.235/hls/DHC2655/playlist.m3u8");
-        buttonUrlMap.put(view.findViewById(R.id.btnPlay2), "http://121.42.146.235/hls/DHCB26F/playlist.m3u8");
-        buttonUrlMap.put(view.findViewById(R.id.btnPlay3), "http://121.42.146.235/hls/DH0B319/playlist.m3u8");
-        buttonUrlMap.put(view.findViewById(R.id.btnPlay4), "http://121.42.146.235/hls/DHE153E/playlist.m3u8");
-        buttonUrlMap.put(view.findViewById(R.id.btnPlay5), "http://121.42.146.235/hls/DHC2655/playlist.m3u8");
-        buttonUrlMap.put(view.findViewById(R.id.btnPlay6), "http://121.42.146.235/hls/DH0B319/playlist.m3u8");
+//        buttonUrlMap.clear();
+//        buttonUrlMap.put(view.findViewById(R.id.btnPlay0), "http://121.42.146.235/hls/DHE153E/playlist.m3u8");
+//        buttonUrlMap.put(view.findViewById(R.id.btnPlay1), "http://121.42.146.235/hls/DHC2655/playlist.m3u8");
+//        buttonUrlMap.put(view.findViewById(R.id.btnPlay2), "http://121.42.146.235/hls/DHCB26F/playlist.m3u8");
+//        buttonUrlMap.put(view.findViewById(R.id.btnPlay3), "http://121.42.146.235/hls/DH0B319/playlist.m3u8");
 
-        for (View view : buttonUrlMap.keySet()){
-            view.setOnClickListener(this);
-        }
         view.findViewById(R.id.img_full_screen).setOnClickListener(this);
         vv_ViedoView.setOnErrorListener(this);
 
@@ -151,7 +144,8 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         if (view.getId() == R.id.img_full_screen) {
             //全屏显示
             Intent intent = new Intent(getActivity(),MediaPlayerActivity.class);
-            intent.putExtra("app_DeviceInfoModel", _app_deviceInfoModels.get(0));
+            AppAsset appAsset = buttonUrlMap.get(view);
+            intent.putExtra("appAsset",appAsset);
             startActivity(intent);
         } else {
             //加载视频及广告
@@ -172,8 +166,8 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         if (vv_ViedoView.isPlaying()){
             vv_ViedoView.stopPlayback();
         }
-        String url = buttonUrlMap.get(view);
-        vv_ViedoView.setVideoURI(Uri.parse(url));
+        AppAsset appAsset = buttonUrlMap.get(view);
+        vv_ViedoView.setVideoURI(Uri.parse(appAsset.getUrl()));
         vv_ViedoView.requestFocus();
         img_AD.setVisibility(View.VISIBLE);
 
@@ -223,7 +217,7 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         img_AD.setVisibility(View.GONE);
     }
 
-    private class VedioListAsyncTask extends AsyncTask<Void, Void, List<App_DeviceInfoModel>> {
+    private class VedioListAsyncTask extends AsyncTask<Void, Void, List<AppAsset>> {
 
         @Override
         protected void onPreExecute() {
@@ -232,16 +226,16 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         }
 
         @Override
-        protected List<App_DeviceInfoModel> doInBackground(Void... voids) {
-            List<App_DeviceInfoModel> app_deviceInfoModels = new ArrayList<App_DeviceInfoModel>();
+        protected List<AppAsset> doInBackground(Void... voids) {
+            List<AppAsset> appAssets = new ArrayList<AppAsset>();
             List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
 
-            params.add(new BasicNameValuePair("pk", AppContext.getInstance().getCurrUser().getPk()));
+            params.add(new BasicNameValuePair("id", AppContext.getInstance().getAppUser().getId()));
             // 对参数编码
             final String param = URLEncodedUtils.format(params, "UTF-8");
 
             // baseUrl
-            final String baseUrl = StaticRes.baseUrl + "/deviceInfo/appDeviceInfo";
+            final String baseUrl = UrlBuilder.baseUrl + "/asset/myAssets";
 
             final HttpClient httpClient = new DefaultHttpClient();
             HttpGet getMethod = new HttpGet(baseUrl + "?" + param);
@@ -250,24 +244,31 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
 
                 String result = EntityUtils.toString(response.getEntity(),
                         "utf-8");
-                app_deviceInfoModels = (List<App_DeviceInfoModel>) JSONHelper
-                        .parseCollection(result, List.class,
-                                App_DeviceInfoModel.class);
-
+                SdkHttpResult sdkHttpResult = JSON.parseObject(result, SdkHttpResult.class);
+                if (sdkHttpResult != null && sdkHttpResult.getCode() == 200){
+                    appAssets = JSON.parseArray(sdkHttpResult.getResult(),AppAsset.class);
+                }
             } catch (ClientProtocolException e) {
                 Log.e(TAG, "ClientProtocolException", e);
             } catch (IOException e) {
                 Log.e(TAG, "IOException", e);
-            } catch (JSONException e) {
-                Log.e(TAG, "JSONException", e);
             }
 
-            return app_deviceInfoModels;
+            return appAssets;
         }
 
         @Override
-        protected void onPostExecute(List<App_DeviceInfoModel> app_deviceInfoModels) {
+        protected void onPostExecute(List<AppAsset> app_deviceInfoModels) {
             _app_deviceInfoModels = app_deviceInfoModels;
+
+            buttonUrlMap.put(view.findViewById(R.id.btnPlay0), _app_deviceInfoModels.get(0));
+            buttonUrlMap.put(view.findViewById(R.id.btnPlay1), _app_deviceInfoModels.get(1));
+            buttonUrlMap.put(view.findViewById(R.id.btnPlay2), _app_deviceInfoModels.get(2));
+            buttonUrlMap.put(view.findViewById(R.id.btnPlay3), _app_deviceInfoModels.get(3));
+
+            for (View view : buttonUrlMap.keySet()){
+                view.setOnClickListener(VedioListFragment.this);
+            }
 
             view.findViewById(R.id.pb_btns).setVisibility(View.GONE);
             view.findViewById(R.id.ll_btns).setVisibility(View.VISIBLE);

@@ -3,6 +3,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <io.rong.imkit.view.ActionBar
+        android:id="@+id/action_main_bar"
+        android:background="@color/title_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_to_dip_96" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_height="wrap_content"
@@ -20,23 +26,27 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:orientation="horizontal"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:layout_weight="0"
+        android:layout_weight="1.5"
         android:layout_width="match_parent" >
-        <TextView android:text="类型"
+        <TextView android:text="图片"
+            android:gravity="top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spNewsType"
-            android:entries="@array/newsInfoTypes">
-            </Spinner>
-        </LinearLayout>
+        <GridView
+            android:id="@+id/noScrollgridview"
+            android:layout_width="290dp"
+            android:layout_height="350dp"
+            android:layout_marginLeft="5dp"
+            android:horizontalSpacing="3dp"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:verticalSpacing="5dp" >
+        </GridView>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -54,17 +64,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textMultiLine"
-            android:ems="6"/>
+            android:ems="6"
+            android:layout_gravity="top"
+            android:text="得分"
+            android:gravity="top" />
     </LinearLayout>
+
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:text="提交"
-        android:id="@+id/btnAddNewsSubmit"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:layout_columnSpan="2"/>
+        android:id="@+id/btnAddNewsSubmit"/>
 
 
 </LinearLayout>

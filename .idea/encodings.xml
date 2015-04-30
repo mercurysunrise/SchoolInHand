@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/CompositeAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeAddressListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeAddressMultiChoiceAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeBlackListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeBlackMultiChoiceAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeFriendListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeFriendMultiChoiceAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeGroupListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeNewFriendListAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeSearchFriendAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/ApiResult.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/FriendSectionIndexer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/Friends.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/Groups.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/Status.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/interfaces/IFilterModel.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/GsonArrayParser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/GsonParser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/JsonObjectParser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeEditTextHolder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeGridView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DePinnedHandler.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DePinnedHeaderAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DePinnedHeaderListView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeSwitchGroup.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeSwitchItemView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/LoadingDialog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/WinToast.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/util/DePinyinHelper.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/de_toast_bg.9.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/de_ui_toast.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values/arrays.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values/rc_dimens.xml" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

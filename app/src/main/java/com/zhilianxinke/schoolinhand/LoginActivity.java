@@ -1,62 +1,24 @@
 package com.zhilianxinke.schoolinhand;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.PreferenceManager;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
+import com.alibaba.fastjson.JSON;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.sea_monster.core.exception.BaseException;
-import com.sea_monster.core.exception.InternalException;
-import com.sea_monster.core.network.AbstractHttpRequest;
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
-import com.zhilianxinke.schoolinhand.base.BaseApiActivity;
-import com.zhilianxinke.schoolinhand.domain.App_CustomModel;
+import com.zhilianxinke.schoolinhand.common.FastJsonRequest;
+import com.zhilianxinke.schoolinhand.domain.AppUser;
+import com.zhilianxinke.schoolinhand.domain.SdkHttpResult;
 import com.zhilianxinke.schoolinhand.domain.User;
 import com.zhilianxinke.schoolinhand.rongyun.RongCloudEvent;
-import com.zhilianxinke.schoolinhand.rongyun.ui.LoadingDialog;
 import com.zhilianxinke.schoolinhand.rongyun.ui.WinToast;
-import com.zhilianxinke.schoolinhand.util.JSONHelper;
-import com.zhilianxinke.schoolinhand.util.StaticRes;
-import com.zhilianxinke.schoolinhand.util.UpdateManager;
+import com.zhilianxinke.schoolinhand.util.UrlBuilder;
+
+import java.util.ArrayList;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -74,7 +36,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     private static final int HANDLER_LOGIN_FAILURE = 2;
     private static final int REQUEST_CODE_REGISTER = 2001;
 
-    private AbstractHttpRequest<ArrayList<User>> getFriendsHttpRequest;
+//    private AbstractHttpRequest<ArrayList<User>> getFriendsHttpRequest;
 
     @Override
     protected int setContentViewResId() {
@@ -91,7 +53,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
     @Override
     protected void initData(){
         btn_login.setOnClickListener(this);
-
     }
 
     @Override
@@ -104,53 +65,54 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         }
 
         if(AppContext.getInstance()!=null){
-            String url = StaticRes.baseUrl + "/App/login"+"?strName="+username+"&psd="+password;
+            String url = UrlBuilder.baseUrl + "/user/login"+"?id="+username+"&psd="+password;
 
-            JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET,url,null,new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        App_CustomModel app_CustomModel = JSONHelper.parseObject(response,App_CustomModel.class);
+            FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(url, SdkHttpResult.class,
+                    new Response.Listener<SdkHttpResult>() {
+                        @Override
+                        public void onResponse(SdkHttpResult sdkHttpResult) {
+                            if (sdkHttpResult.getCode() == 200){
+                                AppUser appUser = JSON.parseObject(sdkHttpResult.getResult(),AppUser.class);
+                                connectRongService(appUser);
+                            }else{
+                                WinToast.toast(LoginActivity.this,R.string.login_pass_error);
+                            }
+                        }
+                    }, new Response.ErrorListener() {
 
-                        connectRongService(app_CustomModel);
-                    } catch (JSONException e) {
-                        Log.e(TAG, e.getMessage());
-                        WinToast.toast(LoginActivity.this, e.getMessage());
-                    }
-                }
-            },new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG,error.getMessage());
-                    WinToast.toast(LoginActivity.this,R.string.login_pass_error);
+                                        Log.e(TAG,error.getMessage());
+                    WinToast.toast(LoginActivity.this,error.getMessage());
                 }
             });
-            requestQueue.add(jr);
+
+            requestQueue.add(fastJson);
         }
 	}
 
 
     /**
      * 连接融云认证服务
-     * @param app_CustomModel
+     * @param appUser
      */
-    public void connectRongService(final App_CustomModel app_CustomModel){
+    public void connectRongService(final AppUser appUser){
         try {
-            RongIM.connect(app_CustomModel.getUserToken(), new RongIMClient.ConnectCallback() {
+            RongIM.connect(appUser.getRongToken(), new RongIMClient.ConnectCallback() {
                 @Override
                 public void onSuccess(String userId) {
                     Log.d("LoginActivity", "--------- onSuccess userId----------:" + userId);
 
                     RongCloudEvent.getInstance().setOtherListener();
 
-                    AppContext.getInstance().setCurrUser(app_CustomModel);
+                    AppContext.getInstance().setAppUser(appUser);
 
                     MainActivity.actionStart(LoginActivity.this);
                     finish();
                 }
 
                 @Override
-                public void onError(ErrorCode errorCode) {
+                public void onError(RongIMClient.ErrorCode errorCode) {
 
                     Log.d(TAG, "---------onError ----------:" + errorCode);
                     LoginActivity.this.runOnUiThread(new Runnable() {
@@ -167,18 +129,18 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    public void onCallApiSuccess(AbstractHttpRequest request, Object obj) {
-
-        //获取好友列表接口  返回好友数据  (注：非融云SDK接口，是demo接口)
-        if (getFriendsHttpRequest == request) {
-
-//            @SuppressWarnings("unchecked")
-//            final ArrayList<RongIMClient.UserInfo> friends = (ArrayList<RongIMClient.UserInfo>) getFriends((ArrayList<User>) obj);
-//            if(AppContext.getInstance()!=null)
-//                AppContext.getInstance().setFriends(friends);
-        }
-
-    }
+//    public void onCallApiSuccess(AbstractHttpRequest request, Object obj) {
+//
+//        //获取好友列表接口  返回好友数据  (注：非融云SDK接口，是demo接口)
+//        if (getFriendsHttpRequest == request) {
+//
+////            @SuppressWarnings("unchecked")
+////            final ArrayList<RongIMClient.UserInfo> friends = (ArrayList<RongIMClient.UserInfo>) getFriends((ArrayList<User>) obj);
+////            if(AppContext.getInstance()!=null)
+////                AppContext.getInstance().setFriends(friends);
+//        }
+//
+//    }
 
 
 }

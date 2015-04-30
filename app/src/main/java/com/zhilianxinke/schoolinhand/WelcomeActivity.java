@@ -36,7 +36,7 @@ public class WelcomeActivity extends BaseActivity {
                 try {
                     Thread.sleep(1500);
                     //获取应用的上下文，生命周期是整个应用，应用结束才会结束
-                    if (AppContext.getInstance().getCurrUser() != null){
+                    if (AppContext.getInstance().getAppUser() != null){
                         MainActivity.actionStart(WelcomeActivity.this);
                     }else{
                         final Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);

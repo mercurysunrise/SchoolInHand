@@ -1,16 +1,19 @@
 package com.zhilianxinke.schoolinhand.parser;
 
+import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.MalformedJsonException;
-import com.sea_monster.core.exception.InternalException;
-import com.sea_monster.core.exception.ParseException;
+import com.zhilianxinke.schoolinhand.AppContext;
 
+import org.apache.http.Header;
 import org.json.JSONException;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import me.add1.exception.InternalException;
+import me.add1.exception.ParseException;
 
 /**
  * Created by DragonJ on 14-7-15.
@@ -20,16 +23,34 @@ public class GsonParser<T extends Serializable> extends JsonObjectParser<T> {
 
     Type type;
     Gson gson;
-    public GsonParser(Class<T> type)
-    {
+
+    public GsonParser(Class<T> type) {
         gson = new Gson();
         this.type = type;
     }
 
+    @Override
+    public T jsonParse(JsonReader reader) throws JSONException, IOException, ParseException, InternalException,JsonSyntaxException {
+        return gson.fromJson(reader, this.type);
+    }
 
     @Override
-    public T jsonParse(JsonReader reader) throws MalformedJsonException, JSONException, IOException, ParseException, InternalException {
-        return gson.fromJson(reader,this.type);
+    public void onHeaderParsed(Header[] headers) {
+
+        if (headers == null) {
+            return;
+        } else {
+            for (int i = 0; i < headers.length; i++) {
+                if (headers[i].getName().equals("Set-Cookie")) {
+                    String[] cookievalues = headers[i].getValue().split(";");
+                    SharedPreferences.Editor edit = AppContext.getInstance().getSharedPreferences().edit();
+                    edit.putString("DEMO_COOKIE", cookievalues[0]);
+                    edit.commit();
+                }
+            }
+        }
     }
+
+
 }
 

@@ -10,26 +10,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhilianxinke.schoolinhand.R;
-import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
+import com.zhilianxinke.schoolinhand.domain.AppNews;
 
 import java.util.List;
 
 /**
  * Created by hh on 2015-02-08.
  */
-public class NewsAdapter extends ArrayAdapter<App_NewsInfoModel> {
+public class NewsAdapter extends ArrayAdapter<AppNews> {
 
     private int textViewResourceId;
 
-    public NewsAdapter(Context context, int textViewResourceId, List<App_NewsInfoModel> objects) {
+    public NewsAdapter(Context context, int textViewResourceId, List<AppNews> objects) {
         super(context, textViewResourceId, objects);
         this.textViewResourceId = textViewResourceId;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        App_NewsInfoModel item = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(this.textViewResourceId,null);
+        AppNews item = getItem(position);
+        View view = LayoutInflater.from(getContext()).inflate(this.textViewResourceId, null);
         ImageView imgIsHot = (ImageView)view.findViewById(R.id.imgNewsIsHot);
         //title
         TextView tvNewsTitle = (TextView)view.findViewById(R.id.tvNewsTitle);
@@ -39,14 +39,14 @@ public class NewsAdapter extends ArrayAdapter<App_NewsInfoModel> {
         tvNewsPrevContent.setText("");
         //publisher
         TextView tvNewsPublisher = (TextView)view.findViewById(R.id.tvNewsPublisher);
-        tvNewsPublisher.setText(item.getPublicUserName());
+        tvNewsPublisher.setText(item.getAuthorName());
         //publicTime
         TextView tvNewsPublishTime = (TextView)view.findViewById(R.id.tvNewsPublishTime);
-        if (item.getStrPublicTime() != null && item.getStrPublicTime().length() > 10){
-            tvNewsPublishTime.setText(item.getStrPublicTime().substring(0,10));
+        if (item.getCover() != null && item.getCover().toString().length() > 10){
+            tvNewsPublishTime.setText(item.getCover().toString().substring(0,10));
         }
 
-        if (item.isReaded()){
+        if (item.isRead()){
             setReadState(view);
 //            view.setAlpha(180);
 //            view.setBackgroundColor(Color.GRAY);
@@ -56,11 +56,12 @@ public class NewsAdapter extends ArrayAdapter<App_NewsInfoModel> {
     }
 
     public static void setReadState(View view){
+        int readColor = Color.GRAY;
         TextView tvNewsTitle = (TextView)view.findViewById(R.id.tvNewsTitle);
-        tvNewsTitle.setTextColor(Color.GRAY);
+        tvNewsTitle.setTextColor(readColor);
         TextView tvNewsPublisher = (TextView)view.findViewById(R.id.tvNewsPublisher);
-        tvNewsPublisher.setTextColor(Color.GRAY);
+        tvNewsPublisher.setTextColor(readColor);
         TextView tvNewsPublishTime = (TextView)view.findViewById(R.id.tvNewsPublishTime);
-        tvNewsPublishTime.setTextColor(Color.GRAY);
+        tvNewsPublishTime.setTextColor(readColor);
     }
 }

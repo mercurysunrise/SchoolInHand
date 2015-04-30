@@ -31,7 +31,7 @@ public class WinToast {
 		Toast result = new Toast(context);
 
 		LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View v = inflate.inflate(R.layout.ui_toast, null);
+		View v = inflate.inflate(R.layout.de_ui_toast, null);
 		result.setView(v);
 		ImageView iv = (ImageView) v.findViewById(android.R.id.icon);
 
@@ -47,7 +47,7 @@ public class WinToast {
 		Toast result = new Toast(context);
 
 		LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View v = inflate.inflate(R.layout.ui_toast, null);
+		View v = inflate.inflate(R.layout.de_ui_toast, null);
 		result.setView(v);
 		TextView tv = (TextView) v.findViewById(android.R.id.message);
 		tv.setText(text);

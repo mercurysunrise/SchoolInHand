@@ -1,24 +1,20 @@
 package com.zhilianxinke.schoolinhand.modules.news;
 
-//import cn.sharesdk.framework.ShareSDK;
-import com.zhilianxinke.schoolinhand.base.BaseActivity;
-import com.zhilianxinke.schoolinhand.domain.App_NewsInfoModel;
-import com.zhilianxinke.schoolinhand.modules.news.adapters.NewsAdapter;
-import com.zhilianxinke.schoolinhand.util.StaticRes;
-import com.zhilianxinke.schoolinhand.R;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-		import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import io.rong.imkit.view.ActionBar;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zhilianxinke.schoolinhand.R;
+import com.zhilianxinke.schoolinhand.base.BaseActivity;
+import com.zhilianxinke.schoolinhand.domain.AppNews;
+import com.zhilianxinke.schoolinhand.util.StaticRes;
+import com.zhilianxinke.schoolinhand.util.UrlBuilder;
 
 public class NewsInfoActivity extends BaseActivity implements android.view.View.OnClickListener {
 
@@ -29,21 +25,16 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 	
 	private TextView tv_news_title;
 	private TextView tv_news_publicman;
-	private WebView wv_news_content;
+
 	private TextView tv_news_publicTime;
-	private String strUrl;
 
-	private ActionBar mAction;
+	private TextView tv_news_content;
 
-	private static App_NewsInfoModel app_NewsInfoModel;
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-//		requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		setContentView(R.layout.activity_newsinfo);
+//	private ActionBar mAction;
+	private LinearLayout ll_images;
+	DisplayImageOptions options;        // DisplayImageOptions是用于设置图片显示的类
 
-	}
+	private static AppNews appNews;
 
     @Override
     protected int setContentViewResId() {
@@ -52,79 +43,84 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 
     @Override
     protected void initView(){
-//		tv_top_title = (TextView) findViewById(R.id.tv_top_title);
-//		tv_top_title.setText("公告详细");
-		
-//		btn_title_share = (Button) findViewById(R.id.btn_title_share);
-////		btn_title_right.setVisibility(View.GONE);
-//		btn_title_share.setOnClickListener(this);
-//
-//		btn_title_left = (Button) findViewById(R.id.btn_title_left);
-//		btn_title_left.setOnClickListener(this);
+//		mAction = (ActionBar) findViewById(R.id.abar_news_activity);
 
-		mAction = (ActionBar) findViewById(R.id.action_title_bar);
-
-
-
-//		App_NewsInfoModel app_NewsInfoModel = (App_NewsInfoModel)intent.getSerializableExtra("app_NewsInfoModel");
-//		tv_news_title = (TextView) findViewById(R.id.tv_news_title);
-//		tv_news_title.setText(app_NewsInfoModel.getTitle());
-		
 		tv_news_publicman = (TextView) findViewById(R.id.tv_news_publicman);
-		tv_news_publicman.setText(app_NewsInfoModel.getPublicUserName());
+		tv_news_publicman.setText(appNews.getAuthorName());
 		
 		tv_news_publicTime = (TextView) findViewById(R.id.tv_news_publicTime);
 
+		tv_news_content= (TextView)findViewById(R.id.tv_news_content);
 
-		wv_news_content = (WebView) findViewById(R.id.wv_news_content);
+		ll_images = (LinearLayout)findViewById(R.id.ll_images);
 
+		// 使用DisplayImageOptions.Builder()创建DisplayImageOptions
+		options = new DisplayImageOptions.Builder()
+				.showStubImage(R.drawable.image_bg)          // 设置图片下载期间显示的图片
+				.showImageForEmptyUri(R.drawable.image_bg)  // 设置图片Uri为空或是错误的时候显示的图片
+				.showImageOnFail(R.drawable.image_bg)       // 设置图片加载或解码过程中发生错误显示的图片
+				.cacheInMemory()                        // 设置下载的图片是否缓存在内存中
+				.cacheOnDisc()                          // 设置下载的图片是否缓存在SD卡中
+//				.displayer(new RoundedBitmapDisplayer(20))  // 设置成圆角图片
+				.build();                                   // 创建配置过得DisplayImageOption对象
 	}
 
     @Override
     protected void initData() {
-		mAction.getLogoView().setVisibility(View.GONE);
-		mAction.getTitleTextView().setText(app_NewsInfoModel.getTitle());
-		mAction.getTitleTextView().setTextColor(Color.WHITE);
-		mAction.getTitleTextView().setTextSize(18);
+//		mAction.getLogoView().setVisibility(View.GONE);
+//		mAction.getTitleTextView().setText(appNews.getTitle());
+//		mAction.getTitleTextView().setTextColor(Color.WHITE);
+//		mAction.getTitleTextView().setTextSize(18);
 
-		strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk="+app_NewsInfoModel.getPk();
-
-		if (app_NewsInfoModel.getTitle().contains("测试公告标题")){
-			strUrl = StaticRes.baseUrl + "/newsInfo/detail.html?pk=049aa25f-3581-4095-a4df-a83cfe3ac833";
+		if (appNews.getCover() != null && appNews.getCover().toString().length() > 10){
+			tv_news_publicTime.setText(appNews.getCover().toString().substring(0,10));
 		}
+		String content = appNews.getContent();
+		tv_news_content.setText(content);
 
-		if (app_NewsInfoModel.getStrPublicTime() != null && app_NewsInfoModel.getStrPublicTime().length() > 10){
-			tv_news_publicTime.setText(app_NewsInfoModel.getStrPublicTime().substring(0,10));
+		if (appNews.getImage() != null){
+			String[] strUrls = appNews.getImage().split(";");
+			for (String strUrl : strUrls){
+				requestImage(UrlBuilder.buildImageUrl(strUrl));
+			}
 		}
-
-		wv_news_content.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
-		// 开启 DOM storage API 功能
-		wv_news_content.getSettings().setDomStorageEnabled(true);
-		//开启 database storage API 功能
-		wv_news_content.getSettings().setDatabaseEnabled(true);
-		String cacheDirPath = getFilesDir().getAbsolutePath()+"WebCache";
-
-		Log.i(TAG, "cacheDirPath=" + cacheDirPath);
-		//设置数据库缓存路径
-		wv_news_content.getSettings().setDatabasePath(cacheDirPath);
-		//设置  Application Caches 缓存目录
-		wv_news_content.getSettings().setAppCachePath(cacheDirPath);
-		//开启 Application Caches 功能
-		wv_news_content.getSettings().setAppCacheEnabled(true);
-
-		wv_news_content.loadUrl(strUrl);
     }
 
-	public static void actionStart(Context context,App_NewsInfoModel item){
-		Intent intent = new Intent(context,NewsInfoActivity.class);
-//		App_NewsInfoModel app_NewsInfoModel = _dataList.get(position);
-//		app_NewsInfoModel.setReaded(true);
-//		NewsAdapter.setReadState(view);
-//        NewsAdapter newsAdapter = (NewsAdapter)parent;
-//		intent.putExtra("app_NewsInfoModel", app_NewsInfoModel);
-		app_NewsInfoModel = item;
-		context.startActivity(intent);
+	public void requestImage(String url){
+//		ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
+//			@Override
+//			public void onResponse(Bitmap response) {
+//				ImageView imageView = new ImageView(NewsInfoActivity.this);
+//				imageView.setImageBitmap(response);
+//				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+//						LinearLayout.LayoutParams.MATCH_PARENT,
+//						LinearLayout.LayoutParams.WRAP_CONTENT
+//				);
+//				imageView.setLayoutParams(layoutParams);
+//				ll_images.addView(imageView);
+//			}
+//		}, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+//			@Override
+//			public void onErrorResponse(VolleyError arg0) {
+//				Log.e(TAG,arg0.getMessage());
+//			}
+//		});
+//		requestQueue.add(imageRequest);
+		ImageView imageView = new ImageView(this);
+						LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+						LinearLayout.LayoutParams.MATCH_PARENT,
+						LinearLayout.LayoutParams.WRAP_CONTENT
+				);
+				imageView.setLayoutParams(layoutParams);
+		ImageLoader.getInstance().displayImage(url,imageView);
+		ll_images.addView(imageView);
+	}
 
+	public static void actionStart(Context context,AppNews item){
+		Intent intent = new Intent(context,NewsInfoActivity.class);
+
+		appNews = item;
+		context.startActivity(intent);
 	}
 
     @Override

@@ -16,9 +16,10 @@ import android.widget.TextView;
 import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.RollViewPager;
-import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
+import com.zhilianxinke.schoolinhand.domain.AppAsset;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
+import com.zhilianxinke.schoolinhand.util.UrlBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -49,7 +50,7 @@ public class VedioFragment extends Fragment {
     private View view;
 
 
-    private static List<App_DeviceInfoModel> _app_deviceInfoModels;
+    private static List<AppAsset> _appAssets;
     private static SimpleAdapter _adapter;
 
     private int[] imageIDs;
@@ -73,12 +74,12 @@ public class VedioFragment extends Fragment {
 
         List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
 
-        params.add(new BasicNameValuePair("pk", AppContext.getInstance().getCurrUser().getPk()));
+        params.add(new BasicNameValuePair("pk", AppContext.getInstance().getAppUser().getId()));
         // 对参数编码
         final String param = URLEncodedUtils.format(params, "UTF-8");
 
         // baseUrl
-        final String baseUrl = StaticRes.baseUrl + "/deviceInfo/appDeviceInfo";
+        final String baseUrl = UrlBuilder.baseUrl + "/deviceInfo/appDeviceInfo";
 
         if (_adapter == null) {
             final HttpClient httpClient = new DefaultHttpClient();
@@ -91,9 +92,9 @@ public class VedioFragment extends Fragment {
 
                         String result = EntityUtils.toString(response.getEntity(),
                                 "utf-8");
-                        _app_deviceInfoModels = (List<App_DeviceInfoModel>) JSONHelper
+                        _appAssets = (List<AppAsset>) JSONHelper
                                 .parseCollection(result, List.class,
-                                        App_DeviceInfoModel.class);
+                                        AppAsset.class);
 
                         handler.post(runnable);
                     } catch (ClientProtocolException e) {
@@ -175,13 +176,13 @@ public class VedioFragment extends Fragment {
         public void run() {
             // 更新界面
             ArrayList<HashMap<String, String>> modelList = new ArrayList<HashMap<String, String>>();
-            for (App_DeviceInfoModel app_deviceInfoModel : _app_deviceInfoModels) {
+            for (AppAsset app_deviceInfoModel : _appAssets) {
                 // 新建一个 HashMap
                 HashMap<String, String> map = new HashMap<String, String>();
 
                 // 每个子节点添加到HashMap关键= >值
                 map.put("title", app_deviceInfoModel.getAddress());
-                map.put("artist", app_deviceInfoModel.getStrName());
+                map.put("artist", app_deviceInfoModel.getName());
 
                 // HashList添加到数组列表
                 modelList.add(map);
@@ -206,9 +207,9 @@ public class VedioFragment extends Fragment {
                                     int position, long id) {
                 Intent intent = new Intent(getActivity(),
                         MediaPlayerActivity.class);
-                App_DeviceInfoModel app_DeviceInfoModel = _app_deviceInfoModels
+                AppAsset app_DeviceInfoModel = _appAssets
                         .get(position);
-                intent.putExtra("app_DeviceInfoModel", app_DeviceInfoModel);
+                intent.putExtra("appAsset", app_DeviceInfoModel);
                 startActivity(intent);
                 Log.d("点击", "" + position);
             }

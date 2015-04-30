@@ -5,8 +5,7 @@
     android:orientation="vertical" >
 
     <io.rong.imkit.view.ActionBar
-        android:id="@android:id/custom"
-        style="@style/RcTheme.ActionBar" >
+        android:id="@android:id/custom" >
     </io.rong.imkit.view.ActionBar>
 
     <TextView

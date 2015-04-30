@@ -2,17 +2,28 @@ package com.zhilianxinke.schoolinhand.rongyun;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.MainActivity;
+import com.zhilianxinke.schoolinhand.domain.AppUser;
 import com.zhilianxinke.schoolinhand.message.GroupInvitationNotification;
 import com.zhilianxinke.schoolinhand.modules.users.UserInfoActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.imkit.RongIM;
+import io.rong.imkit.UiConversation;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.ipc.remote.OnReceiveMessageListener;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Group;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.imlib.model.UserInfo;
 import io.rong.message.CommandNotificationMessage;
 import io.rong.message.ContactNotificationMessage;
 import io.rong.message.ImageMessage;
@@ -41,7 +52,7 @@ import io.rong.message.VoiceMessage;
  * 7、连接状态监听器，以获取连接相关状态：ConnectionStatusListener。
  * 8、地理位置提供者：LocationProvider。
  */
-public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, RongIM.OnSendMessageListener, RongIM.GetUserInfoProvider, RongIM.GetFriendsProvider, RongIM.GetGroupInfoProvider, RongIM.ConversationBehaviorListener, RongIM.ConnectionStatusListener,RongIM.LocationProvider {
+public final class RongCloudEvent implements OnReceiveMessageListener, RongIM.OnSendMessageListener, RongIM.GetUserInfoProvider,  RongIM.GetGroupInfoProvider, RongIM.ConversationBehaviorListener, RongIMClient.ConnectionStatusListener,RongIM.LocationProvider {
 
     private static final String TAG = RongCloudEvent.class.getSimpleName();
 
@@ -82,7 +93,7 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      */
     private void initDefaultListener() {
         RongIM.setGetUserInfoProvider(this, true);//设置用户信息提供者。
-        RongIM.setGetFriendsProvider(this);//设置好友信息提供者.
+//        RongIM.setGetFriendsProvider(this);//设置好友信息提供者.
         RongIM.setGetGroupInfoProvider(this);//设置群组信息提供者。
         RongIM.setConversationBehaviorListener(this);//设置会话界面操作的监听器。
         RongIM.setLocationProvider(this);//设置地理位置提供者,不用位置的同学可以注掉此行代码
@@ -94,9 +105,9 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      * 在RongIM-connect-onSuccess后调用。
      */
     public void setOtherListener() {
-        RongIM.getInstance().setReceiveMessageListener(this);//设置消息接收监听器。
-        RongIM.getInstance().setSendMessageListener(this);//设置发出消息接收监听器.
-        RongIM.getInstance().setConnectionStatusListener(this);//设置连接状态监听器。
+//        RongIM.getInstance().setReceiveMessageListener(this);//设置消息接收监听器。
+//        RongIM.getInstance().setSendMessageListener(this);//设置发出消息接收监听器.
+//        RongIM.getInstance().setConnectionStatusListener(this);//设置连接状态监听器。
     }
 
     /**
@@ -110,19 +121,17 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
 
     /**
      * 接收消息的监听器：OnReceiveMessageListener 的回调方法，接收到消息后执行。
-     *
-     * @param message 接收到的消息的实体信息。
+     *  @param message 接收到的消息的实体信息。
      * @param left    剩余未拉取消息数目。
      */
-    @Override
-    public void onReceived(RongIMClient.Message message, int left) {
+    public boolean onReceived(Message message, int left) {
 
-        RongIMClient.MessageContent messageContent = message.getContent();
+        MessageContent messageContent = message.getContent();
 
         if (messageContent instanceof TextMessage) {//文本消息
             TextMessage textMessage = (TextMessage) messageContent;
             Log.d(TAG, "onReceived-TextMessage:" + textMessage.getContent());
-            Log.d(TAG, "onReceived-TextMessage:" + textMessage.getPushContent());
+//            Log.d(TAG, "onReceived-TextMessage:" + textMessage.getPushContent());
 
         } else if (messageContent instanceof ImageMessage) {//图片消息
             ImageMessage imageMessage = (ImageMessage) messageContent;
@@ -157,9 +166,10 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
          */
         Intent in = new Intent();
         in.setAction(MainActivity.ACTION_DMEO_RECEIVE_MESSAGE);
-        in.putExtra("rongCloud", RongIM.getInstance().getTotalUnreadCount());
+        in.putExtra("rongCloud", RongIM.getInstance().getRongClient().getTotalUnreadCount());
         mContext.sendBroadcast(in);
 
+        return false;
     }
 
 
@@ -169,9 +179,9 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      * @param message 消息。
      */
     @Override
-    public RongIMClient.Message onSent(RongIMClient.Message message) {
+    public Message onSent(Message message) {
 
-        RongIMClient.MessageContent messageContent = message.getContent();
+        MessageContent messageContent = message.getContent();
 
         if (messageContent instanceof TextMessage) {//文本消息
             TextMessage textMessage = (TextMessage) messageContent;
@@ -198,14 +208,16 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      * @return 用户信息，（注：由开发者提供用户信息）。
      */
     @Override
-    public RongIMClient.UserInfo getUserInfo(String userId) {
+    public UserInfo getUserInfo(String userId) {
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
 
 //        return new RongIMClient.UserInfo(userId, "张三", "file:///storage/sdcard0/share.jpg");//测试本地图片
+        AppUser appUser = AppContext.getInstance().getAppUser();
+        UserInfo userInfo = new UserInfo("","",null);
 
-        return AppContext.getInstance().getUserInfoById(userId);
+        return userInfo;
     }
 
     /**
@@ -213,12 +225,12 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      *
      * @return 获取好友信息列表，（注：由开发者提供好友列表信息）。
      */
-    @Override
-    public List<RongIMClient.UserInfo> getFriends() {
+    public List<UserInfo> getFriends() {
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
-        return AppContext.getInstance().getUserInfos();
+        return new ArrayList<UserInfo>();
+//        return AppContext.getInstance().getUserInfos();
     }
 
     /**
@@ -228,11 +240,12 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      * @return 群组信息，（注：由开发者提供群组信息）。
      */
     @Override
-    public RongIMClient.Group getGroupInfo(String groupId) {
+    public Group getGroupInfo(String groupId) {
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
-        return AppContext.getInstance().getGroupMap().get(groupId);
+        return new Group("","",null);
+//        return AppContext.getInstance().getGroupMap().get(groupId);
     }
 
     /**
@@ -243,8 +256,8 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      * @param user             被点击的用户的信息。
      * @return 返回True不执行后续SDK操作，返回False继续执行SDK操作。
      */
-    @Override
-    public boolean onClickUserPortrait(Context context, RongIMClient.ConversationType conversationType, RongIMClient.UserInfo user) {
+
+    public boolean onClickUserPortrait(Context context, Conversation.ConversationType conversationType, UserInfo user) {
         Log.d(TAG, "onClickUserPortrait");
 
         /**
@@ -266,8 +279,7 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      * @param message 被点击的消息的实体信息。
      * @return 返回True不执行后续SDK操作，返回False继续执行SDK操作。
      */
-    @Override
-    public boolean onClickMessage(Context context, RongIMClient.Message message) {
+    public boolean onClickMessage(Context context, Message message) {
         Log.d(TAG, "onClickMessage");
 
         /**
@@ -293,8 +305,7 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
      *
      * @param status 网络状态。
      */
-    @Override
-    public void onChanged(ConnectionStatus status) {
+    public void onChanged(RongIMClient.ConnectionStatusListener.ConnectionStatus status) {
         Log.d(TAG, "onChanged:" + status);
     }
 
@@ -314,5 +325,34 @@ public final class RongCloudEvent implements RongIM.OnReceiveMessageListener, Ro
 //        context.startActivity(new Intent(context, LocationActivity.class));//SOSO地图
     }
 
+    @Override
+    public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+        return false;
+    }
+
+    @Override
+    public boolean onMessageClick(Context context, Message message) {
+        return false;
+    }
+
+    @Override
+    public boolean onMessageLongClick(Context context, Message message) {
+        return false;
+    }
+
+    @Override
+    public boolean onConversationLongClick(Context context, UiConversation uiConversation) {
+        return false;
+    }
+
+    @Override
+    public boolean onConversationItemClick(Context context, UiConversation uiConversation) {
+        return false;
+    }
+
+    @Override
+    public IBinder asBinder() {
+        return null;
+    }
 }
 

@@ -5,8 +5,7 @@
     android:layout_height="match_parent">
 
     <io.rong.imkit.view.ActionBar
-        android:id="@id/rc_actionbar"
-        style="@style/RcTheme.ActionBar">
+        android:id="@id/rc_actionbar">
     </io.rong.imkit.view.ActionBar>
 
     <fragment

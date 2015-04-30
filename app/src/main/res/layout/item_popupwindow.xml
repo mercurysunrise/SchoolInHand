@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#e4e4e4"
-        android:contentDescription="@string/content_description"/>
+        android:contentDescription="@string/content_desc"/>
 
     <TextView
         android:paddingLeft="@dimen/px_to_dip_20"

@@ -4,11 +4,8 @@ package com.zhilianxinke.schoolinhand.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.zhilianxinke.schoolinhand.util.ParcelUtils;
-
 import java.io.Serializable;
-import io.rong.imkit.model.Friend;
 
 /**
  *
@@ -183,13 +180,13 @@ public class User implements Parcelable, Serializable {
 
 	}
 
-	public Friend toFriend() {
-		Friend friend = new Friend();
-		friend.setNickname(username);
-		friend.setUserId(String.valueOf(id));
-		friend.setPortrait(portrait);
-		return friend;
-	}
+//	public Friend toFriend() {
+//		Friend friend = new Friend();
+//		friend.setNickname(username);
+//		friend.setUserId(String.valueOf(id));
+//		friend.setPortrait(portrait);
+//		return friend;
+//	}
 
 	public int getId() {
 		return id;

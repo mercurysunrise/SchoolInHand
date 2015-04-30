@@ -1,8 +1,9 @@
 package com.zhilianxinke.schoolinhand.base;
 
-import com.sea_monster.core.exception.BaseException;
-import com.sea_monster.core.network.AbstractHttpRequest;
-import com.sea_monster.core.network.ApiCallback;
+
+import me.add1.exception.BaseException;
+import me.add1.network.AbstractHttpRequest;
+import me.add1.network.ApiCallback;
 
 /**
  * Created by hh on 2015-03-26.

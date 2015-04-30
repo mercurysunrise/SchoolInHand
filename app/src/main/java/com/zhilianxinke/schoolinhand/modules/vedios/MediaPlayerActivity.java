@@ -9,19 +9,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
 
-import com.zhilianxinke.schoolinhand.domain.App_DeviceInfoModel;
-import com.zhilianxinke.schoolinhand.util.MyVideoView;
 import com.zhilianxinke.schoolinhand.R;
+import com.zhilianxinke.schoolinhand.domain.AppAsset;
+import com.zhilianxinke.schoolinhand.util.MyVideoView;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
+import com.zhilianxinke.schoolinhand.util.UrlBuilder;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,21 +48,21 @@ public class MediaPlayerActivity extends Activity  implements OnCompletionListen
             @Override
             public void onClick(View view) {
                 //Prev
-                playVedio(StaticRes.URL_TESTHLS,true);
+                playVedio(UrlBuilder.URL_TESTHLS,true);
             }
         },new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 //Next
-                playVedio(StaticRes.URL_TESTHLS,true);
+                playVedio(UrlBuilder.URL_TESTHLS,true);
             }
         });
         _my_video.setOnCompletionListener(this);
         _my_video.setOnErrorListener(this);
 
         Intent intent = getIntent();
-        App_DeviceInfoModel app_DeviceInfoModel = (App_DeviceInfoModel) intent.getSerializableExtra("app_DeviceInfoModel");
-        String url = app_DeviceInfoModel.getStreamUrl1();
+        AppAsset appAsset = (AppAsset) intent.getSerializableExtra("appAsset");
+        String url = appAsset.getUrl();
         playVedio(url,false);
 	}
 

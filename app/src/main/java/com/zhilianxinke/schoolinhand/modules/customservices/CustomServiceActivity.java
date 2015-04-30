@@ -2,7 +2,6 @@ package com.zhilianxinke.schoolinhand.modules.customservices;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,11 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import io.rong.imkit.Res;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.view.ActionBar;
 import io.rong.imlib.RongIMClient;
-import io.rong.message.SuspendMessage;
+import io.rong.imlib.model.Conversation;
+
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.base.BaseFragmentActivity;
 
@@ -25,7 +23,7 @@ import com.zhilianxinke.schoolinhand.base.BaseFragmentActivity;
 */
 public class CustomServiceActivity extends BaseFragmentActivity {
 
-    private ActionBar mActionBar;
+//    private ActionBar mActionBar;
     private ImageView mSettingView;
     private PopupWindow mPopupWindow;
 
@@ -41,19 +39,19 @@ public class CustomServiceActivity extends BaseFragmentActivity {
 
         setContentView(R.layout.activity_custom_service);
 
-        mActionBar = (ActionBar) findViewById(R.id.rc_actionbar);
-        mActionBar.getTitleTextView().setText("客服");
+//        mActionBar = (ActionBar) findViewById(R.id.rc_actionbar);
+//        mActionBar.getTitleTextView().setText("客服");
+//
+//        mActionBar.setOnBackClick(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
-        mActionBar.setOnBackClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
-
-        View view = LayoutInflater.from(this).inflate(Res.getInstance(this).layout("rc_action_bar_conversation_settings"), mActionBar, false);
-        mSettingView = (ImageView) view.findViewById(R.id.rc_conversation_settings_image);
+//        View view = LayoutInflater.from(this).inflate(Res.getInstance(this).layout("rc_action_bar_conversation_settings"), mActionBar, false);
+//        mSettingView = (ImageView) view.findViewById(R.id.rc_conversation_settings_image);
 
         mSettingView.setOnClickListener(new View.OnClickListener() {
 
@@ -74,7 +72,7 @@ public class CustomServiceActivity extends BaseFragmentActivity {
             }
         });
 
-        mActionBar.addView(mSettingView);
+//        mActionBar.addView(mSettingView);
     }
 
 
@@ -123,7 +121,7 @@ public class CustomServiceActivity extends BaseFragmentActivity {
 
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startConversationSetting(CustomServiceActivity.this, RongIMClient.ConversationType.CUSTOMER_SERVICE, getString(R.string.CUSTOMER_SERVICE));
+                RongIM.getInstance().startConversationSetting(CustomServiceActivity.this, Conversation.ConversationType.CUSTOMER_SERVICE, getString(R.string.CUSTOMER_SERVICE));
                 mPopupWindow.dismiss();
             }
         });
@@ -136,23 +134,23 @@ public class CustomServiceActivity extends BaseFragmentActivity {
                 /**
                  * 发送一个SuspendMessage消息就退出了当前客服
                  */
-                RongIM.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, getString(R.string.CUSTOMER_SERVICE), new SuspendMessage(), new RongIMClient.SendMessageCallback() {
-
-                    @Override
-                    public void onSuccess(int messageId) {
-                        CustomServiceActivity.this.finish();
-                    }
-
-                    @Override
-                    public void onError(int messageId, ErrorCode errorCode) {
-
-                    }
-
-                    @Override
-                    public void onProgress(int messageId, int percent) {
-
-                    }
-                });
+//                RongIM.getInstance().sendMessage(RongIMClient.ConversationType.CUSTOMER_SERVICE, getString(R.string.CUSTOMER_SERVICE), new SuspendMessage(), new RongIMClient.SendMessageCallback() {
+//
+//                    @Override
+//                    public void onSuccess(int messageId) {
+//                        CustomServiceActivity.this.finish();
+//                    }
+//
+//                    @Override
+//                    public void onError(int messageId, ErrorCode errorCode) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onProgress(int messageId, int percent) {
+//
+//                    }
+//                });
 
                 mPopupWindow.dismiss();
             }
