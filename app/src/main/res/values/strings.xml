@@ -108,6 +108,7 @@
     <string name="main_chatroom">聊天室</string>
     <string name="main_customer">客服</string>
     <string name="add_chat">发起聊天</string>
+    <string name="add_News">发布公告</string>
     <string name="add_select_group">选择群组</string>
     <string name="add_voip">网络电话</string>
     <string name="add_contacts">通讯录</string>

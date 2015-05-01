@@ -9,21 +9,16 @@ import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.util.UpdateManager;
 
 /**欢迎动画activity*/
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeActivity extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-    }
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.main);
 
-    @Override
-    protected int setContentViewResId() {
-        return R.layout.main;
-    }
-
-    @Override
-    protected void initView() {
-
+        App.addActivity(this);
 
         //系统会为需要启动的activity寻找与当前activity不同的task;
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -38,9 +33,11 @@ public class WelcomeActivity extends BaseActivity {
                     //获取应用的上下文，生命周期是整个应用，应用结束才会结束
                     if (AppContext.getInstance().getAppUser() != null){
                         MainActivity.actionStart(WelcomeActivity.this);
+                        finish();
                     }else{
                         final Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                     finish();
                 } catch (InterruptedException e) {
@@ -52,8 +49,11 @@ public class WelcomeActivity extends BaseActivity {
         }).start();
     }
 
-    @Override
-    protected void initData() {
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.removeActivity(this);
     }
+
 }

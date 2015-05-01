@@ -10,10 +10,6 @@
         app:showAsAction="ifRoom|withText">
         <menu>
             <item
-                android:id="@+id/add_item0"
-                android:icon="@drawable/de_btn_main_news_reminded"
-                android:title="@string/add_chat" />
-            <item
                 android:id="@+id/add_item1"
                 android:icon="@drawable/de_btn_main_chat"
                 android:title="@string/add_chat" />

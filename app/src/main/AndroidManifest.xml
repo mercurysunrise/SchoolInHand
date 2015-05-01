@@ -46,7 +46,8 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
 
         <!-- 融云 Rong Cloud App Key 设置开始 -->
 
@@ -58,7 +59,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

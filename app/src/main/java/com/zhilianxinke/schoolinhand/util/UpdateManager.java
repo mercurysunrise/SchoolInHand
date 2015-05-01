@@ -8,6 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
 import com.zhilianxinke.schoolinhand.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -30,6 +33,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.zhilianxinke.schoolinhand.domain.AppVersion;
+import com.zhilianxinke.schoolinhand.domain.SdkHttpResult;
 import com.zhilianxinke.schoolinhand.modules.autoupdate.ApkUpdateModel;
 import com.zhilianxinke.schoolinhand.modules.autoupdate.HttpUtils;
 import com.zhilianxinke.schoolinhand.modules.autoupdate.IUpdateObject;
@@ -62,6 +67,8 @@ public class UpdateManager
     private Context mContext;
     private int versionCode;
     private String versionName;
+
+    private AppVersion _appVersion;
 
     private boolean mIsShowResult;
 
@@ -99,34 +106,28 @@ public class UpdateManager
     }
 
 
-    private class QueryUpdateTask extends AsyncTask<Void, Void, ApkUpdateModel> {
+    private class QueryUpdateTask extends AsyncTask<Void, Void, AppVersion> {
 
         @Override
-        protected ApkUpdateModel doInBackground(Void... params) {
-            JSONObject jsonObject = HttpUtils.getJSONObj(UrlBuilder.updateJson);
-                try {
-                    ApkUpdateModel apkUpdateModel = new ApkUpdateModel();
-//                    apkUpdateModel.setVersionCode(1);
-//                    apkUpdateModel.setVersionName("fdafd");
-//                    apkUpdateModel.setVersionFeature("342424");
-//                    apkUpdateModel.setUpdateUrl("23424");
-//                    String strJsonObject = JSONHelper.toJSON(apkUpdateModel);
-                    apkUpdateModel = JSONHelper.parseObject(jsonObject,ApkUpdateModel.class);
-                    return apkUpdateModel;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            return null;
+        protected AppVersion doInBackground(Void... params) {
+            Map<String,String> map = new HashMap<String,String>(1);
+            map.put("type","Android");
+            String url = UrlBuilder.build("/version/lastVer", map);
+            JSONObject jsonObject = HttpUtils.getJSONObj(url);
+            _appVersion = JSON.parseObject(jsonObject.toString(),AppVersion.class);
+
+                    return _appVersion;
+
         }
 
         @Override
-        protected void onPostExecute(ApkUpdateModel apkUpdateModel) {
+        protected void onPostExecute(AppVersion apkUpdateModel) {
             if (apkUpdateModel != null){
 //                boolean isNeedUpdate = apkUpdateModel.getVersionCode() != versionCode;
-                boolean isNeedUpdate = !apkUpdateModel.getVersionName().equals(versionName);
+                boolean isNeedUpdate = !apkUpdateModel.getName().equals(versionName);
                 if (isNeedUpdate){
                     // 显示提示对话框
-                    showNoticeDialog(apkUpdateModel.getVersionFeature());
+                    showNoticeDialog(apkUpdateModel.getFeature());
                 }
                 if (!isNeedUpdate && mIsShowResult){
                     Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG).show();
@@ -253,7 +254,7 @@ public class UpdateManager
                     String sdpath = Environment.getExternalStorageDirectory() + "/";
                     mSavePath = sdpath + "download";
 
-                    URL url = new URL(UrlBuilder.updateUrl);
+                    URL url = new URL(_appVersion.getUrl());
                     // 创建连接
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.connect();

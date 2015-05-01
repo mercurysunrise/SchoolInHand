@@ -93,7 +93,7 @@ public class AutoUpgrade {
         this.context = context;
         try{
 //            this.jsonPath = context.getResources().getString(R.string.default_url);
-                this.jsonPath = UrlBuilder.updateJson;
+//                this.jsonPath = UrlBuilder.updateJson;
             Log.d(TAG, "Get from string resources, jsonPath: " +jsonPath);
         }catch(NotFoundException e){
             Log.e(TAG, "Can not find resource id of default_url in the res/values/strings.xml");

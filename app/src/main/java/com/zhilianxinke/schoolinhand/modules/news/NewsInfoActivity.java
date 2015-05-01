@@ -30,7 +30,6 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 
 	private TextView tv_news_content;
 
-//	private ActionBar mAction;
 	private LinearLayout ll_images;
 	DisplayImageOptions options;        // DisplayImageOptions是用于设置图片显示的类
 
@@ -43,7 +42,6 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 
     @Override
     protected void initView(){
-//		mAction = (ActionBar) findViewById(R.id.abar_news_activity);
 
 		tv_news_publicman = (TextView) findViewById(R.id.tv_news_publicman);
 		tv_news_publicman.setText(appNews.getAuthorName());
@@ -67,10 +65,6 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 
     @Override
     protected void initData() {
-//		mAction.getLogoView().setVisibility(View.GONE);
-//		mAction.getTitleTextView().setText(appNews.getTitle());
-//		mAction.getTitleTextView().setTextColor(Color.WHITE);
-//		mAction.getTitleTextView().setTextSize(18);
 
 		if (appNews.getCover() != null && appNews.getCover().toString().length() > 10){
 			tv_news_publicTime.setText(appNews.getCover().toString().substring(0,10));
@@ -87,25 +81,7 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
     }
 
 	public void requestImage(String url){
-//		ImageRequest imageRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
-//			@Override
-//			public void onResponse(Bitmap response) {
-//				ImageView imageView = new ImageView(NewsInfoActivity.this);
-//				imageView.setImageBitmap(response);
-//				LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-//						LinearLayout.LayoutParams.MATCH_PARENT,
-//						LinearLayout.LayoutParams.WRAP_CONTENT
-//				);
-//				imageView.setLayoutParams(layoutParams);
-//				ll_images.addView(imageView);
-//			}
-//		}, 0, 0, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
-//			@Override
-//			public void onErrorResponse(VolleyError arg0) {
-//				Log.e(TAG,arg0.getMessage());
-//			}
-//		});
-//		requestQueue.add(imageRequest);
+
 		ImageView imageView = new ImageView(this);
 						LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 						LinearLayout.LayoutParams.MATCH_PARENT,

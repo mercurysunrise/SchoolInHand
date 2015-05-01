@@ -29,6 +29,8 @@ public abstract class BaseActivity extends ActionBarActivity {
         getSupportActionBar().setLogo(R.drawable.app_bar_logo);
         setContentView(setContentViewResId());
 
+        initView();
+        initData();
         requestQueue = Volley.newRequestQueue(this);
         App.addActivity(this);
     }

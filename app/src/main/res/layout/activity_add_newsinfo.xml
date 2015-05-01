@@ -3,12 +3,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <io.rong.imkit.view.ActionBar
-        android:id="@+id/action_main_bar"
-        android:background="@color/title_bg"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/px_to_dip_96" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_height="wrap_content"

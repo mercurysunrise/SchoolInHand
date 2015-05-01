@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Bundle;
+import android.os.*;
+import android.os.Process;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +25,8 @@ import android.widget.PopupWindow;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
+
+import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.base.BaseFragmentActivity;
 import com.zhilianxinke.schoolinhand.modules.news.AddNewsinfoActivity;
 import com.zhilianxinke.schoolinhand.modules.news.NewsInfoFragment;
@@ -27,19 +35,23 @@ import com.zhilianxinke.schoolinhand.modules.users.UserFragment;
 import com.zhilianxinke.schoolinhand.modules.vedios.VedioListFragment;
 import com.zhilianxinke.schoolinhand.util.UpdateManager;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
+
 /**
  * 主界面
  * @author hh
  */
-public class MainActivity extends BaseFragmentActivity implements OnTabChangeListener {
+public class MainActivity extends BaseActivity implements OnTabChangeListener,View.OnClickListener,ActionBar.OnMenuVisibilityListener {
 
     private static final String TAG = "MainActivity";
 
     public static final String ACTION_DMEO_RECEIVE_MESSAGE = "action_demo_receive_message";
 
     private FragmentTabHost fgTabHost;
+    private Menu mMenu;
 
-    private LayoutInflater layoutInflater;
+    private LayoutInflater mInflater;
 
     private Class fragmentArray[] = {NewsInfoFragment.class,VedioListFragment.class,StoryFragment.class,UserFragment.class};
 
@@ -48,13 +60,21 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
 
     private String mTextviewArray[] = {"公告", "频道", "群组", "我的"};
 
-//    private ActionBar mAction;
-
     private int numbermessage = 0;
     private ReceiveMessageBroadcastReciver mBroadcastReciver;
 
     private ImageView mSettingView;
     private PopupWindow mPopupWindow;
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onMenuVisibilityChanged(boolean b) {
+
+    }
 
 
     private class ReceiveMessageBroadcastReciver extends BroadcastReceiver {
@@ -70,14 +90,16 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int setContentViewResId() {
+        return R.layout.activity_main;
+    }
 
+    protected void initView(){
         //检查升级
+        getSupportActionBar().setTitle(R.string.app_name);
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo == null || !networkInfo.isAvailable())
+        if(networkInfo == null || networkInfo.isAvailable())
         {
             //当前有可用网络
             UpdateManager updateManager = new UpdateManager();
@@ -87,45 +109,11 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
         {
             //当前无可用网络
         }
-
-        initView();
-
-    }
-
-    private void initView(){
-        //实例化布局对象
-        layoutInflater = LayoutInflater.from(this);
-
-//        mAction = (ActionBar) findViewById(R.id.action_main_bar);
-//        mAction.getBackView().setVisibility(View.GONE);
-//        mAction.getTitleTextView().setText(R.string.app_name);
-//        mAction.getTitleTextView().setTextColor(Color.WHITE);
-//        mAction.getTitleTextView().setTextSize(18);
-
-//        View view = layoutInflater.inflate(Res.getInstance(this).layout("rc_action_bar_conversation_settings"), mAction, false);
-//        view.setRight(8);
-//        mSettingView = (ImageView) view.findViewById(R.id.rc_conversation_settings_image);
-
-        mSettingView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                if (mPopupWindow != null) {
-
-                    if (mPopupWindow.isShowing()) {
-                        mPopupWindow.dismiss();
-                    } else {
-                        showPopupWindow(mSettingView);
-                    }
-                } else {
-                    showPopupWindow(mSettingView);
-                }
-
-            }
-        });
-
-//        mAction.addView(mSettingView);
+//        //实例化布局对象
+//        layoutInflater = LayoutInflater.from(this);
+        // 获取布局填充器
+        mInflater = (LayoutInflater) this
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
 
         //实例化TabHost对象，得到TabHost
         fgTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
@@ -142,6 +130,12 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
             //设置Tab按钮的背景
 //            fgTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
         }
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void showPopupWindow(View v) {
@@ -224,7 +218,7 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
      * 给Tab按钮设置图标和文字
      */
     private View getTabItemView(int index){
-        View view = layoutInflater.inflate(R.layout.tab_item_view, null);
+        View view = mInflater.inflate(R.layout.tab_item_view, null);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
         imageView.setImageResource(mImageViewArray[index]);
@@ -268,25 +262,63 @@ public class MainActivity extends BaseFragmentActivity implements OnTabChangeLis
         super.onResume();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.action_publishNewsInfo:
-//                Intent intent = new Intent(this, AddNewsinfoActivity.class);
-////                intent.setData(Uri.parse("https://github.com/DenisMondon/material-design-library"));
-//                startActivity(intent);
-//                Log.i(TAG,"创建公告");
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
+        MenuInflater inflater = getMenuInflater();
+        this.mMenu = menu;
+        if (AppContext.getInstance().getAppUser().getIdentity().equals("家长")){
+            inflater.inflate(R.menu.de_main_menu_parent, menu);
+        }else{
+            inflater.inflate(R.menu.de_main_menu, menu);
+        }
+
+//        if (hasNewFriends) {
+//            mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.de_ic_add_hasmessage));
+//            mMenu.getItem(0).getSubMenu().getItem(2).setIcon(getResources().getDrawable(R.drawable.de_btn_main_contacts_select));
+//        } else {
+//            mMenu.getItem(0).setIcon(getResources().getDrawable(R.drawable.de_ic_add));
+//            mMenu.getItem(0).getSubMenu().getItem(2).setIcon(getResources().getDrawable(R.drawable.de_btn_main_contacts));
 //        }
-//    }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_item0://发起公告
+                Intent intent = new Intent(this,AddNewsinfoActivity.class);
+                startActivity(intent);
+                break;
+//            case R.id.add_item2://选择群组
+//                if (RongIM.getInstance() != null) {
+//                    RongIM.getInstance().startSubConversationList(this, Conversation.ConversationType.GROUP);
+//                }
+//
+//                break;
+//            case R.id.add_item3://通讯录
+//                startActivity(new Intent(MainActivity.this, DeAdressListActivity.class));
+//                break;
+//            case R.id.set_item1://我的账号
+//                startActivity(new Intent(MainActivity.this, MyAccountActivity.class));
+//                break;
+//            case R.id.set_item2://新消息提醒
+//                startActivity(new Intent(MainActivity.this, NewMessageRemindActivity.class));
+//                break;
+//            case R.id.set_item3://隐私
+//                startActivity(new Intent(MainActivity.this, PrivacyActivity.class));
+//                break;
+//            case R.id.set_item4://关于融云
+//                startActivity(new Intent(MainActivity.this, AboutRongCloudActivity.class));
+//                break;
+//            case R.id.set_item5://退出
+//                if (RongIM.getInstance() != null) RongIM.getInstance().disconnect(false);
+//                android.os.Process.killProcess(Process.myPid());
+//                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     /**

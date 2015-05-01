@@ -86,7 +86,7 @@ public class AddNewsinfoActivity  extends Activity {
     private View parentView;
     private PopupWindow pop = null;
     private LinearLayout ll_popup;
-    private ActionBar mAction;
+
     public static Bitmap bimap;
 
     static final String end = "\r\n";
@@ -109,12 +109,6 @@ public class AddNewsinfoActivity  extends Activity {
         setContentView(parentView);
 
         requestQueue = Volley.newRequestQueue(this);
-
-//        mAction = (io.rong.imkit.view.ActionBar) findViewById(R.id.action_main_bar);
-//        mAction.getBackView().setVisibility(View.GONE);
-//        mAction.getTitleTextView().setText(R.string.app_name);
-//        mAction.getTitleTextView().setTextColor(Color.WHITE);
-//        mAction.getTitleTextView().setTextSize(18);
 
         etNewsTitle = (EditText) findViewById(R.id.etNewsTitle);
         tmlNewsContent = (EditText) findViewById(R.id.tmlNewsContent);
