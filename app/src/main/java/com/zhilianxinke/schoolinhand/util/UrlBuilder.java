@@ -14,10 +14,10 @@ import java.util.Map;
 public class UrlBuilder {
 
     private static final String TAG = "UrlBuilder";
-//    public static String serverUrl = "http://192.168.1.105:9080";
+    public static String serverUrl = "http://192.168.1.105:9080";
 
     //    public static String serverName = "DMService";
-    public static String serverUrl = "http://121.42.146.235:9080";
+//    public static String serverUrl = "http://121.42.146.235:9080";
 //    public static String serverName = "DeviceManagement";
     public static String serverName = "UUTong365";
 

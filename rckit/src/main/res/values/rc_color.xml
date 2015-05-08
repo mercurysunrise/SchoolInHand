@@ -13,8 +13,8 @@
     <color name="rc_input_bg">#F4F4F4</color>
     <color name="rc_text_voice">#7f7f7f</color>
     
-    <color name="rc_notice_warning">#F0f7b8a7</color>
-    <color name="rc_notice_normal">#F0cdbf72</color>
+    <color name="rc_notice_warning">#F0ffd0c4</color>
+    <color name="rc_notice_normal">#F0fffbd4</color>
     <color name="rc_notice_text">#999999</color>
 
     <color name="rc_draft_color">#cb120f</color>

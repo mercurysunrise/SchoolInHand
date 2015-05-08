@@ -8,15 +8,14 @@ public class AppNews implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String id;
-	private String schoolId;
-	private String schoolName;
-	private String classId;
-	private String className;
+
 	private String authorId;
 	private String authorName;
- 
+
+	private String groupId;
+
 	private String title;
-	
+
 	private int optIn;
 	private String url;
 	private String cover;
@@ -24,7 +23,7 @@ public class AppNews implements Serializable{
 
 	private String image;
 	private String content;
-	private boolean read;
+	private boolean readed;
 	private boolean favorite;
 
 	public AppNews() {
@@ -37,38 +36,6 @@ public class AppNews implements Serializable{
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getSchoolId() {
-		return schoolId;
-	}
-
-	public void setSchoolId(String schoolId) {
-		this.schoolId = schoolId;
-	}
-
-	public String getSchoolName() {
-		return schoolName;
-	}
-
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	public String getClassId() {
-		return classId;
-	}
-
-	public void setClassId(String classId) {
-		this.classId = classId;
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
 	}
 
 	public String getAuthorId() {
@@ -127,14 +94,6 @@ public class AppNews implements Serializable{
 		this.ownershipType = ownershipType;
 	}
 
-	public boolean isRead() {
-		return read;
-	}
-
-	public void setRead(boolean read) {
-		this.read = read;
-	}
-
 	public String getImage() {
 		return image;
 	}
@@ -149,6 +108,22 @@ public class AppNews implements Serializable{
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public boolean isReaded() {
+		return readed;
+	}
+
+	public void setReaded(boolean readed) {
+		this.readed = readed;
 	}
 
 	public boolean isFavorite() {

@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@id/rc_content"
+            android:id="@id/rc_frame"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:maxLines="4"
-            android:layout_toLeftOf="@id/rc_content"
+            android:layout_toLeftOf="@id/rc_frame"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:textColor="@android:color/darker_gray"

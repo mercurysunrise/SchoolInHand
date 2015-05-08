@@ -30,8 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="150dp"
             android:scaleType="fitXY"
-            android:id="@id/rc_img"
-            android:background="@drawable/ic_launcher"/>
+            android:id="@id/rc_img"/>
 
         <TextView
             android:layout_width="fill_parent"

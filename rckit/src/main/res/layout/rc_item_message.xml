@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="6dp"
         />
 
     <io.rong.imkit.widget.AsyncImageView
@@ -45,6 +45,8 @@
         android:layout_toLeftOf="@id/rc_right"
         android:layout_toRightOf="@id/rc_left"
         style="@style/RCTheme.Message.Username.TextView"
+        android:gravity="center_vertical"
+        android:layout_marginTop="-3dp"
         android:visibility="gone"/>
 
     <FrameLayout

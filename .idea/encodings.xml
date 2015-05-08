@@ -20,6 +20,9 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/GsonArrayParser.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/GsonParser.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/JsonObjectParser.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/message/DeAgreedFriendRequestMessage.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/message/DeAgreedFriendRequestMessageProvider.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/message/DeContactNotificationMessageProvider.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeEditTextHolder.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeGridView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DePinnedHandler.java" charset="UTF-8" />

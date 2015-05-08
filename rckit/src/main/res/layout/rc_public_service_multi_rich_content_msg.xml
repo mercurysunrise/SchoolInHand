@@ -17,7 +17,6 @@
             android:id="@id/rc_img"
             android:maxHeight="100dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher"
             android:layout_width="fill_parent"
             android:background="@drawable/rc_bg_item"
             android:layout_height="match_parent" />

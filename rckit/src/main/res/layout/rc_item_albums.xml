@@ -8,8 +8,7 @@
         android:id="@id/rc_icon"
         android:layout_width="fill_parent"
         android:layout_height="120dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher" />
+        android:scaleType="centerCrop"/>
 
     <CheckBox
         style="@style/custom_checkbox"
