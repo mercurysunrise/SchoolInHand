@@ -34,7 +34,6 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeSwitchGroup.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeSwitchItemView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/LoadingDialog.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/SOSOLocationActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/WinToast.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/util/DePinyinHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/de_toast_bg.9.png" charset="GBK" />
