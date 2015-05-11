@@ -230,7 +230,7 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
             List<AppAsset> appAssets = new ArrayList<AppAsset>();
             List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
 
-            params.add(new BasicNameValuePair("id", AppContext.getInstance().getAppUser().getId()));
+            params.add(new BasicNameValuePair("id", AppContext.getAppUser().getId()));
             // 对参数编码
             final String param = URLEncodedUtils.format(params, "UTF-8");
 

@@ -1,13 +1,19 @@
 package com.zhilianxinke.schoolinhand;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
 import com.zhilianxinke.schoolinhand.api.AppApi;
+import com.zhilianxinke.schoolinhand.domain.AppGroup;
 import com.zhilianxinke.schoolinhand.domain.AppUser;
+import com.zhilianxinke.schoolinhand.modules.maps.SOSOLocationActivity;
+import com.zhilianxinke.schoolinhand.util.CacheUtils;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
 import org.json.JSONException;
 import java.io.File;
@@ -15,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -23,6 +30,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Group;
+import io.rong.imlib.model.UserInfo;
 import me.add1.network.Const;
 import me.add1.network.DefaultHttpHandler;
 import me.add1.network.HttpHandler;
@@ -32,267 +41,244 @@ import me.add1.network.HttpHandler;
  */
 public class AppContext {
     private static final String TAG = "AppContext";
-    private static final String NOMEDIA = ".nomedia";
+//    private static AppContext mDemoContext;
+    public static Context mContext;
+//    private DemoApi mDemoApi;
+    private static HashMap<String, Group> groupMap;
+    private static ArrayList<UserInfo> mUserInfos;
+    private static ArrayList<UserInfo> mFriendInfos;
+    private static SharedPreferences mPreferences;
+    private static RongIM.LocationProvider.LocationCallback mLastLocationCallback;
 
-    private static AppContext self;
-    private AppApi mDemoApi;
+    private static AppUser mAppUser;
+    private static String groupCacheFile;
 
-    private BlockingQueue<Runnable> mWorkQueue;
-    private ThreadFactory mThreadFactory;
-    private static ThreadPoolExecutor sExecutor;
-
-    private static HttpHandler mHttpHandler;
-
-    private SharedPreferences mPreferences;
-
-    public Context mContext;
-
-    private String mResourceDir;
-
-    private AppUser appUser;
-
-
-    private RongIM.LocationProvider.LocationCallback mLastLocationCallback;
-
-    public static AppContext getInstance() {
-
-        return self;
-    }
-
-    private AppContext() {
-    }
-
-
-    private AppContext(Context context) {
-        mContext=context;
-        self = this;
-
-        //http初始化 用于登录、注册使用
-//        initHttp();
-
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-//        mDemoApi = new AppApi(mHttpHandler, context);
-
-//        initGroupInfo();
-    }
+//    private DemoContext(Context context) {
+//        mContext = context;
+//        mDemoContext = this;
+//        //http初始化 用于登录、注册使用
+//        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+//
+//        RongIM.setLocationProvider(new LocationProvider());
+//
+//        mDemoApi = new DemoApi(context);
+//    }
 
     public static void init(Context context) {
-        self = new AppContext(context);
+        mContext = context;
+        //http初始化 用于登录、注册使用
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        RongIM.setLocationProvider(new LocationProvider());
+
+        if (mAppUser == null) {
+            mAppUser = getAppUser();
+            if (mAppUser != null) {
+                groupCacheFile = mAppUser.getId() + "_Cache";
+            }
+        }
+//        mDemoApi = new DemoApi(context);
     }
 
-
-    public AppUser getAppUser() {
-        if (appUser != null) return appUser;
+    public static AppUser getAppUser() {
+        if (mAppUser != null) return mAppUser;
 
         if (mPreferences.contains("LOGIN_TOKEN")){
             try {
-                appUser = JSONHelper.parseObject(mPreferences.getString("LOGIN_TOKEN", null), AppUser.class);
+                mAppUser = JSONHelper.parseObject(mPreferences.getString("LOGIN_TOKEN", null), AppUser.class);
             } catch (JSONException e) {
                 Log.e("App",e.getMessage());
             }
         }
-        return appUser;
+        return mAppUser;
     }
 
-    public void setAppUser(final AppUser appUser) {
-            mPreferences.edit().putString("LOGIN_TOKEN",JSONHelper.toJSON(appUser)).commit();
-            this.appUser = appUser;
+    public static void setAppUser(final AppUser appUser) {
+        mPreferences.edit().putString("LOGIN_TOKEN",JSONHelper.toJSON(appUser)).commit();
+        mAppUser = appUser;
+
+        groupCacheFile = appUser.getId() + "_Cache";
     }
 
-    public RongIM.LocationProvider.LocationCallback getLastLocationCallback() {
-        return mLastLocationCallback;
-    }
-
-    public void setLastLocationCallback(RongIM.LocationProvider.LocationCallback lastLocationCallback) {
-        this.mLastLocationCallback = lastLocationCallback;
-    }
-
-//    void initHttp() {
-//
-//        mWorkQueue = new PriorityBlockingQueue<Runnable>(Const.SYS.WORK_QUEUE_MAX_COUNT);
-//        mThreadFactory = new ThreadFactory() {
-//            private final AtomicInteger mCount = new AtomicInteger(1);
-//
-//            public Thread newThread(Runnable r) {
-//                return new Thread(r, "RongCloudTask #" + mCount.getAndIncrement());
-//            }
-//        };
-//
-//        sExecutor = new ThreadPoolExecutor(Const.SYS.DEF_THREAD_WORDER_COUNT, Const.SYS.MAX_THREAD_WORKER_COUNT, 1, TimeUnit.SECONDS, mWorkQueue, mThreadFactory);
-//
-//        sExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
-//
-//        File location;
-//        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-//            location = Environment.getExternalStorageDirectory();
-//        } else {
-//            location = mContext.getFilesDir();
-//        }
-////        location.mkdirs();
-//
-//        // New Handler
-//        mHttpHandler = new DefaultHttpHandler(mContext, sExecutor);
-//    }
-
-
-
-//    public void setFriends(ArrayList<RongIMClient.UserInfo> userInfos) {
-//
-//        this.mUserInfos = userInfos;
-//    }
-
-
-
-//    public RongIMClient.UserInfo getUserInfoById(String userId) {
-//
-//        RongIMClient.UserInfo userInfoReturn = null;
-//
-//        if (!TextUtils.isEmpty(userId) && mUserInfos != null) {
-//            for (RongIMClient.UserInfo userInfo : mUserInfos) {
-//
-//                if (userId.equals(userInfo.getUserId())) {
-//                    userInfoReturn = userInfo;
-//                    break;
-//                }
-//
-//            }
-//        }
-//        return userInfoReturn;
-//    }
-
-
-//    public List<RongIMClient.UserInfo> getUserInfoByIds(String[] userIds) {
-//
-//        List<RongIMClient.UserInfo> userInfoList = new ArrayList<RongIMClient.UserInfo>();
-//
-//        if (userIds != null && userIds.length > 0) {
-//            for (String userId : userIds) {
-//                for (RongIMClient.UserInfo userInfo : mUserInfos) {
-//                    if (userId.equals(userInfo.getUserId())) {
-//                        userInfoList.add(userInfo);
-//                    }
-//                }
-//            }
-//        }
-//        return userInfoList;
-//    }
-
-    public AppApi getDemoApi() {
-        return mDemoApi;
-    }
-
-
-    private final String getFileSysDir(String dir) {
-
-        if (!TextUtils.isEmpty(mResourceDir)) {
-            return mResourceDir;
-        }
-
-        File environmentPath = null;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            environmentPath = Environment.getExternalStorageDirectory();
-        } else {
-            environmentPath = mContext.getFilesDir();
-        }
-
-        File baseDirectory = new File(environmentPath, dir);
-
-        createDirectory(baseDirectory);
-
-        return mResourceDir = baseDirectory.getAbsolutePath();
-
-    }
-
-    private static final void createDirectory(File storageDirectory) {
-
-        if (!storageDirectory.exists()) {
-
-            Log.d(TAG, "Trying to create storageDirectory: " + String.valueOf(storageDirectory.mkdirs()));
-
-            Log.d(TAG, "Exists: " + storageDirectory + " " + String.valueOf(storageDirectory.exists()));
-            Log.d(TAG, "State: " + Environment.getExternalStorageState());
-            Log.d(TAG, "Isdir: " + storageDirectory + " " + String.valueOf(storageDirectory.isDirectory()));
-            Log.d(TAG, "Readable: " + storageDirectory + " " + String.valueOf(storageDirectory.canRead()));
-            Log.d(TAG, "Writable: " + storageDirectory + " " + String.valueOf(storageDirectory.canWrite()));
-
-            File tmp = storageDirectory.getParentFile();
-
-            Log.d(TAG, "Exists: " + tmp + " " + String.valueOf(tmp.exists()));
-            Log.d(TAG, "Isdir: " + tmp + " " + String.valueOf(tmp.isDirectory()));
-            Log.d(TAG, "Readable: " + tmp + " " + String.valueOf(tmp.canRead()));
-            Log.d(TAG, "Writable: " + tmp + " " + String.valueOf(tmp.canWrite()));
-
-            tmp = tmp.getParentFile();
-
-            Log.d(TAG, "Exists: " + tmp + " " + String.valueOf(tmp.exists()));
-            Log.d(TAG, "Isdir: " + tmp + " " + String.valueOf(tmp.isDirectory()));
-            Log.d(TAG, "Readable: " + tmp + " " + String.valueOf(tmp.canRead()));
-            Log.d(TAG, "Writable: " + tmp + " " + String.valueOf(tmp.canWrite()));
-
-            File nomediaFile = new File(storageDirectory, NOMEDIA);
-
-            if (!nomediaFile.exists()) {
-                try {
-                    Log.d(TAG, "Created file: " + nomediaFile + " " + String.valueOf(nomediaFile.createNewFile()));
-                } catch (IOException e) {
-                    Log.d(TAG, "Unable to create .nomedia file for some reason.", e);
-                    throw new IllegalStateException("Unable to create nomedia file.");
-                }
-            }
-
-            if (!(storageDirectory.isDirectory() && nomediaFile.exists())) {
-                throw new RuntimeException("Unable to create storage directory and nomedia file.");
-            }
-        }
-
-    }
-
-
-    public SharedPreferences getSharedPreferences() {
+    public static SharedPreferences getSharedPreferences() {
         return mPreferences;
     }
 
-    public void setSharedPreferences(SharedPreferences sharedPreferences) {
-        this.mPreferences = sharedPreferences;
+    public static void setSharedPreferences(SharedPreferences sharedPreferences) {
+        mPreferences = sharedPreferences;   }
+
+    public static void setAppGroupList(ArrayList<AppGroup> groupList) {
+        //缓存到本地
+        CacheUtils.saveObject(mContext,groupList,groupCacheFile);
+        //转型为rong中的类型
+        List<Group> grouplist = new ArrayList<>();
+        HashMap<String, Group> groupM = new HashMap<String, Group>();
+        for(AppGroup appGroup : groupList){
+            String id = appGroup.getId();
+            String name = appGroup.getName();
+            Group group = new Group(id, name, null);
+            grouplist.add(group);
+            groupM.put(id, group);
+            Log.e("login", "------get Group name---------" + name);
+        }
+        groupMap = groupMap;
+    }
+
+    public static HashMap<String, Group> getGroupMap() {
+        if (groupMap != null) {
+            return groupMap;
+        }
+        if (CacheUtils.isExistDataCache(mContext,groupCacheFile)) {
+            List<AppGroup> groups = (ArrayList<AppGroup>)CacheUtils.readObject(mContext,groupCacheFile);
+            groupMap = new HashMap<String,Group>(groups.size());
+            for (AppGroup appGroup : groups) {
+                Group group = new Group(appGroup.getId(),appGroup.getName(),null);
+                groupMap.put(appGroup.getId(),group);
+            }
+        }
+        return groupMap;
     }
 
 
-//    public void setGroupMap(HashMap<String, RongIMClient.Group> groupMap) {
-//        this.groupMap = groupMap;
+    public static ArrayList<UserInfo> getUserInfos() {
+        return mUserInfos;
+    }
+
+    public static void setUserInfos(ArrayList<UserInfo> userInfos) {
+        mUserInfos = userInfos;
+    }
+
+    /**
+     * 临时存放用户数据
+     *
+     * @param userInfos
+     */
+    public static void setFriends(ArrayList<UserInfo> userInfos) {
+
+        mFriendInfos = userInfos;
+    }
+
+    public static ArrayList<UserInfo> getFriends() {
+        return mFriendInfos;
+    }
+
+//    public DemoApi getDemoApi() {
+//        return mDemoApi;
 //    }
-//
-//    public HashMap<String, RongIMClient.Group> getGroupMap() {
-//        return groupMap;
-//    }
-//
-//
-//    private void initGroupInfo() {
-//
-//
-//        RongIMClient.Group group1 = new RongIMClient.Group("group001", "群组一", "http://www.yjz9.com/uploadfile/2014/0807/20140807114030812.jpg");
-//        RongIMClient.Group group2 = new RongIMClient.Group("group002", "群组二", "http://www.yjz9.com/uploadfile/2014/0330/20140330023925331.jpg");
-//        RongIMClient.Group group3 = new RongIMClient.Group("group003", "群组三", "http://www.yjz9.com/uploadfile/2014/0921/20140921013004454.jpg");
-//        List<RongIMClient.Group> groups = new ArrayList<RongIMClient.Group>();
-//        groups.add(group1);
-//        groups.add(group2);
-//        groups.add(group3);
-//
-//        HashMap<String, RongIMClient.Group> groupM = new HashMap<String, RongIMClient.Group>();
-//        groupM.put("group001", group1);
-//        groupM.put("group002", group2);
-//        groupM.put("group003", group3);
-//
-//        if (AppContext.getInstance() != null)
-//            AppContext.getInstance().setGroupMap(groupM);
-//        else
-//            throw new RuntimeException("同步群组异常");
-//    }
-//
-//    public ArrayList<RongIMClient.UserInfo> getUserInfos() {
-//        return mUserInfos;
-//    }
-//
-//    public void setUserInfos(ArrayList<RongIMClient.UserInfo> userInfos) {
-//        mUserInfos = userInfos;
-//    }
+
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId
+     * @return
+     */
+    public static UserInfo getUserInfoById(String userId) {
+
+        UserInfo userInfoReturn = null;
+
+        if (!TextUtils.isEmpty(userId) && mUserInfos != null) {
+            for (UserInfo userInfo : mUserInfos) {
+
+                if (userId.equals(userInfo.getUserId())) {
+                    userInfoReturn = userInfo;
+                    break;
+                }
+
+            }
+        }
+        return userInfoReturn;
+    }
+
+    /**
+     * 通过userid 获得username
+     *
+     * @param userId
+     * @return
+     */
+    public static String getUserNameByUserId(String userId) {
+        UserInfo userInfoReturn = null;
+        if (!TextUtils.isEmpty(userId) && mUserInfos != null) {
+            for (UserInfo userInfo : mUserInfos) {
+
+                if (userId.equals(userInfo.getUserId())) {
+                    userInfoReturn = userInfo;
+                    break;
+                }
+            }
+        }
+        return userInfoReturn.getName();
+    }
+
+    /**
+     * 获取用户信息列表
+     *
+     * @param userIds
+     * @return
+     */
+    public static List<UserInfo> getUserInfoByIds(String[] userIds) {
+
+        List<UserInfo> userInfoList = new ArrayList<UserInfo>();
+
+        if (userIds != null && userIds.length > 0) {
+            for (String userId : userIds) {
+                for (UserInfo userInfo : mUserInfos) {
+                    Log.e("", "0409-------getUserInfoByIds-" + userInfo.getUserId() + "---userid;" + userId);
+                    if (userId.equals(userInfo.getUserId())) {
+                        Log.e("", "0409-------getUserInfoByIds-" + userInfo.getName());
+                        userInfoList.add(userInfo);
+                    }
+                }
+            }
+        }
+        return userInfoList;
+    }
+
+    /**
+     * 通过groupid 获得groupname
+     *
+     * @param groupid
+     * @return
+     */
+    public static String getGroupNameById(String groupid) {
+        Group groupReturn = null;
+        if (!TextUtils.isEmpty(groupid) && groupMap != null) {
+
+            if (groupMap.containsKey(groupid)) {
+                groupReturn = groupMap.get(groupid);
+            }else
+                return null;
+
+        }
+        return groupReturn.getName();
+    }
+
+
+    public static RongIM.LocationProvider.LocationCallback getLastLocationCallback() {
+        return mLastLocationCallback;
+    }
+
+    public static void setLastLocationCallback(RongIM.LocationProvider.LocationCallback lastLocationCallback) {
+        mLastLocationCallback = lastLocationCallback;
+    }
+
+    private static class LocationProvider implements RongIM.LocationProvider {
+
+        /**
+         * 位置信息提供者:LocationProvider 的回调方法，打开第三方地图页面。
+         *
+         * @param context  上下文
+         * @param callback 回调
+         */
+        @Override
+        public void onStartLocation(Context context, RongIM.LocationProvider.LocationCallback callback) {
+            /**
+             * demo 代码  开发者需替换成自己的代码。
+             */
+            AppContext.setLastLocationCallback(callback);
+            Intent intent = new Intent(context, SOSOLocationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);//SOSO地图
+        }
+    }
 }

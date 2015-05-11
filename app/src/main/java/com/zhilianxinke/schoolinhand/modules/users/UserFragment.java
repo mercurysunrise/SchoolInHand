@@ -1,5 +1,6 @@
 package com.zhilianxinke.schoolinhand.modules.users;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 
 import com.zhilianxinke.schoolinhand.App;
+import com.zhilianxinke.schoolinhand.LoginActivity;
 import com.zhilianxinke.schoolinhand.MainActivity;
 import com.zhilianxinke.schoolinhand.util.UpdateManager;
 import com.zhilianxinke.schoolinhand.R;
@@ -32,8 +34,8 @@ public class UserFragment extends Fragment implements OnClickListener{
 //    private Button btnUserInfo;
     private Button btnCustomerService;
     private Button btnUpdate;
+    private Button btnLogout;
     private Button btnExit;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +49,9 @@ public class UserFragment extends Fragment implements OnClickListener{
 
         btnUpdate = (Button) view.findViewById(R.id.btnUpdate);
         btnUpdate.setOnClickListener(this);
+
+        btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(this);
 
         btnExit = (Button) view.findViewById(R.id.btnExit);
         btnExit.setOnClickListener(this);
@@ -126,6 +131,12 @@ public class UserFragment extends Fragment implements OnClickListener{
             manager.QueryApkVersion(getActivity(),true);
             // 检查软件更新
 //            manager.checkUpdate(getActivity());
+        }
+        if (v == btnLogout){
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+//            App.finishAllActivities();
+            getActivity().finish();
         }
         if (v == btnExit){
             App.finishAllActivities();

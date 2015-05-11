@@ -229,7 +229,7 @@ public class AddNewsinfoActivity  extends Activity {
             /* 设定DataOutputStream */
             DataOutputStream ds = new DataOutputStream(con.getOutputStream());
             //1 authorId
-            writeString(ds, boundary, "authorId", AppContext.getInstance().getAppUser().getId());
+            writeString(ds, boundary, "authorId", AppContext.getAppUser().getId());
             //2 title
             writeString(ds, boundary, "title", etNewsTitle.getText().toString());
             //3 content

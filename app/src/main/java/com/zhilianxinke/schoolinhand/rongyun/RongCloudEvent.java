@@ -10,10 +10,12 @@ import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.MainActivity;
 import com.zhilianxinke.schoolinhand.domain.AppUser;
 import com.zhilianxinke.schoolinhand.message.GroupInvitationNotification;
+import com.zhilianxinke.schoolinhand.modules.maps.SOSOLocationActivity;
 import com.zhilianxinke.schoolinhand.modules.users.UserInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.UiConversation;
@@ -214,8 +216,8 @@ public final class RongCloudEvent implements OnReceiveMessageListener, RongIM.On
          */
 
 //        return new RongIMClient.UserInfo(userId, "张三", "file:///storage/sdcard0/share.jpg");//测试本地图片
-        AppUser appUser = AppContext.getInstance().getAppUser();
-        UserInfo userInfo = new UserInfo("","",null);
+        AppUser appUser = AppContext.getAppUser();
+        UserInfo userInfo = new UserInfo(appUser.getId(),appUser.getName(),null);
 
         return userInfo;
     }
@@ -244,7 +246,8 @@ public final class RongCloudEvent implements OnReceiveMessageListener, RongIM.On
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
-        return new Group("","",null);
+        Map<String,Group> groupMap = AppContext.getGroupMap();
+        return groupMap.get(groupId);
 //        return AppContext.getInstance().getGroupMap().get(groupId);
     }
 
@@ -321,8 +324,8 @@ public final class RongCloudEvent implements OnReceiveMessageListener, RongIM.On
         /**
          * demo 代码  开发者需替换成自己的代码。
          */
-//        AppContext.getInstance().setLastLocationCallback(callback);
-//        context.startActivity(new Intent(context, LocationActivity.class));//SOSO地图
+        AppContext.setLastLocationCallback(callback);
+        context.startActivity(new Intent(context, SOSOLocationActivity.class));//SOSO地图
     }
 
     @Override

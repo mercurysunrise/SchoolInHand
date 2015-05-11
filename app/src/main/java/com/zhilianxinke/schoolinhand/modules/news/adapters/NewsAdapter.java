@@ -46,7 +46,7 @@ public class NewsAdapter extends ArrayAdapter<AppNews> {
             tvNewsPublishTime.setText(item.getCover().toString().substring(0,10));
         }
 
-        if (item.isRead()){
+        if (item.isReaded()){
             setReadState(view);
 //            view.setAlpha(180);
 //            view.setBackgroundColor(Color.GRAY);

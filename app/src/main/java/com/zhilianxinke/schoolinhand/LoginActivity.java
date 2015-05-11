@@ -1,6 +1,7 @@
 package com.zhilianxinke.schoolinhand;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -14,20 +15,25 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.common.FastJsonRequest;
+import com.zhilianxinke.schoolinhand.domain.AppGroup;
 import com.zhilianxinke.schoolinhand.domain.AppUser;
 import com.zhilianxinke.schoolinhand.domain.SdkHttpResult;
 import com.zhilianxinke.schoolinhand.domain.User;
 import com.zhilianxinke.schoolinhand.rongyun.RongCloudEvent;
 import com.zhilianxinke.schoolinhand.rongyun.ui.WinToast;
+import com.zhilianxinke.schoolinhand.util.DateUtils;
+import com.zhilianxinke.schoolinhand.util.StaticRes;
 import com.zhilianxinke.schoolinhand.util.UrlBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Group;
 import io.rong.imlib.model.UserInfo;
 
 /**登陆界面activity*/
@@ -73,8 +79,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             return;
         }
 
-        if(AppContext.getInstance()!=null){
-
+//        if(AppContext.getInstance()!=null){
             Map<String,String> map = new HashMap(3);
             map.put("id",username);
             map.put("psd",password);
@@ -101,13 +106,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             });
 
             requestQueue.add(fastJson);
-        }
+//        }
 	}
 
     public String getLogonDevice(){
         if (deviceInfo == null){
-            TelephonyManager mTelephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-            deviceInfo = mTelephonyManager.getDeviceId() + ";" + mTelephonyManager.getDeviceSoftwareVersion() + ";"+ Calendar.getInstance().toString();
+            TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            deviceInfo = tm.getDeviceId() + ";" + tm.getDeviceSoftwareVersion() + ";"+ tm.getLine1Number() + ";" + DateUtils.df.format(Calendar.getInstance().getTime()).toString();
         }
         return deviceInfo;
     }
@@ -134,7 +139,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
                     RongCloudEvent.getInstance().setOtherListener();
 
-                    AppContext.getInstance().setAppUser(appUser);
+                    AppContext.setAppUser(appUser);
 
                     RongIM.getInstance().setUserInfoAttachedState(true);
                     RongIM.getInstance().setCurrentUserInfo(new UserInfo(userId, null, null));
@@ -165,15 +170,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
     public void syncFriends(){
         Map<String,String> map = new HashMap(3);
-        map.put("id",AppContext.getInstance().getAppUser().getId());
+        map.put("id", AppContext.getAppUser().getId());
         String strUrl = UrlBuilder.build("/user/myFriends",map);
         FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(strUrl, SdkHttpResult.class,
                 new Response.Listener<SdkHttpResult>() {
                     @Override
                     public void onResponse(SdkHttpResult sdkHttpResult) {
                         if (sdkHttpResult.getCode() == 200){
-                            AppUser appUser = JSON.parseObject(sdkHttpResult.getResult(),AppUser.class);
-                            connectRongService(appUser);
+                            List<AppUser> appUsers = JSON.parseArray(sdkHttpResult.getResult(), AppUser.class);
+                            ArrayList<UserInfo> friendreslut = new ArrayList<UserInfo>();
+                            for (AppUser appUser : appUsers){
+                                UserInfo info = new UserInfo(appUser.getId(), appUser.getName(), appUser.getPortrait() == null ? null : Uri.parse(appUser.getPortrait()));
+                                friendreslut.add(info);
+                            }
+                            AppContext.setUserInfos(friendreslut);
                         }else{
                             WinToast.toast(LoginActivity.this,R.string.login_pass_error);
                         }
@@ -192,15 +202,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
     public void syncGroups(){
         Map<String,String> map = new HashMap(3);
-        map.put("id",AppContext.getInstance().getAppUser().getId());
+        map.put("id", AppContext.getAppUser().getId());
         String strUrl = UrlBuilder.build("/group/myGroups",map);
         FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(strUrl, SdkHttpResult.class,
                 new Response.Listener<SdkHttpResult>() {
                     @Override
                     public void onResponse(SdkHttpResult sdkHttpResult) {
                         if (sdkHttpResult.getCode() == 200){
-                            AppUser appUser = JSON.parseObject(sdkHttpResult.getResult(),AppUser.class);
-                            connectRongService(appUser);
+                            ArrayList<AppGroup> appGroups = (ArrayList<AppGroup>)JSON.parseArray(sdkHttpResult.getResult(),AppGroup.class);
+
+                            AppContext.setAppGroupList(appGroups);
                         }else{
                             WinToast.toast(LoginActivity.this,R.string.login_pass_error);
                         }

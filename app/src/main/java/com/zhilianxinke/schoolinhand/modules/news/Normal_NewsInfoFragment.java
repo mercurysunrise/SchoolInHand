@@ -77,7 +77,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
     public void setTitle(String strTitle){
         this.tag = strTitle;
-        this.dataTag = tag + "Data";
+        this.dataTag = AppContext.getAppUser().getId() + tag + "Data";
     }
 
     @Override
@@ -132,7 +132,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
     public void onRefresh() {
         _mSwipeRefreshLayout.setRefreshing(false);
 
-        AppUser appUser = AppContext.getInstance().getAppUser();
+        AppUser appUser = AppContext.getAppUser();
 
         Map<String,String> params = new HashMap<>(2);
         params.put("id",appUser.getId());
@@ -161,7 +161,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     VolleyError ve = error;
-                    if (ve != null){
+                    if (ve != null ){
                         Log.e(TAG,error.getMessage());
                         WinToast.toast(getActivity(),error.getMessage());
                     }
@@ -176,7 +176,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         AppNews appNews = _dataList.get(position);
-        appNews.setRead(true);
+        appNews.setReaded(true);
         NewsAdapter.setReadState(view);
 
         NewsInfoActivity.actionStart(getActivity(),appNews);

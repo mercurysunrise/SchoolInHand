@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class DateUtils {
 
+    public static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     /**
      * 得到当前时间
      * @param dateFormat 时间格式

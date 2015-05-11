@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/DemoActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/CompositeAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeAddressListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/adapters/DeAddressMultiChoiceAdapter.java" charset="UTF-8" />
@@ -17,6 +18,8 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/Groups.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/Status.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/interfaces/IFilterModel.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/modules/groups/DeConversationSettingActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/modules/settings/DeSettingActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/GsonArrayParser.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/GsonParser.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/JsonObjectParser.java" charset="GBK" />
@@ -31,6 +34,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeSwitchGroup.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/DeSwitchItemView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/LoadingDialog.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/SOSOLocationActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/rongyun/ui/WinToast.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/util/DePinyinHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/de_toast_bg.9.png" charset="GBK" />

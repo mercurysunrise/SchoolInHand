@@ -27,21 +27,21 @@ public class App extends Application {
         super.onCreate();
         ImageCacheUtil.init(this);
         // 初始化。
-        RongIM.init(this);
+                RongIM.init(this);
 
-        RongCloudEvent.init(this);
+                RongCloudEvent.init(this);
 
-        AppContext.init(this);
-        //注册自定义消息类型
-        RongIM.registerMessageType(GroupInvitationNotification.class);
+                AppContext.init(this);
+                //注册自定义消息类型
+                RongIM.registerMessageType(GroupInvitationNotification.class);
 
 
-        //注册消息类型的时候判断当前的进程是否在主进程
-        if ("com.zhilianxinke.schoolinhand".equals(getCurProcessName(getApplicationContext()))) {
-            try {
-                //注册自定义消息,注册完消息后可以收到自定义消息
-                RongIM.registerMessageType(DeAgreedFriendRequestMessage.class);
-                //注册消息模板，注册完消息模板可以在会话列表上展示
+                //注册消息类型的时候判断当前的进程是否在主进程
+                if ("com.zhilianxinke.schoolinhand".equals(getCurProcessName(getApplicationContext()))) {
+                    try {
+                        //注册自定义消息,注册完消息后可以收到自定义消息
+                        RongIM.registerMessageType(DeAgreedFriendRequestMessage.class);
+                        //注册消息模板，注册完消息模板可以在会话列表上展示
                 RongIM.registerMessageTemplate(new DeContactNotificationMessageProvider());
             } catch (Exception e) {
                 e.printStackTrace();

@@ -43,7 +43,7 @@ public class GsonParser<T extends Serializable> extends JsonObjectParser<T> {
             for (int i = 0; i < headers.length; i++) {
                 if (headers[i].getName().equals("Set-Cookie")) {
                     String[] cookievalues = headers[i].getValue().split(";");
-                    SharedPreferences.Editor edit = AppContext.getInstance().getSharedPreferences().edit();
+                    SharedPreferences.Editor edit = AppContext.getSharedPreferences().edit();
                     edit.putString("DEMO_COOKIE", cookievalues[0]);
                     edit.commit();
                 }

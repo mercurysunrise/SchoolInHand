@@ -131,6 +131,72 @@
         <activity
             android:name="com.zhilianxinke.schoolinhand.modules.photos.GalleryActivity">
         </activity>
+
+        <activity
+            android:name=".modules.groups.DeConversationSettingActivity"
+
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.zhilianxinke.schoolinhand"
+                    android:pathPrefix="/conversationSetting/"
+                    android:scheme="demo" />
+            </intent-filter>
+
+
+        </activity>
+
+        <activity android:name=".modules.settings.DeSettingActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".DemoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.zhilianxinke.schoolinhand"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="com.zhilianxinke.schoolinhand"
+                    android:pathPrefix="/friend/"
+                    android:scheme="rong" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.zhilianxinke.schoolinhand"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".modules.groups.DeGroupDetailActivity"
+            android:screenOrientation="portrait">
+
+
+        </activity>
         <!--
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
@@ -167,77 +233,74 @@
             android:screenOrientation="portrait" />
         -->
 
+        <!-- soso -->
+        <meta-data
+            android:name="TencentMapSDK"
+            android:value="6MXBZ-VR2R4-WPQUB-XROP2-6WKTJ-BUFKP" />
 
-        <!-- Begin Rong Cloud -->
-        <!-- begin imlib request -->
-        <service
-            android:name="io.rong.imlib.ipc.RongService"
-            android:process=":ipc" >
-        </service>
-        <service android:name="io.rong.imlib.ReConnectService" />
+        <activity android:name=".modules.maps.SOSOLocationActivity" />
 
-        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
+        <!--begin rongcloud-->
+        <activity
+            android:name="io.rong.voipkit.activity.CallSideActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="io.rong.push.message" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.zhilianxinke.schoolinhand"
+                    android:pathPrefix="/VoIPCall"
+                    android:scheme="rong" />
             </intent-filter>
-        </receiver>
+        </activity>
+
+        <activity
+            android:name="io.rong.voipkit.activity.CalledSideActivity"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.zhilianxinke.schoolinhand"
+                    android:pathPrefix="/VoIPAccept"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="io.rong.imkit.RongActivity"
-            android:screenOrientation="portrait" >
-
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="io.rong.imkit.tools.SelectPictureActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name="io.rong.imkit.tools.PreviewPictureActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="io.rong.imkit.tools.RongWebviewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="io.rong.imkit.widget.provider.TakingPicturesActivity"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"></activity>
 
         <service
-            android:name="io.rong.push.PushService"
-            android:process="io.rong.push" >
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
+            android:name="io.rong.imlib.ipc.RongService"
+            android:process=":ipc"></service>
+        <service android:name="io.rong.imlib.ReConnectService" />
 
-                <action android:name="io.rong.push" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="io.rong.push.CommandService"
-            android:process="io.rong.push" >
+        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="io.rong.command" />
-            </intent-filter>
-        </service>
-
-        <receiver
-            android:name="io.rong.push.PushReceiver"
-            android:process="io.rong.push" >
-            <intent-filter>
-                <action android:name="io.rong.imlib.action.push.heartbeat" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="io.rong.push.message" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name="io.rong.imlib.HeartbeatReceiver"
-            android:process=":ipc" />
 
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"

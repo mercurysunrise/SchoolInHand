@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.base.BaseFragmentActivity;
+import com.zhilianxinke.schoolinhand.modules.groups.GroupFragment;
 import com.zhilianxinke.schoolinhand.modules.news.AddNewsinfoActivity;
 import com.zhilianxinke.schoolinhand.modules.news.NewsInfoFragment;
 import com.zhilianxinke.schoolinhand.modules.stories.StoryFragment;
@@ -53,7 +54,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,Vi
 
     private LayoutInflater mInflater;
 
-    private Class fragmentArray[] = {NewsInfoFragment.class,VedioListFragment.class,StoryFragment.class,UserFragment.class};
+    private Class fragmentArray[] = {NewsInfoFragment.class,VedioListFragment.class,GroupFragment.class,UserFragment.class};
 
     //定义数组来存放按钮图片
     private int mImageViewArray[] = {R.drawable.tab_news_btn,R.drawable.tab_vedio_btn,R.drawable.tab_story_btn,R.drawable.tab_user_btn};
@@ -267,7 +268,7 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,Vi
 
         MenuInflater inflater = getMenuInflater();
         this.mMenu = menu;
-        if (AppContext.getInstance().getAppUser().getIdentity().equals("家长")){
+        if (AppContext.getAppUser().getIdentity().equals("家长")){
             inflater.inflate(R.menu.de_main_menu_parent, menu);
         }else{
             inflater.inflate(R.menu.de_main_menu, menu);

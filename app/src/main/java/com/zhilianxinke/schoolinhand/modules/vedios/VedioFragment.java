@@ -74,7 +74,7 @@ public class VedioFragment extends Fragment {
 
         List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
 
-        params.add(new BasicNameValuePair("pk", AppContext.getInstance().getAppUser().getId()));
+        params.add(new BasicNameValuePair("pk", AppContext.getAppUser().getId()));
         // 对参数编码
         final String param = URLEncodedUtils.format(params, "UTF-8");
 
