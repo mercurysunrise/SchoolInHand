@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.zhilianxinke.schoolinhand.App;
 import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.common.FastJsonRequest;
@@ -91,13 +92,12 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
 
         _lv_list = (ListView) _inflatedView.findViewById(R.id.lv_list);
 
-        if (_dataList == null && CacheUtils.isExistDataCache(getActivity(),dataTag)){
-            LinkedList<AppNews> list = (LinkedList<AppNews>)CacheUtils.readObject(getActivity(),dataTag);
-            _dataList = list;
-        }
-        if (_dataList == null){
-            _dataList = new LinkedList<AppNews>();
-        }
+//        if (_dataList == null && CacheUtils.isExistDataCache(getActivity(),dataTag)){
+                _dataList = App.newsData.get(tag);
+//        }
+//        if (_dataList == null){
+//            _dataList = new LinkedList<AppNews>();
+//        }
 
         requestQueue = Volley.newRequestQueue(getActivity());
 
@@ -135,7 +135,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
         AppUser appUser = AppContext.getAppUser();
 
         Map<String,String> params = new HashMap<>(2);
-        params.put("id",appUser.getId());
+        params.put("id", appUser.getId());
         params.put("dt", getLastGetDataDate());
         if("最新".equals(tag) || "推荐".equals(tag)){
             String baseUrl = "最新".equals(tag) ? "/news/lastMyNews":"/news/lastCorpNews";
@@ -145,14 +145,13 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
                     new Response.Listener<SdkHttpResult>() {
                         @Override
                         public void onResponse(SdkHttpResult sdkHttpResult) {
-
                             if (sdkHttpResult != null && sdkHttpResult.getCode() == 200){
                                 String result = sdkHttpResult.getResult();
                                 List<AppNews> list = JSON.parseArray(result,AppNews.class);
                                 for(AppNews appNews : list){
                                     _dataList.addFirst(appNews);
                                 }
-                                CacheUtils.saveObject(getActivity(),_dataList,dataTag);
+                                App.cacheSave(tag);
                                 _newsAdapter.notifyDataSetChanged();
                             }
                         }
@@ -169,7 +168,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
             });
             requestQueue.add(fastJson);
         }else{
-
+            _newsAdapter.notifyDataSetChanged();
         }
     }
 
@@ -179,9 +178,12 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
         appNews.setReaded(true);
         NewsAdapter.setReadState(view);
 
-        NewsInfoActivity.actionStart(getActivity(),appNews);
+        NewsInfoActivity.actionStart(getActivity(), appNews, this);
+        App.cacheSave(tag);
         Log.d(TAG, "点击" + position);
     }
+
+
 
 
 }

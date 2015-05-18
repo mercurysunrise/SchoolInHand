@@ -9,6 +9,7 @@
 
         <TextView
             android:id="@+id/de_left"
+            android:visibility="gone"
             style="@style/DemoTextStyleMiddle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,12 +19,14 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
+            android:scaleType="fitXY"
             android:layout_centerInParent="true"
-            android:background="@drawable/de_pub_logo" />
+            android:background="@drawable/de_btn_login_logo" />
 
         <TextView
             android:id="@+id/de_right"
+            android:visibility="gone"
             style="@style/DemoTextStyleMiddle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

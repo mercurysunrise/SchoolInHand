@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 21
         versionCode 2
-        versionName "发布版1.1.0511.Night"
+        versionName "发布版1.1.0517.Night"
     }
     buildTypes {
         release {

@@ -48,8 +48,6 @@ public class NewsAdapter extends ArrayAdapter<AppNews> {
 
         if (item.isReaded()){
             setReadState(view);
-//            view.setAlpha(180);
-//            view.setBackgroundColor(Color.GRAY);
         }
 
         return view;

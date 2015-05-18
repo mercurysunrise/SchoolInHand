@@ -41,9 +41,7 @@ import me.add1.network.HttpHandler;
  */
 public class AppContext {
     private static final String TAG = "AppContext";
-//    private static AppContext mDemoContext;
     public static Context mContext;
-//    private DemoApi mDemoApi;
     private static HashMap<String, Group> groupMap;
     private static ArrayList<UserInfo> mUserInfos;
     private static ArrayList<UserInfo> mFriendInfos;
@@ -104,9 +102,6 @@ public class AppContext {
         return mPreferences;
     }
 
-    public static void setSharedPreferences(SharedPreferences sharedPreferences) {
-        mPreferences = sharedPreferences;   }
-
     public static void setAppGroupList(ArrayList<AppGroup> groupList) {
         //缓存到本地
         CacheUtils.saveObject(mContext,groupList,groupCacheFile);
@@ -161,10 +156,6 @@ public class AppContext {
     public static ArrayList<UserInfo> getFriends() {
         return mFriendInfos;
     }
-
-//    public DemoApi getDemoApi() {
-//        return mDemoApi;
-//    }
 
 
     /**
@@ -241,16 +232,11 @@ public class AppContext {
      * @return
      */
     public static String getGroupNameById(String groupid) {
-        Group groupReturn = null;
-        if (!TextUtils.isEmpty(groupid) && groupMap != null) {
-
-            if (groupMap.containsKey(groupid)) {
-                groupReturn = groupMap.get(groupid);
-            }else
-                return null;
-
+        HashMap<String, Group> groupMap = getGroupMap();
+        if (groupMap.containsKey(groupid)){
+            return groupMap.get(groupid).getName();
         }
-        return groupReturn.getName();
+        return "未找到群组名称";
     }
 
 

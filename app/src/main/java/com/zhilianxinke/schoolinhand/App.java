@@ -7,14 +7,19 @@ import android.app.Application;
 import android.content.Context;
 
 import com.zhilianxinke.schoolinhand.base.DefaultExceptionHandler;
+import com.zhilianxinke.schoolinhand.domain.AppNews;
 import com.zhilianxinke.schoolinhand.message.GroupInvitationNotification;
 import com.zhilianxinke.schoolinhand.rongyun.RongCloudEvent;
 import com.zhilianxinke.schoolinhand.rongyun.message.DeAgreedFriendRequestMessage;
 import com.zhilianxinke.schoolinhand.rongyun.message.DeContactNotificationMessageProvider;
+import com.zhilianxinke.schoolinhand.util.CacheUtils;
 import com.zhilianxinke.schoolinhand.util.ImageCacheUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.AnnotationNotFoundException;
@@ -22,6 +27,9 @@ import io.rong.imlib.AnnotationNotFoundException;
 
 public class App extends Application {
 
+    public static Map<String,LinkedList<AppNews>> newsData = new HashMap<>(3);
+
+    public static App current;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,6 +55,27 @@ public class App extends Application {
                 e.printStackTrace();
             }
         }
+        current = this;
+        initNewsData();
+    }
+
+    public static void initNewsData(){
+        String[] newsTag = new String[]{"最新","推荐","收藏"};
+        for(String tag : newsTag){
+            LinkedList<AppNews> list = new LinkedList<>();
+            if (AppContext.getAppUser() != null){
+                String dataTag= AppContext.getAppUser().getId() + tag + "Data";
+                if(CacheUtils.isExistDataCache(current, dataTag)){
+                    list = (LinkedList<AppNews>)CacheUtils.readObject(current,dataTag);
+                }
+            }
+            newsData.put(tag,list);
+        }
+    }
+
+    public static void cacheSave(String tag){
+        String dataTag= AppContext.getAppUser().getId() + tag + "Data";
+        CacheUtils.saveObject(current,newsData.get(tag),dataTag);
     }
 
     /**

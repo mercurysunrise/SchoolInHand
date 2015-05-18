@@ -4,19 +4,35 @@ package com.zhilianxinke.schoolinhand.modules.news;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.support.v7.app.ActionBar;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.zhilianxinke.schoolinhand.App;
+import com.zhilianxinke.schoolinhand.AppContext;
 import com.zhilianxinke.schoolinhand.R;
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.domain.AppNews;
+import com.zhilianxinke.schoolinhand.rongyun.ui.WinToast;
 import com.zhilianxinke.schoolinhand.util.StaticRes;
 import com.zhilianxinke.schoolinhand.util.UrlBuilder;
 
-public class NewsInfoActivity extends BaseActivity implements android.view.View.OnClickListener {
+import java.util.LinkedList;
+
+import io.rong.imkit.RongIM;
+import io.rong.imkit.fragment.UriFragment;
+import io.rong.imlib.model.Conversation;
+
+public class NewsInfoActivity extends BaseActivity  {
 
     private static final String TAG = "NewsInfoActivity";
 	private TextView tv_top_title;
@@ -34,7 +50,7 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 	DisplayImageOptions options;        // DisplayImageOptions是用于设置图片显示的类
 
 	private static AppNews appNews;
-
+	private static Normal_NewsInfoFragment parent;
     @Override
     protected int setContentViewResId() {
         return R.layout.activity_newsinfo;
@@ -42,7 +58,6 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 
     @Override
     protected void initView(){
-
 		tv_news_publicman = (TextView) findViewById(R.id.tv_news_publicman);
 		tv_news_publicman.setText(appNews.getAuthorName());
 		
@@ -69,6 +84,12 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 		if (appNews.getCover() != null && appNews.getCover().toString().length() > 10){
 			tv_news_publicTime.setText(appNews.getCover().toString().substring(0,10));
 		}
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setTitle(appNews.getTitle());
+
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setHomeAsUpIndicator(R.drawable.de_actionbar_back);
+
 		String content = appNews.getContent();
 		tv_news_content.setText(content);
 
@@ -79,6 +100,7 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 			}
 		}
     }
+
 
 	public void requestImage(String url){
 
@@ -92,55 +114,54 @@ public class NewsInfoActivity extends BaseActivity implements android.view.View.
 		ll_images.addView(imageView);
 	}
 
-	public static void actionStart(Context context,AppNews item){
+	public static void actionStart(Context context,AppNews item,Normal_NewsInfoFragment parentView){
 		Intent intent = new Intent(context,NewsInfoActivity.class);
 
 		appNews = item;
+		parent = parentView;
 		context.startActivity(intent);
 	}
 
-    @Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch(v.getId()){
-		
-		case R.id.btn_title_left:
-			NewsInfoActivity.this.finish();
-			break;
-		case R.id.btn_title_share:
-			showShare();
-			break;
-		
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		if (AppContext.getAppUser().getIdentity().equals("家长")){
+			inflater.inflate(R.menu.main_news, menu);
+		}else{
+			inflater.inflate(R.menu.main_news_parent, menu);
 		}
+		return super.onCreateOptionsMenu(menu);
 	}
-	
-	private void showShare() {
-//		 ShareSDK.initSDK(this);
-//		 OnekeyShare oks = new OnekeyShare();
-//		 //关闭sso授权
-//		 oks.disableSSOWhenAuthorize();
-//
-//		// 分享时Notification的图标和文字
-//		 oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
-//		 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-//		 oks.setTitle(tv_news_title.getText().toString());
-//		 // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-//		 oks.setTitleUrl(strUrl);
-//		 // text是分享文本，所有平台都需要这个字段
-//		 oks.setText(strUrl);
-//		 // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-//		 oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-//		 // url仅在微信（包括好友和朋友圈）中使用
-//		 oks.setUrl(strUrl);
-//		 // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-//		 oks.setComment("赞一个");
-//		 // site是分享此内容的网站名称，仅在QQ空间使用
-//		 oks.setSite(getString(R.string.app_name));
-//		 // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-//		 oks.setSiteUrl(strUrl);
-//
-//		// 启动分享GUI
-//		 oks.show(this);
-		 }
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.it_favorite:
+				appNews.setFavorite(true);
+				LinkedList<AppNews> favoriteList = App.current.newsData.get("收藏");
+				boolean exist = false;
+				for(AppNews appNews : favoriteList){
+					if(appNews.getId().equals(appNews.getId())){
+						exist = true;
+					}
+				}
+				if(!exist){
+					App.current.newsData.get("收藏").addFirst(appNews);
+					App.cacheSave("收藏");
+				}
+				break;
+//			case R.id.it_remove:
+
+//				break;
+			case android.R.id.home:
+				finish();
+
+				break;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+
+
 }

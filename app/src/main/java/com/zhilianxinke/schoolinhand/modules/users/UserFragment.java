@@ -31,7 +31,6 @@ public class UserFragment extends Fragment implements OnClickListener{
 
     private String customerServiceId = "KEFU1426171503766";
 
-//    private Button btnUserInfo;
     private Button btnCustomerService;
     private Button btnUpdate;
     private Button btnLogout;
@@ -41,8 +40,6 @@ public class UserFragment extends Fragment implements OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user, container, false);
-
-//        mHandler = new Handler();
 
         btnCustomerService = (Button) view.findViewById(R.id.btnCustomerService);
         btnCustomerService.setOnClickListener(this);
@@ -129,13 +126,10 @@ public class UserFragment extends Fragment implements OnClickListener{
         if (v == btnUpdate){
             UpdateManager manager = new UpdateManager();
             manager.QueryApkVersion(getActivity(),true);
-            // 检查软件更新
-//            manager.checkUpdate(getActivity());
         }
         if (v == btnLogout){
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
-//            App.finishAllActivities();
             getActivity().finish();
         }
         if (v == btnExit){

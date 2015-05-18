@@ -33,7 +33,7 @@ public class NewsInfoFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_news_info, container, false);
-//        initView();
+
         setOverflowShowingAlways();
         dm = getResources().getDisplayMetrics();
         ViewPager pager = (ViewPager) view.findViewById(R.id.pager);
