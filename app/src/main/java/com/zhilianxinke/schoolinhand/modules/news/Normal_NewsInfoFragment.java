@@ -138,7 +138,7 @@ public class Normal_NewsInfoFragment extends Fragment implements SwipeRefreshLay
         params.put("id", appUser.getId());
         params.put("dt", getLastGetDataDate());
         if("最新".equals(tag) || "推荐".equals(tag)){
-            String baseUrl = "最新".equals(tag) ? "/news/lastMyNews":"/news/lastCorpNews";
+            String baseUrl = "最新".equals(tag) ? "/api/lastMyNews":"/api/lastCorpNews";
             String url = UrlBuilder.build(baseUrl,params);
 
             FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(url, SdkHttpResult.class,

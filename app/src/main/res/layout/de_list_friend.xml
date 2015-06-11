@@ -71,7 +71,7 @@
         <include layout="@layout/de_ui_search" />
     </LinearLayout>
 
-    <io.rong.app.ui.DePinnedHeaderListView
+    <com.zhilianxinke.schoolinhand.rongyun.ui.DePinnedHeaderListView
         android:id="@+id/de_ui_friend_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -81,7 +81,7 @@
         android:fastScrollEnabled="false"
         android:scrollbars="none" />
 
-    <io.rong.app.ui.DeSwitchGroup
+    <com.zhilianxinke.schoolinhand.rongyun.ui.DeSwitchGroup
         android:id="@+id/de_ui_friend_message"
         android:layout_width="@dimen/px_to_dip_50"
         android:layout_height="match_parent"

@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,8 +67,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.rong.imkit.utils.FileUtil;
@@ -80,7 +83,7 @@ public class AddNewsinfoActivity  extends Activity {
     private EditText etNewsTitle;
     private EditText tmlNewsContent;
     private Button btnAddNewsSubmit;
-
+    private Spinner spKey;
     private GridView noScrollgridview;
     private GridAdapter adapter;
     private View parentView;
@@ -113,6 +116,15 @@ public class AddNewsinfoActivity  extends Activity {
         etNewsTitle = (EditText) findViewById(R.id.etNewsTitle);
         tmlNewsContent = (EditText) findViewById(R.id.tmlNewsContent);
         btnAddNewsSubmit = (Button) findViewById(R.id.btnAddNewsSubmit);
+        spKey = (Spinner)findViewById(R.id.spKey);
+        List<String> strKeys = new ArrayList<String>();
+        strKeys.add("活动");
+        strKeys.add("活动");
+        strKeys.add("活动");
+        strKeys.add("活动");
+
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,strKeys);
+        spKey.setAdapter(spAdapter);
 
         pop = new PopupWindow(AddNewsinfoActivity.this);
         View view = getLayoutInflater().inflate(R.layout.item_popupwindows, null);
@@ -138,7 +150,6 @@ public class AddNewsinfoActivity  extends Activity {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 pop.dismiss();
                 ll_popup.clearAnimation();
             }
@@ -215,7 +226,7 @@ public class AddNewsinfoActivity  extends Activity {
     public void sendAppNews() {
         String boundary = "----=_Part_8_1780217283." + Calendar.getInstance().getTimeInMillis();
         try {
-            final String httpUrl = UrlBuilder.baseUrl + "/news/save";
+            final String httpUrl = UrlBuilder.baseUrl + "/api/addNews";
             URL url = new URL(httpUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             /* 允许Input、Output，不使用Cache */
@@ -232,7 +243,10 @@ public class AddNewsinfoActivity  extends Activity {
             writeString(ds, boundary, "authorId", AppContext.getAppUser().getId());
             //2 title
             writeString(ds, boundary, "title", etNewsTitle.getText().toString());
-            //3 content
+            //3 key
+            String key = spKey.getSelectedItem().toString();
+            writeString(ds, boundary, "key", key);
+            //4 content
             writeString(ds, boundary, "content", tmlNewsContent.getText().toString());
 
             for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
@@ -243,6 +257,9 @@ public class AddNewsinfoActivity  extends Activity {
             ds.writeBytes(Hyphens + boundary + Hyphens + end);
 
             ds.flush();
+
+
+            Log.i("addAppNews",ds.toString());
             /* 取得Response内容 */
             InputStream is = con.getInputStream();
             int ch;

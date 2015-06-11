@@ -34,10 +34,10 @@
         android:layout_margin="4dp"
         android:background="#ffffa63e" />
 
-    <Button android:id="@+id/btnExit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="退出"
-        android:layout_margin="4dp"
-        android:background="#ffff5531" />
+    <!--<Button android:id="@+id/btnExit"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="退出"-->
+        <!--android:layout_margin="4dp"-->
+        <!--android:background="#ffff5531" />-->
 </LinearLayout>

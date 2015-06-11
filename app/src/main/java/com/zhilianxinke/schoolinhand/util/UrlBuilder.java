@@ -14,16 +14,13 @@ import java.util.Map;
 public class UrlBuilder {
 
     private static final String TAG = "UrlBuilder";
-//    public static String serverUrl = "http://192.168.1.104:9080";
+//    public static String serverUrl = "http://192.168.1.2:9080";
 
-    //    public static String serverName = "DMService";
     public static String serverUrl = "http://121.42.146.235:9080";
-//    public static String serverName = "DeviceManagement";
     public static String serverName = "UUTong365";
+//    public static String serverName = "UUTest";
 
     public static String baseUrl = serverUrl + "/" + serverName;
-//    public static String updateJson = serverUrl + "/appUpdate/schoolInHand.json";
-//    public static String updateUrl = serverUrl + "/appUpdate/app-debug.apk";
 
     public final static String URL_TESTHLS = "http://115.28.171.84/hls/dh0B319/playlist.m3u8";
 

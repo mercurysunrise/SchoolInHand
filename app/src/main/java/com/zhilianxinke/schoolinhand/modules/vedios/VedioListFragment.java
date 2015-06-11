@@ -88,12 +88,6 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         vv_ViedoView = (MyVideoView) view.findViewById(R.id.vv_ViedoView);
         img_AD = (ImageView) view.findViewById(R.id.img_AD);
 
-//        buttonUrlMap.clear();
-//        buttonUrlMap.put(view.findViewById(R.id.btnPlay0), "http://121.42.146.235/hls/DHE153E/playlist.m3u8");
-//        buttonUrlMap.put(view.findViewById(R.id.btnPlay1), "http://121.42.146.235/hls/DHC2655/playlist.m3u8");
-//        buttonUrlMap.put(view.findViewById(R.id.btnPlay2), "http://121.42.146.235/hls/DHCB26F/playlist.m3u8");
-//        buttonUrlMap.put(view.findViewById(R.id.btnPlay3), "http://121.42.146.235/hls/DH0B319/playlist.m3u8");
-
         view.findViewById(R.id.img_full_screen).setOnClickListener(this);
         vv_ViedoView.setOnErrorListener(this);
 
@@ -235,7 +229,7 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
             final String param = URLEncodedUtils.format(params, "UTF-8");
 
             // baseUrl
-            final String baseUrl = UrlBuilder.baseUrl + "/asset/myAssets";
+            final String baseUrl = UrlBuilder.baseUrl + "/api/myAssets";
 
             final HttpClient httpClient = new DefaultHttpClient();
             HttpGet getMethod = new HttpGet(baseUrl + "?" + param);

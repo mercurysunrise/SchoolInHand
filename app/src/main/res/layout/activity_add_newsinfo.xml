@@ -21,6 +21,24 @@
 
     <LinearLayout
         android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="0"
+        android:layout_width="match_parent" >
+        <TextView
+            android:text="类型"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/spKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:layout_weight="1.5"
@@ -60,7 +78,7 @@
             android:inputType="textMultiLine"
             android:ems="6"
             android:layout_gravity="top"
-            android:text="得分"
+            android:text=""
             android:gravity="top" />
     </LinearLayout>
 

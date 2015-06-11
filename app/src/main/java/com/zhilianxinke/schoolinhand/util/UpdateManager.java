@@ -112,7 +112,7 @@ public class UpdateManager
         protected AppVersion doInBackground(Void... params) {
             Map<String,String> map = new HashMap<String,String>(1);
             map.put("type","Android");
-            String url = UrlBuilder.build("/version/lastVer", map);
+            String url = UrlBuilder.build("/api/lastVer", map);
             JSONObject jsonObject = HttpUtils.getJSONObj(url);
             _appVersion = JSON.parseObject(jsonObject.toString(),AppVersion.class);
 

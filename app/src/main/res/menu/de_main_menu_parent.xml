@@ -3,26 +3,22 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<item-->
-        <!--android:id="@+id/action_add_conversation"-->
-        <!--android:icon="@drawable/de_ic_add"-->
-        <!--android:title="@string/action_settings"-->
-        <!--app:showAsAction="ifRoom|withText">-->
-        <!--<menu>-->
+    <item
+        android:id="@+id/action_add_conversation"
+        android:icon="@drawable/de_ic_add"
+        android:title="@string/action_settings"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <item
+                android:id="@+id/it_add_chat"
+                android:icon="@drawable/de_btn_main_chat"
+                android:title="@string/add_chat" />
             <!--<item-->
-                <!--android:id="@+id/add_item1"-->
-                <!--android:icon="@drawable/de_btn_main_chat"-->
-                <!--android:title="@string/add_chat" />-->
-            <!--<item-->
-                <!--android:id="@+id/add_item2"-->
-                <!--android:icon="@drawable/de_btn_main_groups"-->
-                <!--android:title="@string/add_select_group" />-->
-            <!--<item-->
-                <!--android:id="@+id/add_item3"-->
+                <!--android:id="@+id/it_contacts"-->
                 <!--android:icon="@drawable/de_btn_main_contacts"-->
                 <!--android:title="@string/add_contacts" />-->
-        <!--</menu>-->
-    <!--</item>-->
+        </menu>
+    </item>
 
 
     <!--<item-->

@@ -18,6 +18,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/Groups.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/domain/rong/Status.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/interfaces/IFilterModel.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/modules/chats/DeFriendListActivity.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/modules/groups/DeConversationSettingActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/modules/settings/DeSettingActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/zhilianxinke/schoolinhand/parser/GsonArrayParser.java" charset="GBK" />

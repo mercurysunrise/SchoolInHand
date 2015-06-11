@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
 import com.zhilianxinke.schoolinhand.base.BaseFragmentActivity;
+import com.zhilianxinke.schoolinhand.modules.chats.DeFriendListActivity;
 import com.zhilianxinke.schoolinhand.modules.groups.GroupFragment;
 import com.zhilianxinke.schoolinhand.modules.news.AddNewsinfoActivity;
 import com.zhilianxinke.schoolinhand.modules.news.NewsInfoFragment;
@@ -288,19 +289,16 @@ public class MainActivity extends BaseActivity implements OnTabChangeListener,Vi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_item0://发起公告
+            case R.id.it_add_news://发起公告
                 Intent intent = new Intent(this,AddNewsinfoActivity.class);
                 startActivity(intent);
                 break;
-//            case R.id.add_item2://选择群组
-//                if (RongIM.getInstance() != null) {
-//                    RongIM.getInstance().startSubConversationList(this, Conversation.ConversationType.GROUP);
-//                }
-//
-//                break;
-//            case R.id.add_item3://通讯录
+//            case R.id.it_contacts://选择群组
 //                startActivity(new Intent(MainActivity.this, DeAdressListActivity.class));
 //                break;
+            case R.id.it_add_chat://创建聊天
+                startActivity(new Intent(this, DeFriendListActivity.class));
+                break;
 //            case R.id.set_item1://我的账号
 //                startActivity(new Intent(MainActivity.this, MyAccountActivity.class));
 //                break;

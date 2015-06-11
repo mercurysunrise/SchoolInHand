@@ -11,6 +11,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import android.content.Context;
 
+import io.rong.imkit.utils.FileUtil;
+
 /**
  * Created by hh on 2015-02-12.
  */

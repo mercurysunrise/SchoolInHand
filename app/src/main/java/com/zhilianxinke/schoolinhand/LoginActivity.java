@@ -1,5 +1,6 @@
 package com.zhilianxinke.schoolinhand;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -215,7 +216,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 map.put("id", username);
                 map.put("psd", password);
                 map.put("device", getLogonDevice());
-                String strUrl = UrlBuilder.build("/user/connect", map);
+                String strUrl = UrlBuilder.build("/api/connect", map);
                 final String[] jsonResult = {""};
                 FastJsonRequest<SdkHttpResult> fastJson = new FastJsonRequest<SdkHttpResult>(strUrl, SdkHttpResult.class,
                         new Response.Listener<SdkHttpResult>() {
@@ -233,7 +234,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, error.getMessage());
+                        VolleyError e = error;
+                        Log.e(TAG, error.getLocalizedMessage());
                         WinToast.toast(LoginActivity.this, "JSON解析错误[" + jsonResult[0] + "]");
                     }
                 });
@@ -314,10 +316,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
+    /**
+     * 登出
+     * @param context
+     */
+    public static void logout(Context context){
+        AppContext.deleteCache();
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+        ((Activity)context).finish();
+    }
+
     public void syncFriends(){
         Map<String,String> map = new HashMap(3);
         map.put("id", AppContext.getAppUser().getId());
-        String strUrl = UrlBuilder.build("/user/myFriends",map);
+        String strUrl = UrlBuilder.build("/api/myFriends",map);
         FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(strUrl, SdkHttpResult.class,
                 new Response.Listener<SdkHttpResult>() {
                     @Override
@@ -349,7 +362,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void syncGroups(){
         Map<String,String> map = new HashMap(3);
         map.put("id", AppContext.getAppUser().getId());
-        String strUrl = UrlBuilder.build("/group/myGroups",map);
+        String strUrl = UrlBuilder.build("/api/myGroups",map);
         FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(strUrl, SdkHttpResult.class,
                 new Response.Listener<SdkHttpResult>() {
                     @Override

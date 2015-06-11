@@ -110,6 +110,7 @@
     <string name="add_chat">发起聊天</string>
     <string name="add_News">发布公告</string>
     <string name="add_select_group">选择群组</string>
+    <string name="add_news">发布公告</string>
     <string name="add_voip">网络电话</string>
     <string name="add_contacts">通讯录</string>
     <string name="set_personal_information">我的账号</string>

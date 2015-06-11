@@ -50,8 +50,8 @@ public class UserFragment extends Fragment implements OnClickListener{
         btnLogout = (Button) view.findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(this);
 
-        btnExit = (Button) view.findViewById(R.id.btnExit);
-        btnExit.setOnClickListener(this);
+//        btnExit = (Button) view.findViewById(R.id.btnExit);
+//        btnExit.setOnClickListener(this);
 
         return view;
     }
@@ -128,9 +128,10 @@ public class UserFragment extends Fragment implements OnClickListener{
             manager.QueryApkVersion(getActivity(),true);
         }
         if (v == btnLogout){
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+//            Intent intent = new Intent(getActivity(), LoginActivity.class);
+//            startActivity(intent);
+//            getActivity().finish();
+            LoginActivity.logout(getActivity());
         }
         if (v == btnExit){
             App.finishAllActivities();
