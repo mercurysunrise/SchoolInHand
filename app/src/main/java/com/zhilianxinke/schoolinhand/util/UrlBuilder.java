@@ -22,6 +22,16 @@ public class UrlBuilder {
 
     public static String baseUrl = serverUrl + "/" + serverName;
 
+    public static final String Api_Connect = "/api/connect";
+    public static final String Api_lastMyNews = "/api/lastMyNews";
+    public static final String Api_lastMyNewsCount = "/api/lastMyNewsCount";
+    public static final String Api_lastCorpNews = "/api/lastCorpNews";
+    public static final String Api_lastCorpNewsCount = "/api/lastCorpNewsCount";
+    public static final String Api_addNews = "/api/addNews";
+    public static final String Api_myGroups = "/api/myGroups";
+
+
+
     public final static String URL_TESTHLS = "http://115.28.171.84/hls/dh0B319/playlist.m3u8";
 
     /**
@@ -31,6 +41,7 @@ public class UrlBuilder {
      * @return
      */
     public static String build(String route,Map<String,String> params){
+
         StringBuilder sb = new StringBuilder(serverUrl).append("/").append(serverName);
         sb.append(route);
         if (params != null && params.size() > 0){

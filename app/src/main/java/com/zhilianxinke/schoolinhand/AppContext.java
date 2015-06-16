@@ -87,7 +87,7 @@ public class AppContext {
         }
         //缓存到本地
         groupMap = groupM;
-        CacheUtils.saveObject(mContext, groupMap, groupCacheFile);
+        CacheUtils.saveObject(mContext, groupList, groupCacheFile);
     }
 
     public static HashMap<String, Group> getGroupMap() {
@@ -95,12 +95,13 @@ public class AppContext {
             return groupMap;
         }
         if (CacheUtils.isExistDataCache(mContext,groupCacheFile)) {
-            groupMap = (HashMap<String, Group>) CacheUtils.readObject(mContext,groupCacheFile);
-//            groupMap = new HashMap<String,Group>(groups.size());
-//            for (AppGroup appGroup : groups) {
-//                Group group = new Group(appGroup.getId(),appGroup.getName(),null);
-//                groupMap.put(appGroup.getId(),group);
-//            }
+            List<AppGroup> list = (ArrayList<AppGroup>)CacheUtils.readObject(mContext,groupCacheFile);
+            groupMap.clear();
+            for(AppGroup appGroup : list){
+                Group group = new Group(appGroup.getId(), appGroup.getName(), null);
+                groupMap.put(appGroup.getId(),group);
+                Log.e("login", "------get Group name---------" + appGroup);
+            }
         }
         return groupMap;
     }

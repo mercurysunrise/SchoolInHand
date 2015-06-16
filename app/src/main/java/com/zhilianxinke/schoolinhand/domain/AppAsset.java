@@ -10,7 +10,7 @@ public class AppAsset implements Serializable{
 	private String name;
 	private String address;
 	private String mac;
-	
+	private String type;
 	private String url;
 	private String backUrl;
 	
@@ -36,6 +36,7 @@ public class AppAsset implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	public String getAddress() {
 		return address;
@@ -76,6 +77,13 @@ public class AppAsset implements Serializable{
 	public void setOwnershipType(int ownershipType) {
 		this.ownershipType = ownershipType;
 	}
-	
-	
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

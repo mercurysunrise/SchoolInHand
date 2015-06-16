@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,6 +71,8 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
     private static List<AppAsset> _app_deviceInfoModels;
     private ArrayList<String> uriList;
     private ImageView img_AD;
+
+    private ListView lv_vedios;
 
     private TextView title;
     private RollViewPager rollViewPager;
@@ -127,6 +132,14 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
         rollViewPager.startRoll();//不调用的话不滚动
 
         new VedioListAsyncTask().execute();
+
+        lv_vedios = (ListView)view.findViewById(R.id.lv_vedios);
+        lv_vedios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
         return view;
     }
 
@@ -263,6 +276,16 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
             for (View view : buttonUrlMap.keySet()){
                 view.setOnClickListener(VedioListFragment.this);
             }
+
+            List<String> list = new ArrayList<String>();
+            for(int i = 4;i< _app_deviceInfoModels.size();i++){
+                AppAsset appAsset = _app_deviceInfoModels.get(i);
+                if("1".equals(appAsset.getType())){
+                    list.add(_app_deviceInfoModels.get(i).getUrl());
+                }
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1,list);
+            lv_vedios.setAdapter(adapter);
 
             view.findViewById(R.id.pb_btns).setVisibility(View.GONE);
             view.findViewById(R.id.ll_btns).setVisibility(View.VISIBLE);

@@ -226,7 +226,7 @@ public class AddNewsinfoActivity  extends Activity {
     public void sendAppNews() {
         String boundary = "----=_Part_8_1780217283." + Calendar.getInstance().getTimeInMillis();
         try {
-            final String httpUrl = UrlBuilder.baseUrl + "/api/addNews";
+            final String httpUrl = UrlBuilder.baseUrl + UrlBuilder.Api_addNews;
             URL url = new URL(httpUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             /* 允许Input、Output，不使用Cache */
