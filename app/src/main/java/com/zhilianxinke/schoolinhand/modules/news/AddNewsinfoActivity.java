@@ -287,18 +287,18 @@ public class AddNewsinfoActivity  extends Activity {
 
 
     private static void writeFile( DataOutputStream ds,String boundary,int index,ImageItem imageItem)
-            throws IOException, FileNotFoundException {
+            throws IOException {
         //分隔符
-        ds.writeBytes(Hyphens + boundary + Hyphens + end);
-
-        String thumbnail_fileName = "thumbnail_"+ index + ".png";
-        ds.writeBytes("Content-Transfer-Encoding: binary"+end);
-        ds.writeBytes("Content-Type: application/octet-stream; name="+thumbnail_fileName+end);
-        ds.writeBytes("Content-Disposition: form-data; name=\""+thumbnail_fileName+"\"; filename=\""+thumbnail_fileName+"\""+end);
-        ds.writeBytes(end);
-
-        ds.write(Bimp.bitmap2Bytes(imageItem.getBitmap()));
-        ds.writeBytes(end);
+//        ds.writeBytes(Hyphens + boundary + Hyphens + end);
+//
+//        String thumbnail_fileName = "thumbnail_"+ index + ".png";
+//        ds.writeBytes("Content-Transfer-Encoding: binary"+end);
+//        ds.writeBytes("Content-Type: application/octet-stream; name="+thumbnail_fileName+end);
+//        ds.writeBytes("Content-Disposition: form-data; name=\""+thumbnail_fileName+"\"; filename=\""+thumbnail_fileName+"\""+end);
+//        ds.writeBytes(end);
+//
+//        ds.write(Bimp.bitmap2Bytes(imageItem.getBitmap()));
+//        ds.writeBytes(end);
 
         //分隔符
         ds.writeBytes(Hyphens + boundary + Hyphens + end);
