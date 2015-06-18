@@ -2,6 +2,7 @@ package com.zhilianxinke.schoolinhand.util;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class UrlBuilder {
 
     private static final String TAG = "UrlBuilder";
-//    public static String serverUrl = "http://192.168.1.2:9080";
+//    public static String serverUrl = "http://192.168.1.3:9080";
 
     public static String serverUrl = "http://121.42.146.235:9080";
     public static String serverName = "UUTong365";
@@ -63,8 +64,33 @@ public class UrlBuilder {
         StringBuilder sb = new StringBuilder(serverUrl).append("/").append(serverName);
         sb.append("/upload/");
         sb.append(url);
-
+        System.out.print("---tupian111---");
+        System.out.print(sb);
         return sb.toString();
+    }
+
+    public static String thumbnailImageUrl(String url){
+        StringBuilder sb = new StringBuilder(serverUrl).append("/").append(serverName);
+        sb.append("/upload/");
+        sb.append(url.replace("0.png", ""));
+        sb.append("thumbnail_0.png");
+        System.out.print("---tupian111---");
+        System.out.print(url.replace("0.png",""));
+        System.out.print(sb);
+        return sb.toString();
+    }
+
+    /**
+     * 转换头像路径
+     * @param path
+     * @return
+     */
+    public static Uri portrait(String path){
+        Uri uri = null;
+        if(path != null){
+            uri = Uri.parse(new StringBuilder(serverUrl).append("/").append(serverName).append("/").append("update").append("/").append(path).toString());
+        }
+        return uri;
     }
 
 }

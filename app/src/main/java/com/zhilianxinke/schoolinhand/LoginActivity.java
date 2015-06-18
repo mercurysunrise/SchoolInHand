@@ -336,13 +336,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     @Override
                     public void onResponse(SdkHttpResult sdkHttpResult) {
                         if (sdkHttpResult.getCode() == 200){
-                            List<AppUser> appUsers = JSON.parseArray(sdkHttpResult.getResult(), AppUser.class);
-                            ArrayList<UserInfo> friendreslut = new ArrayList<UserInfo>();
-                            for (AppUser appUser : appUsers){
-                                UserInfo info = new UserInfo(appUser.getId(), appUser.getName(), appUser.getPortrait() == null ? null : Uri.parse(appUser.getPortrait()));
-                                friendreslut.add(info);
-                            }
-                            AppContext.setUserInfos(friendreslut);
+                            ArrayList<AppUser> appUsers = (ArrayList<AppUser>) JSON.parseArray(sdkHttpResult.getResult(), AppUser.class);
+
+                            AppContext.setFriends(appUsers);
                         }else{
                             WinToast.toast(LoginActivity.this,R.string.login_pass_error);
                         }

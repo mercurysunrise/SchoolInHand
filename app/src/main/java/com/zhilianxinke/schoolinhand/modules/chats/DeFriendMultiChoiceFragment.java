@@ -147,11 +147,12 @@ public class DeFriendMultiChoiceFragment extends DeFriendListFragment implements
         if (mConversationType == Conversation.ConversationType.DISCUSSION || userInfos.size() + mMemberIds.size() > 1) {
             StringBuilder sb = new StringBuilder();
 
-            String userid = null;
+            String userid = AppContext.getAppUser().getId();
 //            if (AppContext.getInstance() != null) {
                 if (true) {
 
-                userid = AppContext.getSharedPreferences().getString("DEMO_USERID", null);
+//                userid = AppContext.getSharedPreferences().getString("DEMO_USERID", null);
+
                 UserInfo userInfo = AppContext.getUserInfoById(userid);
 //            }
                 for (UserInfo item : userInfos) {

@@ -138,6 +138,8 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                AppAsset appAsset = _app_deviceInfoModels.get(position+4);
+                YoukuActivity.actionStart(getActivity(),appAsset);
             }
         });
         return view;
@@ -281,7 +283,7 @@ public class VedioListFragment extends Fragment implements MediaPlayer.OnErrorLi
             for(int i = 4;i< _app_deviceInfoModels.size();i++){
                 AppAsset appAsset = _app_deviceInfoModels.get(i);
                 if("1".equals(appAsset.getType())){
-                    list.add(_app_deviceInfoModels.get(i).getUrl());
+                    list.add(_app_deviceInfoModels.get(i).getName());
                 }
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1,list);

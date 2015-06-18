@@ -13,6 +13,7 @@ public class AppNews implements Serializable{
 	private String authorName;
 
 	private String groupId;
+	private String key;
 
 	private String title;
 
@@ -29,7 +30,13 @@ public class AppNews implements Serializable{
 	public AppNews() {
 		
 	}
+	public String getKey() {
+		return key;
+	}
 
+	public void setKey(String key) {
+		this.key = key;
+	}
 	public String getId() {
 		return id;
 	}

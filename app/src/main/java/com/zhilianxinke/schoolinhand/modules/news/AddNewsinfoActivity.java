@@ -119,9 +119,9 @@ public class AddNewsinfoActivity  extends Activity {
         spKey = (Spinner)findViewById(R.id.spKey);
         List<String> strKeys = new ArrayList<String>();
         strKeys.add("活动");
-        strKeys.add("活动");
-        strKeys.add("活动");
-        strKeys.add("活动");
+        strKeys.add("公告");
+        strKeys.add("相册");
+        strKeys.add("分享");
 
         ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,strKeys);
         spKey.setAdapter(spAdapter);
