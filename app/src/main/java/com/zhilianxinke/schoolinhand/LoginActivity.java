@@ -216,7 +216,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 map.put("id", username);
                 map.put("psd", password);
                 map.put("device", getLogonDevice());
-                String strUrl = UrlBuilder.build("/api/connect", map);
+                String strUrl = UrlBuilder.build(UrlBuilder.Api_Connect, map);
                 final String[] jsonResult = {""};
                 FastJsonRequest<SdkHttpResult> fastJson = new FastJsonRequest<SdkHttpResult>(strUrl, SdkHttpResult.class,
                         new Response.Listener<SdkHttpResult>() {
@@ -336,13 +336,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     @Override
                     public void onResponse(SdkHttpResult sdkHttpResult) {
                         if (sdkHttpResult.getCode() == 200){
-                            List<AppUser> appUsers = JSON.parseArray(sdkHttpResult.getResult(), AppUser.class);
-                            ArrayList<UserInfo> friendreslut = new ArrayList<UserInfo>();
-                            for (AppUser appUser : appUsers){
-                                UserInfo info = new UserInfo(appUser.getId(), appUser.getName(), appUser.getPortrait() == null ? null : Uri.parse(appUser.getPortrait()));
-                                friendreslut.add(info);
-                            }
-                            AppContext.setUserInfos(friendreslut);
+                            ArrayList<AppUser> appUsers = (ArrayList<AppUser>) JSON.parseArray(sdkHttpResult.getResult(), AppUser.class);
+
+                            AppContext.setFriends(appUsers);
                         }else{
                             WinToast.toast(LoginActivity.this,R.string.login_pass_error);
                         }
@@ -362,7 +358,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void syncGroups(){
         Map<String,String> map = new HashMap(3);
         map.put("id", AppContext.getAppUser().getId());
-        String strUrl = UrlBuilder.build("/api/myGroups",map);
+        String strUrl = UrlBuilder.build(UrlBuilder.Api_myGroups,map);
         FastJsonRequest<SdkHttpResult> fastJson=new FastJsonRequest<SdkHttpResult>(strUrl, SdkHttpResult.class,
                 new Response.Listener<SdkHttpResult>() {
                     @Override

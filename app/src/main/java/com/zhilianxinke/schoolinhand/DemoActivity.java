@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.zhilianxinke.schoolinhand.base.BaseActivity;
+import com.zhilianxinke.schoolinhand.modules.chats.DeFriendMultiChoiceFragment;
 import com.zhilianxinke.schoolinhand.rongyun.ui.WinToast;
 
 import io.rong.imkit.RongIM;
@@ -75,11 +76,10 @@ public class DemoActivity extends BaseActivity {
                     fragment = Fragment.instantiate(this, fragmentName);
                     isSubList = true;
                 } else if (intent.getData().getPathSegments().get(0).equals("friend")) {
-                    //TODO 0510
-//                    String fragmentName = DeFriendMultiChoiceFragment.class.getCanonicalName();
-//                    fragment = Fragment.instantiate(this, fragmentName);
-//                    ActionBar actionBar = getSupportActionBar();
-//                    actionBar.hide();//隐藏ActionBar
+                    String fragmentName = DeFriendMultiChoiceFragment.class.getCanonicalName();
+                    fragment = Fragment.instantiate(this, fragmentName);
+                    ActionBar actionBar = getSupportActionBar();
+                    actionBar.hide();//隐藏ActionBar
                 }
 
                 targetId = intent.getData().getQueryParameter("targetId");
@@ -160,8 +160,9 @@ public class DemoActivity extends BaseActivity {
                 sb.append(AppContext.getUserNameByUserId(ids[i]));
                 sb.append(",");
             }
-            sb.append(AppContext.getSharedPreferences().getString("DEMO_USER_NAME", "0.0"));
 
+//            sb.append(AppContext.getSharedPreferences().getString("DEMO_USER_NAME", "0.0"));
+        sb.append(AppContext.getAppUser().getName());
         getSupportActionBar().setTitle(sb);
     }
 

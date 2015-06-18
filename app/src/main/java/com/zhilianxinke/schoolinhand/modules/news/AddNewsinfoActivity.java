@@ -119,9 +119,9 @@ public class AddNewsinfoActivity  extends Activity {
         spKey = (Spinner)findViewById(R.id.spKey);
         List<String> strKeys = new ArrayList<String>();
         strKeys.add("活动");
-        strKeys.add("活动");
-        strKeys.add("活动");
-        strKeys.add("活动");
+        strKeys.add("公告");
+        strKeys.add("相册");
+        strKeys.add("分享");
 
         ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,strKeys);
         spKey.setAdapter(spAdapter);
@@ -226,7 +226,7 @@ public class AddNewsinfoActivity  extends Activity {
     public void sendAppNews() {
         String boundary = "----=_Part_8_1780217283." + Calendar.getInstance().getTimeInMillis();
         try {
-            final String httpUrl = UrlBuilder.baseUrl + "/api/addNews";
+            final String httpUrl = UrlBuilder.baseUrl + UrlBuilder.Api_addNews;
             URL url = new URL(httpUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             /* 允许Input、Output，不使用Cache */
@@ -287,18 +287,18 @@ public class AddNewsinfoActivity  extends Activity {
 
 
     private static void writeFile( DataOutputStream ds,String boundary,int index,ImageItem imageItem)
-            throws IOException, FileNotFoundException {
+            throws IOException {
         //分隔符
-        ds.writeBytes(Hyphens + boundary + Hyphens + end);
-
-        String thumbnail_fileName = "thumbnail_"+ index + ".png";
-        ds.writeBytes("Content-Transfer-Encoding: binary"+end);
-        ds.writeBytes("Content-Type: application/octet-stream; name="+thumbnail_fileName+end);
-        ds.writeBytes("Content-Disposition: form-data; name=\""+thumbnail_fileName+"\"; filename=\""+thumbnail_fileName+"\""+end);
-        ds.writeBytes(end);
-
-        ds.write(Bimp.bitmap2Bytes(imageItem.getBitmap()));
-        ds.writeBytes(end);
+//        ds.writeBytes(Hyphens + boundary + Hyphens + end);
+//
+//        String thumbnail_fileName = "thumbnail_"+ index + ".png";
+//        ds.writeBytes("Content-Transfer-Encoding: binary"+end);
+//        ds.writeBytes("Content-Type: application/octet-stream; name="+thumbnail_fileName+end);
+//        ds.writeBytes("Content-Disposition: form-data; name=\""+thumbnail_fileName+"\"; filename=\""+thumbnail_fileName+"\""+end);
+//        ds.writeBytes(end);
+//
+//        ds.write(Bimp.bitmap2Bytes(imageItem.getBitmap()));
+//        ds.writeBytes(end);
 
         //分隔符
         ds.writeBytes(Hyphens + boundary + Hyphens + end);

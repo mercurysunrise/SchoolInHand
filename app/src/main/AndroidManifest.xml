@@ -14,7 +14,6 @@
     <!-- rongcloud permission -->
     <!-- 获取机型信息权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
@@ -29,33 +28,34 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 防止设备休眠 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!--photo-->
+    <!-- photo -->
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <!--<application-->
-        <!--android:name=".App"-->
-        <!--android:allowBackup="true"-->
-        <!--android:icon="@drawable/ic_launcher"-->
-        <!--android:label="@string/app_name"-->
-        <!--android:theme="@style/RcTheme" >-->
+    <!-- <application -->
+    <!-- android:name=".App" -->
+    <!-- android:allowBackup="true" -->
+    <!-- android:icon="@drawable/ic_launcher" -->
+    <!-- android:label="@string/app_name" -->
+    <!-- android:theme="@style/RcTheme" > -->
     <application
         android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
 
         <!-- 融云 Rong Cloud App Key 设置开始 -->
+
 
         <!-- 融云 Rong Cloud App Key 设置结束 -->
         <activity
             android:name=".WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/WelAppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -100,42 +100,36 @@
         <activity
             android:name=".modules.news.AddNewsinfoActivity"
             android:label="@string/title_activity_add_newsinfo"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name=".modules.chats.DeFriendListActivity"
-            android:screenOrientation="portrait"></activity>
-        <!--photo-->
-        <!--<activity-->
-            <!--android:name="com.zhilianxinke.schoolinhand.modules.photos.ImageGridActivity" android:screenOrientation="portrait" >-->
-        <!--</activity>-->
-        <!--<activity-->
-            <!--android:name="com.king.photo.activity.TestPicActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:screenOrientation="portrait" />-->
-        <!--<activity-->
-            <!--android:name="com.zhilianxinke.schoolinhand.modules.photos.PhotoActivity"-->
-            <!--android:screenOrientation="portrait" />-->
+            android:screenOrientation="portrait" />
+        <!-- photo -->
+        <!-- <activity -->
+        <!-- android:name="com.zhilianxinke.schoolinhand.modules.photos.ImageGridActivity" android:screenOrientation="portrait" > -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name="com.king.photo.activity.TestPicActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden" -->
+        <!-- android:screenOrientation="portrait" /> -->
+        <!-- <activity -->
+        <!-- android:name="com.zhilianxinke.schoolinhand.modules.photos.PhotoActivity" -->
+        <!-- android:screenOrientation="portrait" /> -->
 
         <activity
-            android:name="com.zhilianxinke.schoolinhand.modules.photos.AlbumActivity"
-            android:screenOrientation="portrait">
+            android:name=".modules.photos.AlbumActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name="com.zhilianxinke.schoolinhand.modules.photos.ImageFile" >
+        <activity android:name=".modules.photos.ImageFile" >
         </activity>
-        <activity
-            android:name="com.zhilianxinke.schoolinhand.modules.photos.ShowAllPhoto" >
+        <activity android:name=".modules.photos.ShowAllPhoto" >
         </activity>
-        <activity
-            android:name="com.zhilianxinke.schoolinhand.modules.photos.GalleryActivity">
+        <activity android:name=".modules.photos.GalleryActivity" >
         </activity>
-
         <activity
             android:name=".modules.groups.DeConversationSettingActivity"
-
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -146,19 +140,15 @@
                     android:pathPrefix="/conversationSetting/"
                     android:scheme="demo" />
             </intent-filter>
-
-
         </activity>
-
-        <activity android:name=".modules.settings.DeSettingActivity"
-            android:screenOrientation="portrait">
-
+        <activity
+            android:name=".modules.settings.DeSettingActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".DemoActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -169,16 +159,16 @@
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="com.zhilianxinke.schoolinhand"
                     android:pathPrefix="/friend/"
                     android:scheme="rong" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -192,9 +182,7 @@
         </activity>
         <activity
             android:name=".modules.groups.DeGroupDetailActivity"
-            android:screenOrientation="portrait">
-
-
+            android:screenOrientation="portrait" >
         </activity>
         <!--
         <activity
@@ -232,6 +220,7 @@
             android:screenOrientation="portrait" />
         -->
 
+
         <!-- soso -->
         <meta-data
             android:name="TencentMapSDK"
@@ -239,10 +228,10 @@
 
         <activity android:name=".modules.maps.SOSOLocationActivity" />
 
-        <!--begin rongcloud-->
+        <!-- begin rongcloud -->
         <activity
             android:name="io.rong.voipkit.activity.CallSideActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -254,12 +243,10 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="io.rong.voipkit.activity.CalledSideActivity"
             android:excludeFromRecents="true"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -271,31 +258,28 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="io.rong.imkit.RongActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name="io.rong.imkit.tools.SelectPictureActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="io.rong.imkit.tools.PreviewPictureActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="io.rong.imkit.tools.RongWebviewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="io.rong.imkit.widget.provider.TakingPicturesActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <service
             android:name="io.rong.imlib.ipc.RongService"
-            android:process=":ipc"></service>
+            android:process=":ipc" />
         <service android:name="io.rong.imlib.ReConnectService" />
 
-        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver">
+        <receiver android:name="io.rong.imlib.ipc.PushMessageReceiver" >
             <intent-filter>
                 <action android:name="io.rong.push.message" />
             </intent-filter>
@@ -310,6 +294,10 @@
         <activity
             android:name=".modules.news.SelectPicActivity"
             android:label="@string/title_activity_select_pic" >
+        </activity>
+        <activity
+            android:name=".modules.vedios.YoukuActivity"
+            android:label="@string/title_activity_youku" >
         </activity>
     </application>
 

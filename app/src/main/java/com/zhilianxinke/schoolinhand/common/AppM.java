@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
  * 一些帮助方法
  */
 public class AppM {
+
+
     /**
      * 得到屏幕高度
      *

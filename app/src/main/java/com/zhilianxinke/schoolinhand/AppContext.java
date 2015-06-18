@@ -3,6 +3,7 @@ package com.zhilianxinke.schoolinhand;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import com.zhilianxinke.schoolinhand.domain.AppGroup;
@@ -10,6 +11,8 @@ import com.zhilianxinke.schoolinhand.domain.AppUser;
 import com.zhilianxinke.schoolinhand.modules.maps.SOSOLocationActivity;
 import com.zhilianxinke.schoolinhand.util.CacheUtils;
 import com.zhilianxinke.schoolinhand.util.JSONHelper;
+import com.zhilianxinke.schoolinhand.util.UrlBuilder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,8 +62,6 @@ public class AppContext {
     }
 
     public static void setAppUser(final AppUser appUser) {
-//        CacheUtils.saveObject(mContext, appUser, appUser.getId());
-//        mPreferences.edit().putString("user",JSONHelper.toJSON(appUser)).commit();
         mAppUser = appUser;
 
         groupCacheFile = mAppUser.getId() + "_Group";
@@ -87,20 +88,17 @@ public class AppContext {
         }
         //缓存到本地
         groupMap = groupM;
-        CacheUtils.saveObject(mContext, groupMap, groupCacheFile);
+        CacheUtils.saveObject(mContext, groupList, groupCacheFile);
     }
 
     public static HashMap<String, Group> getGroupMap() {
-        if (groupMap != null) {
-            return groupMap;
-        }
-        if (CacheUtils.isExistDataCache(mContext,groupCacheFile)) {
-            groupMap = (HashMap<String, Group>) CacheUtils.readObject(mContext,groupCacheFile);
-//            groupMap = new HashMap<String,Group>(groups.size());
-//            for (AppGroup appGroup : groups) {
-//                Group group = new Group(appGroup.getId(),appGroup.getName(),null);
-//                groupMap.put(appGroup.getId(),group);
-//            }
+        if (groupMap.size() == 0 && CacheUtils.isExistDataCache(mContext,groupCacheFile)) {
+            List<AppGroup> list = (ArrayList<AppGroup>)CacheUtils.readObject(mContext,groupCacheFile);
+            for(AppGroup appGroup : list){
+                Group group = new Group(appGroup.getId(), appGroup.getName(), null);
+                groupMap.put(appGroup.getId(),group);
+                Log.e("login", "------get Group name---------" + appGroup);
+            }
         }
         return groupMap;
     }
@@ -117,15 +115,29 @@ public class AppContext {
     /**
      * 临时存放用户数据
      *
-     * @param userInfos
+     * @param appUsers
      */
-    public static void setFriends(ArrayList<UserInfo> userInfos) {
-
-        mFriendInfos = userInfos;
-
+    public static void setFriends(ArrayList<AppUser> appUsers) {
+        ArrayList<UserInfo> friendreslut = new ArrayList<UserInfo>();
+        for (AppUser appUser : appUsers){
+            UserInfo info = new UserInfo(appUser.getId(), appUser.getName(), appUser.getPortrait() == null ? null : Uri.parse(appUser.getPortrait()));
+            friendreslut.add(info);
+        }
+        CacheUtils.saveObject(mContext, appUsers, friendCacheFile);
+//        mUserInfos = friendreslut;
+        mFriendInfos = friendreslut;
+        mUserInfos = friendreslut;
     }
 
     public static ArrayList<UserInfo> getFriends() {
+        if (mFriendInfos.size() == 0 && CacheUtils.isExistDataCache(mContext,friendCacheFile)) {
+            List<AppUser> list = (ArrayList<AppUser>)CacheUtils.readObject(mContext,friendCacheFile);
+            for(AppUser appUser : list){
+                UserInfo userInfo = new UserInfo(appUser.getId(), appUser.getName(), UrlBuilder.portrait(appUser.getPortrait()));
+                mFriendInfos.add(userInfo);
+                mUserInfos.add(userInfo);
+            }
+        }
         return mFriendInfos;
     }
 
